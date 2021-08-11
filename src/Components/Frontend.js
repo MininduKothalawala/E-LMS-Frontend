@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-import Dashboard from "./Dashboard/Dashboard";
+import Home from "./Home/Home";
 
 class Frontend extends Component {
 
@@ -11,7 +11,7 @@ class Frontend extends Component {
                 <Router>
 
                     <Switch>
-                        <Route path="/" exact component={Dashboard}/>
+                        <Route path="/" exact component={Home}/>
                     </Switch>
 
                 </Router>
