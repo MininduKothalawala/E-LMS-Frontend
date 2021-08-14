@@ -8,6 +8,8 @@ import Dashboard from "./Dashboard/Dashboard";
 import Classroom from "./Classroom/Classroom";
 import Notices from "./Notice/Notices";
 import Users from "./User/Users";
+import AddNotice from "./Notice/AddNotice";
+import NoticeList from "./Notice/NoticeList";
 
 class Frontend extends Component {
     // constructor(props) {
@@ -39,6 +41,8 @@ class Frontend extends Component {
                         <Route path="/classroom" exact component={Classroom}/>
                         <Route path="/library" exact component={ViewLibrary}/>
                         <Route path="/notice" exact component={Notices}/>
+                        <Route path="/addNotices" exact component={AddNotice}/>
+                        <Route path="/noticeList" exact component={NoticeList}/>
                     </Switch>
 
                 </Router>
