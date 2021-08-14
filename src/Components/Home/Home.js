@@ -27,7 +27,7 @@ class Home extends  Component {
                                     <Nav.Link href="#reg">
                                         <div className={"reg-btn"}>Get Started</div>
                                     </Nav.Link>
-                                    <Nav.Link href="#reg">
+                                    <Nav.Link href="/dashboard">
                                         <div className={"classroom-btn"}>My Classroom</div>
                                     </Nav.Link>
                                 </Nav>
