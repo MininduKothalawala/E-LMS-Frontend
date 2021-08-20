@@ -8,6 +8,7 @@ import Dashboard from "./Dashboard/Dashboard";
 import Classroom from "./Classroom/Classroom";
 import Notices from "./Notice/Notices";
 import Users from "./User/Users";
+import Login from "./Login/Login";
 import AddNotice from "./Notice/AddNotice";
 import NoticeList from "./Notice/NoticeList";
 
@@ -35,6 +36,7 @@ class Frontend extends Component {
 
                     <Switch>
                         <Route path="/" exact component={Home}/>
+                        <Route path="/login" exact component={Login}/>
                         <Route path="/dashboard" exact component={Dashboard}/>
 
                         <Route path="/user" exact component={Users}/>

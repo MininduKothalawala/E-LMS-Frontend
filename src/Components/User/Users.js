@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Card, Container} from "react-bootstrap";
+import SignUp from "../Login/Signup";
+import GettAllUsers from "../UserList/GettAllUsers";
 
 class Users extends Component {
 
@@ -10,7 +12,9 @@ class Users extends Component {
                 <Container className={"my-5"}>
                     <Card>
                         <Card.Body>
-                            <h1>Users</h1>
+                            <h1>Add user</h1>
+                            <SignUp></SignUp>
+                            <GettAllUsers></GettAllUsers>
                         </Card.Body>
                     </Card>
                 </Container>

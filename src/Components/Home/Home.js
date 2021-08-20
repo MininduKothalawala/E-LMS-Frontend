@@ -2,10 +2,17 @@ import React, {Component} from "react";
 import "./Home.css";
 import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
+import {Modal} from "bootstrap";
+import Login from "../Login/Login";
+import AuthenticationService from "../Login/AuthenticationService";
 
 class Home extends  Component {
 
+
     render() {
+
+        const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
+
         return(
             <div className={"grid-container"}>
 
@@ -21,7 +28,7 @@ class Home extends  Component {
                             <Navbar.Collapse id={"responsive-navbar-nav"} className={"justify-content-end"}>
                                 <Nav className={"me-auto"}>
                                     {/*TODO: When Logged in MY CLASSROOM Should be displayed*/}
-                                    <Nav.Link href="#login">
+                                    <Nav.Link href="/login">
                                         <div className={"login-btn"}>Login</div>
                                     </Nav.Link>
                                     <Nav.Link href="#reg">
@@ -73,6 +80,10 @@ class Home extends  Component {
                         <p>&copy; 2021 All Rights Reserved</p>
                     </div>
                 </div>
+
+
+
+
             </div>
         )
     }
