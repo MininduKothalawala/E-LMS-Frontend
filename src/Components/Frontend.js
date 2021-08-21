@@ -5,12 +5,20 @@ import Home from "./Home/Home";
 import Sidebar from "./SideBar/Sidebar";
 import ViewLibrary from "./Library/ViewLibrary";
 import Dashboard from "./Dashboard/Dashboard";
-import Classroom from "./Classroom/Classroom";
+import ClassroomMain from "./Classroom/ClassroomMain";
 import Notices from "./Notice/Notices";
 import Users from "./User/Users";
 import Login from "./Login/Login";
 import AddNotice from "./Notice/AddNotice";
 import NoticeList from "./Notice/NoticeList";
+
+import AddClassroom from "./Classroom/Add-Classroom";
+import ClassroomAdd from "./Classroom/Classroom-Add";
+import ClassroomListAdmin from "./Classroom/Classroom-List-Admin";
+import ClassroomListTeacher from "./Classroom/Classroom-List-Teacher";
+import ClassDetailsAdmin from "./Classroom/Class-Details-Admin";
+import ClassroomDetailsTeacher from "./Classroom/Classroom-Details-Teacher";
+import ClassroomUpdate from "./Classroom/Classroom-Update";
 
 class Frontend extends Component {
     // constructor(props) {
@@ -40,11 +48,18 @@ class Frontend extends Component {
                         <Route path="/dashboard" exact component={Dashboard}/>
 
                         <Route path="/user" exact component={Users}/>
-                        <Route path="/classroom" exact component={Classroom}/>
+                        <Route path="/classroom" exact component={ClassroomMain}/>
                         <Route path="/library" exact component={ViewLibrary}/>
                         <Route path="/notice" exact component={Notices}/>
                         <Route path="/addNotices" exact component={AddNotice}/>
                         <Route path="/noticeList" exact component={NoticeList}/>
+                        <Route path="/addClassroom" exact component={AddClassroom}/>
+                        <Route path="/addClassroomPage" exact component={ClassroomAdd}/>
+                        <Route path="/adminClassroomList" exact component={ClassroomListAdmin}/>
+                        <Route path="/teacherClassroomList" exact component={ClassroomListTeacher}/>
+                        <Route path="/adminClassDetails/:id" exact component={ClassDetailsAdmin}/>
+                        <Route path="/updateClassDetails" exact component={ClassroomUpdate}/>
+                        <Route path="/teacherClassDetails/:id" exact component={ClassroomDetailsTeacher}/>
                     </Switch>
 
                 </Router>
