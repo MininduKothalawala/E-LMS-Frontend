@@ -47,6 +47,18 @@ class Sidebar extends Component {
                             <ListGroup.Item action href="/classroom">
                                 Classroom
                             </ListGroup.Item>
+                            <ListGroup.Item action href="/addClassroom">
+                                Add Classroom
+                            </ListGroup.Item>
+                            <ListGroup.Item action href="/addClassroomPage">
+                                Add Classroom Page
+                            </ListGroup.Item>
+                            <ListGroup.Item action href="/adminClassroomList">
+                                Admin Classroom List
+                            </ListGroup.Item>
+                            <ListGroup.Item action href="/teacherClassroomList">
+                                Teacher Classroom List
+                            </ListGroup.Item>
                             <ListGroup.Item action href="/notice">
                                 Notices
                             </ListGroup.Item>
