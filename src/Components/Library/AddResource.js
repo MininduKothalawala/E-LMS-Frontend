@@ -162,7 +162,7 @@ class AddResource extends Component {
                                                          value={resource_type} onChange={this.onChangeHandler}>
                                                 <option value={"choose"}>Choose...</option>
                                                 <option value={"syllabus"}>Syllabus</option>
-                                                <option value={"guides"}>Teachers' Guide</option>
+                                                <option value={"guide"}>Teachers' Guide</option>
                                             </Form.Select>
                                         </Form.Group>
 
@@ -171,19 +171,19 @@ class AddResource extends Component {
                                             <Form.Select name={"grade"} required
                                                          value={grade} onChange={this.onChangeHandler}>
                                                 <option value={"choose"}>Choose...</option>
-                                                <option value={"grade 1"}>Grade 1</option>
-                                                <option value={"grade 2"}>Grade 2</option>
-                                                <option value={"grade 3"}>Grade 3</option>
-                                                <option value={"grade 4"}>Grade 4</option>
-                                                <option value={"grade 5"}>Grade 5</option>
-                                                <option value={"grade 6"}>Grade 6</option>
-                                                <option value={"grade 7"}>Grade 7</option>
-                                                <option value={"grade 8"}>Grade 8</option>
-                                                <option value={"grade 9"}>Grade 9</option>
-                                                <option value={"grade 10"}>Grade 10</option>
-                                                <option value={"grade 11"}>Grade 11</option>
-                                                <option value={"grade 12"}>Grade 12</option>
-                                                <option value={"grade 13"}>Grade 13</option>
+                                                <option value={1}>Grade 1</option>
+                                                <option value={2}>Grade 2</option>
+                                                <option value={3}>Grade 3</option>
+                                                <option value={4}>Grade 4</option>
+                                                <option value={5}>Grade 5</option>
+                                                <option value={6}>Grade 6</option>
+                                                <option value={7}>Grade 7</option>
+                                                <option value={8}>Grade 8</option>
+                                                <option value={9}>Grade 9</option>
+                                                <option value={10}>Grade 10</option>
+                                                <option value={11}>Grade 11</option>
+                                                <option value={12}>Grade 12</option>
+                                                <option value={13}>Grade 13</option>
                                             </Form.Select>
                                         </Form.Group>
 
@@ -192,19 +192,19 @@ class AddResource extends Component {
                                             <Form.Select name={"subject"} required
                                                          value={subject} onChange={this.onChangeHandler}>
                                                 <option value={"choose"}>Choose...</option>
-                                                <option value={"Mathematics"}>Mathematics</option>
-                                                <option value={"Science"}>Science</option>
-                                                <option value={"English"}>English</option>
-                                                <option value={"Buddhism"}>Buddhism</option>
-                                                <option value={"History"}>History</option>
-                                                <option value={"Geography"}>Geography</option>
-                                                <option value={"Civics"}>Civics</option>
-                                                <option value={"Health"}>Health</option>
-                                                <option value={"Home Science"}>Home Science</option>
-                                                <option value={"Art"}>Art</option>
-                                                <option value={"Dancing"}>Dancing</option>
-                                                <option value={"Western Music"}>Western Music</option>
-                                                <option value={"Eastern Music"}>Eastern Music</option>
+                                                <option value={"mathematics"}>Mathematics</option>
+                                                <option value={"science"}>Science</option>
+                                                <option value={"english"}>English</option>
+                                                <option value={"buddhism"}>Buddhism</option>
+                                                <option value={"history"}>History</option>
+                                                <option value={"geography"}>Geography</option>
+                                                <option value={"civics"}>Civics</option>
+                                                <option value={"health"}>Health</option>
+                                                <option value={"home science"}>Home Science</option>
+                                                <option value={"art"}>Art</option>
+                                                <option value={"dancing"}>Dancing</option>
+                                                <option value={"western music"}>Western Music</option>
+                                                <option value={"eastern music"}>Eastern Music</option>
                                             </Form.Select>
                                         </Form.Group>
 
