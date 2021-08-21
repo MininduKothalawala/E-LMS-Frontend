@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import Home from "./Home/Home";
-import Sidebar from "./SideBar/Sidebar";
+import Sidebar from "./MainDashboardUI/Sidebar";
 import ViewLibrary from "./Library/ViewLibrary";
 import Dashboard from "./Dashboard/Dashboard";
 import Classroom from "./Classroom/Classroom";
@@ -14,9 +14,6 @@ import NoticeList from "./Notice/NoticeList";
 import AddResource from "./Library/AddResource";
 
 class Frontend extends Component {
-    // constructor(props) {
-    //     super(props);
-    // }
 
     componentDidMount() {
         console.log(window.location.pathname)
