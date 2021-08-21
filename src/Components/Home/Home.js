@@ -2,8 +2,6 @@ import React, {Component} from "react";
 import "./Home.css";
 import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
-import {Modal} from "bootstrap";
-import Login from "../Login/Login";
 import AuthenticationService from "../Login/AuthenticationService";
 
 class Home extends  Component {
@@ -30,9 +28,6 @@ class Home extends  Component {
                                     {/*TODO: When Logged in MY CLASSROOM Should be displayed*/}
                                     <Nav.Link href="/login">
                                         <div className={"login-btn"}>Login</div>
-                                    </Nav.Link>
-                                    <Nav.Link href="#reg">
-                                        <div className={"reg-btn"}>Get Started</div>
                                     </Nav.Link>
                                     <Nav.Link href="/dashboard">
                                         <div className={"classroom-btn"}>My Classroom</div>
