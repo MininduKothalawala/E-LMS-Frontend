@@ -1,25 +1,25 @@
 import React, {Component} from "react";
 import axios from "axios";
 import moment from "moment";
-class ClassroomDetailsTeacher extends Component{
+class ClassroomDetailsAdmin extends Component{
 
     constructor(props){
         super(props);
 
         this.state = {
-            id: this.props.match.params.id,
-            grade : '',
-            subject:'',
-            topic : '',
-            description: '',
-            date:new Date(),
-            time : '',
-            link: '',
-            addedBy :'',
-            lecFile : undefined,
-            tuteFile : undefined,
-            classImg : undefined,
-            isChecked: false
+                id: this.props.match.params.id,
+                grade : '',
+                subject:'',
+                topic : '',
+                description: '',
+                date:new Date(),
+                time : '',
+                link: '',
+                addedBy :'',
+                lecFile : undefined,
+                tuteFile : undefined,
+                classImg : undefined,
+                isChecked: false
 
         }
     }
@@ -37,8 +37,7 @@ class ClassroomDetailsTeacher extends Component{
                     date:response.data.date,
                     time:response.data.time,
                     link:response.data.link,
-                    //lecFile:response.data.lecFile,
-
+                    addedBy:response.data.addedBy,
                 })
 
             })
@@ -60,11 +59,14 @@ class ClassroomDetailsTeacher extends Component{
             <div >
 
                 <div>
-                    <h5>Classroom Details</h5>
+                    <h5>Conference Details</h5>
                 </div>
                 <hr/>
 
-
+                <div>
+                    <h6>Class ID</h6>
+                    <p>{id}</p>
+                </div>
 
 
                 <div>
@@ -102,9 +104,10 @@ class ClassroomDetailsTeacher extends Component{
                     <p>{link}</p>
                 </div>
 
-
-
-
+                <div>
+                    <h6>Added By</h6>
+                    <p>{addedBy}</p>
+                </div>
 
 
 
@@ -121,4 +124,4 @@ class ClassroomDetailsTeacher extends Component{
         )
     }
 }
-export default ClassroomDetailsTeacher;
+export default ClassroomDetailsAdmin;

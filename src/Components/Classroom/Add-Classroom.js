@@ -22,13 +22,14 @@ class AddClassroom extends Component{
             subject:'',
             topic : '',
             description: '',
-            date:new Date(),
+            date:'',
             time : '',
             link: '',
             addedBy :'',
             lecFile : undefined,
             tuteFile : undefined,
-            classImg : undefined
+            classImg : undefined,
+            isChecked: false
         }
     }
 
@@ -89,6 +90,14 @@ class AddClassroom extends Component{
         })
     }
 
+    handleToggle = () => {
+        this.setState({
+            isChecked: !this.state.isChecked
+        })
+
+        console.log(this.state.isChecked)
+    }
+
     handleLecFileChange = (event) => {
         event.preventDefault();
 
@@ -119,7 +128,7 @@ class AddClassroom extends Component{
         const subject = this.state.subject;
         const topic = this.state.topic;
         const description = this.state.description;
-        const date = this.state.date.format('YYYY-MM-DD');
+        const date = this.state.date;
         const time = this.state.time;
         const link = this.state.link;
         const addedBy = this.state.addedBy;
@@ -266,7 +275,57 @@ class AddClassroom extends Component{
 
 
 
-                            <div className={"my-4"}>
+
+
+                                <div className="custom-file">
+                                    <label>Lecture : </label>
+                                    <input
+                                        type="file"
+                                        className="custom-file-input"
+                                        id="inputGroupFile01"
+                                        aria-describedby="inputGroupFileAddon01"
+                                        accept={".pptx, .ppt, .docx, .doc"}
+                                        onChange={this.handleLecFileChange}
+                                        required={true}
+                                    />
+                                    <label className="custom-file-label" htmlFor="inputGroupFile01">
+                                        {/*{this.state.imageName}*/}
+                                    </label>
+                                </div>
+
+
+                            <div className="custom-file">
+                                <label>Tute : </label>
+                                <input
+                                    type="file"
+                                    className="custom-file-input"
+                                    id="inputGroupFile01"
+                                    aria-describedby="inputGroupFileAddon01"
+                                    accept={".pptx, .ppt, .docx, .doc"}
+                                    onChange={this.handleTuteFileChange}
+                                    required={true}
+                                />
+                            </div>
+
+                            <div className="custom-file">
+                                <label>Image : </label>
+                                <input
+                                    type="file"
+                                    className="custom-file-input"
+                                    id="inputGroupFile01"
+                                    aria-describedby="inputGroupFileAddon01"
+                                    accept={".jpg, .jpeg, .png"}
+                                    onChange={this.handleClassImgChange}
+                                    required={true}
+                                />
+                            </div>
+
+
+
+
+
+
+                            <div >
                                 <Button variant="primary" type={"submit"}>Submit</Button>
                             </div>
                         </Form>
