@@ -1,29 +1,27 @@
 import React, {Component} from "react";
-import Swal from "sweetalert2";
-import ClassroomDataService from "./ClassroomDataService";
-import {Button, Card, Form} from "react-bootstrap";
 import axios from "axios";
+import {Badge, Button, ButtonGroup, Card, Form, Image, InputGroup, Modal, OverlayTrigger, Table, Tooltip} from "react-bootstrap";
 import moment from "moment";
-
-class ClassroomUpdate extends Component{
+import pdfImg from "./pdf.png";
+class ClassroomDetailsAdmin extends Component{
 
     constructor(props){
         super(props);
 
         this.state = {
-            id: this.props.match.params.id,
-            grade : '',
-            subject:'',
-            topic : '',
-            description: '',
-            date:new Date(),
-            time : '',
-            link: '',
-            addedBy :'',
-            lecFile : undefined,
-            tuteFile : undefined,
-            classImg : undefined,
-            isChecked: false
+                id: this.props.match.params.id,
+                grade : '',
+                subject:'',
+                topic : '',
+                description: '',
+                date:new Date(),
+                time : '',
+                link: '',
+                addedBy :'',
+                lecFile : undefined,
+                tuteFile : undefined,
+                classImg : undefined,
+                isChecked: false
 
         }
     }
@@ -41,8 +39,7 @@ class ClassroomUpdate extends Component{
                     date:response.data.date,
                     time:response.data.time,
                     link:response.data.link,
-                    //lecFile:response.data.lecFile,
-
+                    addedBy:response.data.addedBy,
                 })
 
             })
@@ -64,11 +61,14 @@ class ClassroomUpdate extends Component{
             <div >
 
                 <div>
-                    <h5>Classroom Details</h5>
+                    <h5>Conference Details</h5>
                 </div>
                 <hr/>
 
-
+                <div>
+                    <h6>Class ID</h6>
+                    <p>{id}</p>
+                </div>
 
 
                 <div>
@@ -106,7 +106,15 @@ class ClassroomUpdate extends Component{
                     <p>{link}</p>
                 </div>
 
+                <div>
+                    <h6>Added By</h6>
+                    <p>{addedBy}</p>
+                </div>
 
+                <div className={"text-center image-card"}>
+                    <img alt={"card-background-image"} width={300}
+                         src={pdfImg}/>
+                </div>
 
 
 
@@ -124,7 +132,5 @@ class ClassroomUpdate extends Component{
 
         )
     }
-
-
 }
-export default ClassroomUpdate;
+export default ClassroomDetailsAdmin;

@@ -13,12 +13,15 @@ import AddResource from "./Library/AddResource";
 import SignUp from "./Login/Signup";
 import GettAllUsers from "./User/GettAllUsers";
 import AddClassroom from "./Classroom/Add-Classroom";
-import ClassroomAdd from "./Classroom/Classroom-Add";
+
 import ClassroomListAdmin from "./Classroom/Classroom-List-Admin";
 import ClassroomListTeacher from "./Classroom/Classroom-List-Teacher";
-import ClassDetailsAdmin from "./Classroom/Class-Details-Admin";
+import ClassroomDetailsAdmin from "./Classroom/Classroom-Details-Admin";
 import ClassroomDetailsTeacher from "./Classroom/Classroom-Details-Teacher";
 import ClassroomUpdate from "./Classroom/Classroom-Update";
+import ClassroomListStudent from "./Classroom/Classroom-List-Student";
+import ClassListAdmin from "./Classroom/Class-List-Admin";
+
 
 class Frontend extends Component {
 
@@ -57,12 +60,16 @@ class Frontend extends Component {
 
                         <Route path="/classroom" exact component={ClassroomListAdmin}/>
                         <Route path="/addClassroom" exact component={AddClassroom}/>
-                        <Route path="/addClassroomPage" exact component={ClassroomAdd}/>
+                        <Route path="/adminClassDetails/:id"  component={ClassroomDetailsAdmin}/>
+
                         <Route path="/adminClassroomList" exact component={ClassroomListAdmin}/>
                         <Route path="/teacherClassroomList" exact component={ClassroomListTeacher}/>
-                        <Route path="/adminClassDetails/:id" exact component={ClassDetailsAdmin}/>
+                        <Route path="/adminClassDetails/:id" exact component={ClassroomDetailsAdmin}/>
                         <Route path="/updateClassDetails" exact component={ClassroomUpdate}/>
                         <Route path="/teacherClassDetails/:id" exact component={ClassroomDetailsTeacher}/>
+                        <Route path="/classListAdmin" exact component={ClassListAdmin}/>
+                        <Route path="/studentClassroomList" exact component={ClassroomListStudent}/>
+
                     </Switch>
 
                 </Router>

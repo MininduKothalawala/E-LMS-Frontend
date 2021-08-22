@@ -1,26 +1,10 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import axios from "axios";
-import {Card} from "react-bootstrap";
+import {Container,Card,Row,Image} from "react-bootstrap";
 
-const Classroom = props => (
 
-    <tr>
-
-        <td>{props.classroom.grade}</td>
-        <td>{props.classroom.subject}</td>
-        <td>{props.classroom.topic}</td>
-        <td>{props.classroom.date}</td>
-        <td>{props.classroom.time}</td>
-        <td>{props.classroom.addedBy}</td>
-        <td>
-            <button><Link to = {"/adminClassDetails/"+props.classroom.id } className="link">View</Link></button>
-        </td>
-
-    </tr>
-)
-
-class ClassroomListStudent extends Component{
+class ClassroomListStudent extends Component {
 
     constructor(props) {
         super(props);
@@ -30,7 +14,6 @@ class ClassroomListStudent extends Component{
             classrooms: []
         }
     }
-
     componentDidMount() {
         axios.get(`http://localhost:8080/classroom/`)
             .then(response => {
@@ -44,60 +27,43 @@ class ClassroomListStudent extends Component{
     }
 
     gotoDetails = (id) => {
-        this.props.history.push(`/classroom/`+id)
+        this.props.history.push(`/adminClassDetails/`+id)
     }
 
     render() {
         return (
 
-            <div>
-                {/*-----------------------------------------------Header---------------------------------------------*/}
-                <div>
-                    <div className={"conference-header"}>
-                        <Header/>
-                    </div>
-                    <div className={"conference-page-img-overlay"}>
-                        <Image className={"conference-page-img"} src={bgImg} alt="background image"/>
-                    </div>
-                    <Container className={"conference-page-title"}>
-                        <h1 className={"conference-page-title-h1"}>Conferences</h1>
-                        <div className={"conference-breadcrumb"}>
-                            <h5 className={"conference-page-title-h5"}>
-                                <a href={"/"}>Home > </a>
-                                Conferences
-                            </h5>
-                        </div>
-                    </Container>
-                </div>
 
-                {/*----------------------------------------Main Content----------------------------------------------*/}
-                <div>
+
+
+                <div >
+                    <Card>
                     <Container>
 
 
                         <div className={"conference-outer-div"}>
                             {
-                                this.state.conferences.length > 0 ?
+                                this.state.classrooms.length > 0 ?
                                     [
                                         <Row key={0} className={"conference-card-row"}>
                                             {
-                                                this.state.conferences.map(event =>
+                                                this.state.classrooms.map(event =>
 
                                                     <div className={"conference-card-col mb-4"} key={event.id}>
-                                                        <div className={"conference-card"} key={event.id}
-                                                             onClick={() => this.gotoDetails(event.id)}>
+                                                        <div className={"conference-card"} key={event.id} onClick={() => this.gotoDetails(event.id)}>
+
                                                             <div className={"text-center image-card"}>
                                                                 <img alt={"card-background-image"} width={300}
-                                                                     src={cardImg}/>
+                                                                     src={event.classImg}/>
                                                             </div>
                                                             <div className={"conference-card-body"}>
-                                                                <h5 className={"text-center"}>{event.conferenceName}</h5>
-                                                                <p className={"text-center"}><FontAwesomeIcon
-                                                                    icon={faMapMarkerAlt}
-                                                                    className={"mr-3"}/> {event.venue}</p>
-                                                                <p className={"text-center"}><FontAwesomeIcon
-                                                                    icon={faMoneyBill}
-                                                                    className={"mr-3"}/>LKR {event.payment}.00</p>
+                                                                <div><h5 className={"text-center"}>{event.grade}</h5>
+                                                                    <h5 className={"text-center"}>{event.subject}</h5></div>
+
+                                                               <div><h2 className={"text-center"}> {event.topic}</h2></div>
+                                                                <div><h4>By {event.addedBy}</h4></div>
+                                                              <div><p className={"text-center"}>Date : {event.date}</p>
+                                                                  <p className={"text-center"}>Time : {event.time}</p></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -105,22 +71,18 @@ class ClassroomListStudent extends Component{
                                             }
                                         </Row>
                                     ]
-                                    : <h1 className={"text-center my-5"}>No Conferences Available</h1>
+                                    : <h1 className={"text-center my-5"}>No Classroom Available</h1>
                             }
                         </div>
 
 
                     </Container>
+                    </Card>
                 </div>
 
-                {/*-----------------------------------------------Footer---------------------------------------------*/}
-                <div>
-                    <Footer/>
-                </div>
-            </div>
+
 
         )
     }
-
 }
-export default ClassroomListStudent;
+export default withRouter(ClassroomListStudent);
