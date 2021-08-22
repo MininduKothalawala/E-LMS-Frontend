@@ -45,6 +45,10 @@ p {
     margin: 50px 50px 20px;
 }
 
+h3 {
+    margin-bottom: 30px;
+}
+
 .submit-form-btn, .reset-form-btn {
     padding: 10px 30px;
     border: 2px;

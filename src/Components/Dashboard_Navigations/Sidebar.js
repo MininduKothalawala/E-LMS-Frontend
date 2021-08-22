@@ -71,7 +71,7 @@ class Sidebar extends Component {
     /**
      * This method change list item active state
      * and icon color when selected.
-     * With the selection, sidebar will be closed
+     * With the selection, sidebar will be closed TODO
      * @param item - item you want to be active
      */
     listItemActive = (item) => {
@@ -144,7 +144,7 @@ class Sidebar extends Component {
             })
         }
 
-        this.handleSideBarClose()
+        // this.handleSideBarClose()
     }
 
     /**

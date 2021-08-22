@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Swal from "sweetalert2";
 import LibraryDataService from "../Library/LibraryDataService";
 import {Button, Card, Container, Form} from "react-bootstrap";
+import "../../Stylesheets/Form-styles.css"
 
 class AddResource extends Component {
     constructor(props) {
@@ -87,7 +88,7 @@ class AddResource extends Component {
         //validate details
         let isDataValid = this.validateDetails();
 
-        if ( isDataValid ) {
+        if (isDataValid) {
 
             const formData = new FormData();
             formData.append('resourceType', this.state.resource_type);
@@ -147,86 +148,101 @@ class AddResource extends Component {
 
         return (
             <div>
-                <div>
-                    <Container className={"my-5"}>
-                        <Card>
-                            <Card.Body>
-                                <h1>Add Resource</h1>
 
-                                <div>
-                                    <Form onSubmit={this.onSubmitHandler}>
+                <p>LIBRARY MANAGEMENT</p>
+                <div className={"form-wrapper"}>
+                    <div>
+                        <h3>Add Resource</h3>
+                    </div>
 
-                                        <Form.Group controlId={"resource_type"}>
-                                            <Form.Label>Resource Type</Form.Label>
-                                            <Form.Select name={"resource_type"} required
-                                                         value={resource_type} onChange={this.onChangeHandler}>
-                                                <option value={"choose"}>Choose...</option>
-                                                <option value={"syllabus"}>Syllabus</option>
-                                                <option value={"guide"}>Teachers' Guide</option>
-                                            </Form.Select>
-                                        </Form.Group>
+                    <div>
+                        <Form onSubmit={this.onSubmitHandler}>
+                            <Form.Group controlId={"formResourceType"}>
+                                <Form.Label>Resource Type</Form.Label>
+                                <Form.Select name={"resource_type"}
+                                             value={resource_type}
+                                             required
+                                             isInvalid={false}
+                                             onChange={this.onChangeHandler}>
+                                    <option value={"choose"}>Choose...</option>
+                                    <option value={"syllabus"}>Syllabus</option>
+                                    <option value={"guide"}>Teachers' Guide</option>
+                                </Form.Select>
+                                <Form.Control.Feedback type="invalid">
+                                    Please choose a resource type.
+                                </Form.Control.Feedback>
+                            </Form.Group>
 
-                                        <Form.Group controlId={"grade"}>
-                                            <Form.Label>Grade</Form.Label>
-                                            <Form.Select name={"grade"} required
-                                                         value={grade} onChange={this.onChangeHandler}>
-                                                <option value={"choose"}>Choose...</option>
-                                                <option value={1}>Grade 1</option>
-                                                <option value={2}>Grade 2</option>
-                                                <option value={3}>Grade 3</option>
-                                                <option value={4}>Grade 4</option>
-                                                <option value={5}>Grade 5</option>
-                                                <option value={6}>Grade 6</option>
-                                                <option value={7}>Grade 7</option>
-                                                <option value={8}>Grade 8</option>
-                                                <option value={9}>Grade 9</option>
-                                                <option value={10}>Grade 10</option>
-                                                <option value={11}>Grade 11</option>
-                                                <option value={12}>Grade 12</option>
-                                                <option value={13}>Grade 13</option>
-                                            </Form.Select>
-                                        </Form.Group>
+                            <Form.Group controlId={"formResourceGrade"}>
+                                <Form.Label>Grade</Form.Label>
+                                <Form.Select name={"grade"}
+                                             value={grade}
+                                             required
+                                             isInvalid={false}
+                                             onChange={this.onChangeHandler}>
+                                    <option value={"choose"}>Choose...</option>
+                                    <option value={1}>Grade 1</option>
+                                    <option value={2}>Grade 2</option>
+                                    <option value={3}>Grade 3</option>
+                                    <option value={4}>Grade 4</option>
+                                    <option value={5}>Grade 5</option>
+                                    <option value={6}>Grade 6</option>
+                                    <option value={7}>Grade 7</option>
+                                    <option value={8}>Grade 8</option>
+                                    <option value={9}>Grade 9</option>
+                                    <option value={10}>Grade 10</option>
+                                    <option value={11}>Grade 11</option>
+                                    <option value={12}>Grade 12</option>
+                                    <option value={13}>Grade 13</option>
+                                </Form.Select>
+                                <Form.Control.Feedback type="invalid">
+                                    Please choose a grade.
+                                </Form.Control.Feedback>
+                            </Form.Group>
 
-                                        <Form.Group controlId={"subject"}>
-                                            <Form.Label>Subjects</Form.Label>
-                                            <Form.Select name={"subject"} required
-                                                         value={subject} onChange={this.onChangeHandler}>
-                                                <option value={"choose"}>Choose...</option>
-                                                <option value={"mathematics"}>Mathematics</option>
-                                                <option value={"science"}>Science</option>
-                                                <option value={"english"}>English</option>
-                                                <option value={"buddhism"}>Buddhism</option>
-                                                <option value={"history"}>History</option>
-                                                <option value={"geography"}>Geography</option>
-                                                <option value={"civics"}>Civics</option>
-                                                <option value={"health"}>Health</option>
-                                                <option value={"home science"}>Home Science</option>
-                                                <option value={"art"}>Art</option>
-                                                <option value={"dancing"}>Dancing</option>
-                                                <option value={"western music"}>Western Music</option>
-                                                <option value={"eastern music"}>Eastern Music</option>
-                                            </Form.Select>
-                                        </Form.Group>
+                            <Form.Group controlId={"formResourceSubject"}>
+                                <Form.Label>Subject</Form.Label>
+                                <Form.Select name={"subject"}
+                                             value={subject}
+                                             required
+                                             isInvalid={false}
+                                             onChange={this.onChangeHandler}>
+                                    <option value={"choose"}>Choose...</option>
+                                    <option value={"mathematics"}>Mathematics</option>
+                                    <option value={"science"}>Science</option>
+                                    <option value={"english"}>English</option>
+                                    <option value={"buddhism"}>Buddhism</option>
+                                    <option value={"history"}>History</option>
+                                    <option value={"geography"}>Geography</option>
+                                    <option value={"civics"}>Civics</option>
+                                    <option value={"health"}>Health</option>
+                                    <option value={"home science"}>Home Science</option>
+                                    <option value={"art"}>Art</option>
+                                    <option value={"dancing"}>Dancing</option>
+                                    <option value={"western music"}>Western Music</option>
+                                    <option value={"eastern music"}>Eastern Music</option>
+                                </Form.Select>
+                                <Form.Control.Feedback type="invalid">
+                                    Please choose a subject.
+                                </Form.Control.Feedback>
+                            </Form.Group>
 
-                                        <Form.Group controlId={"resourceFile"}>
-                                            <Container>
-                                                <Card.Text className={"text-muted"}>Please upload your file
-                                                    here</Card.Text>
-                                                <Form.Control type={"file"} name={"file"}
-                                                              accept={".pdf"} required
-                                                              onChange={this.onFileChangeHandler}/>
-                                            </Container>
-                                        </Form.Group>
+                            <Form.Group controlId={"formResourceFile"}>
+                                <Form.Label>Please upload your file here</Form.Label>
+                                <Form.Control type={"file"} name={"file"}
+                                              accept={".pdf"}
+                                              required
+                                              onChange={this.onFileChangeHandler}/>
+                            </Form.Group>
 
-                                        <div className={"my-4"}>
-                                            <Button variant="dark" type={"submit"}>Submit</Button>
-                                        </div>
+                            <div className={"text-end"}>
+                                <button type={"reset"} className={"reset-form-btn"}>Reset</button>
+                                <button type={"submit"} className={"submit-form-btn"}>Add Resource</button>
+                            </div>
 
-                                    </Form>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    </Container>
+                        </Form>
+                    </div>
+
                 </div>
             </div>
         )
