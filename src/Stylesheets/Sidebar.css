@@ -1,10 +1,5 @@
-* {
-    font-family: 'Roboto', sans-serif;
-}
-
 .offcanvas-start {
     width: 300px;
-
 }
 
 .wrapper {
@@ -28,7 +23,7 @@
 }
 
 .sidebar-top-image {
-    background-image: url('../../Assets/sidenav-upper-logo.svg');
+    background-image: url('../Assets/sidenav-upper-logo.svg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -103,7 +98,7 @@
 }
 
 .hamburger-menu:hover {
-    color: var(--light-crayola);
+    color: var(--black);
 }
 
 .secondary-nav {
@@ -111,16 +106,14 @@
     padding: 20px 30px;
 }
 
-.nav-link {
+.second-nav-item-link, .second-nav-item-link:hover {
     color: var(--jet);
-    padding: 5px 10px;
-    border-bottom: 4px solid var(--maize-crayola);
-    border-radius: 0;
-    background-color: transparent;
+    text-decoration: none;
+    font-weight: 500;
 }
 
-.nav-link:hover {
-    color: var(--eerie-black);
+.nav-link, .nav-link:hover {
+    color: var(--jet);
 }
 
 .nav-pills .nav-link.active {
@@ -130,4 +123,15 @@
     border-radius: 0;
 }
 
-/*.nav-pills .nav-link.active, .nav-pills .show>.nav-link*/
+.nav-item {
+    padding: 0 .5rem ;
+}
+
+.col-xxl-1, .col-lg-1{
+    width: 3%;
+}
+
+h6 {
+  color: var(--jet);
+    font-weight: 600;
+}

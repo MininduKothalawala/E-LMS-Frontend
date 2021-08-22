@@ -1,0 +1,74 @@
+/*
+ * Common styles for all forms
+ */
+
+.form-wrapper {
+    padding: 50px;
+    border: 4px solid var(--alabaster);
+    border-radius: 8px;
+    margin: 10px 50px 80px;
+}
+
+.container h3 {
+    font-weight: 800;
+    color: var(--jet);
+}
+
+.form-label {
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 20px;
+    color: var(--jet);
+}
+
+.form-control, .form-select {
+    border: 2px solid var(--alabaster);
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 10px 15px;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 5px rgba(232, 237, 223, 0.8);
+    border: 2px solid var(--shadow-gray);
+}
+
+.form-control::placeholder {
+    font-weight: 600;
+    color: var(--shadow-gray);
+}
+
+p {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--shadow-gray);
+    margin: 50px 50px 20px;
+}
+
+.submit-form-btn, .reset-form-btn {
+    padding: 10px 30px;
+    border: 2px;
+    border-radius: 5px;
+    margin: 30px 0 20px 20px;
+    font-weight: 500;
+}
+
+
+.submit-form-btn {
+    color: var(--jet);
+    background-color: var(--maize-crayola);
+}
+
+.reset-form-btn {
+    color: var(--alabaster);
+    background-color: var(--jet);
+}
+
+.submit-form-btn:hover {
+    box-shadow: 0 0 0 5px rgba(245, 203, 92, 0.42);
+}
+
+.reset-form-btn:hover {
+    box-shadow: 0 0 0 5px rgba(51, 53, 51, 0.3);
+}
+
