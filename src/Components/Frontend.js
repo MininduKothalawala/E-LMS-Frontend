@@ -2,19 +2,16 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import Home from "./Home/Home";
-import Sidebar from "./SideBar/Sidebar";
+import Sidebar from "./Dashboard_Navigations/Sidebar";
 import ViewLibrary from "./Library/ViewLibrary";
 import Dashboard from "./Dashboard/Dashboard";
-import Classroom from "./Classroom/Classroom";
 import Notices from "./Notice/Notices";
-import Users from "./User/Users";
 import Login from "./Login/Login";
 import AddNotice from "./Notice/AddNotice";
 import NoticeList from "./Notice/NoticeList";
 import AddResource from "./Library/AddResource";
 import SignUp from "./Login/Signup";
 import GettAllUsers from "./User/GettAllUsers";
-
 import AddClassroom from "./Classroom/Add-Classroom";
 import ClassroomAdd from "./Classroom/Classroom-Add";
 import ClassroomListAdmin from "./Classroom/Classroom-List-Admin";
@@ -24,9 +21,6 @@ import ClassroomDetailsTeacher from "./Classroom/Classroom-Details-Teacher";
 import ClassroomUpdate from "./Classroom/Classroom-Update";
 
 class Frontend extends Component {
-    // constructor(props) {
-    //     super(props);
-    // }
 
     componentDidMount() {
         console.log(window.location.pathname)
@@ -53,7 +47,6 @@ class Frontend extends Component {
                         <Route path="/user" exact component={GettAllUsers}/>
                         <Route path="/user/add" exact component={SignUp}/>
 
-                        <Route path="/classroom" exact component={Classroom}/>
 
                         <Route path="/library" exact component={ViewLibrary}/>
                         <Route path="/library/add" exact component={AddResource}/>
@@ -61,6 +54,8 @@ class Frontend extends Component {
                         <Route path="/notice" exact component={Notices}/>
                         <Route path="/addNotices" exact component={AddNotice}/>
                         <Route path="/noticeList" exact component={NoticeList}/>
+
+                        <Route path="/classroom" exact component={ClassroomListAdmin}/>
                         <Route path="/addClassroom" exact component={AddClassroom}/>
                         <Route path="/addClassroomPage" exact component={ClassroomAdd}/>
                         <Route path="/adminClassroomList" exact component={ClassroomListAdmin}/>
