@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Card, Container} from "react-bootstrap";
 
-class Classroom extends Component {
+class ClassroomMain extends Component {
 
 
     render() {
@@ -21,4 +21,4 @@ class Classroom extends Component {
     }
 }
 
-export default Classroom;
+export default ClassroomMain;
