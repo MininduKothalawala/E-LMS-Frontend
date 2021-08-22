@@ -2,16 +2,17 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import Home from "./Home/Home";
-import Sidebar from "./MainDashboardUI/Sidebar";
+import Sidebar from "./Dashboard_Navigations/Sidebar";
 import ViewLibrary from "./Library/ViewLibrary";
 import Dashboard from "./Dashboard/Dashboard";
 import Classroom from "./Classroom/Classroom";
 import Notices from "./Notice/Notices";
-import Users from "./User/Users";
 import Login from "./Login/Login";
 import AddNotice from "./Notice/AddNotice";
 import NoticeList from "./Notice/NoticeList";
 import AddResource from "./Library/AddResource";
+import SignUp from "./Login/Signup";
+import GettAllUsers from "./User/GettAllUsers";
 
 class Frontend extends Component {
 
@@ -37,7 +38,8 @@ class Frontend extends Component {
                         <Route path="/login" exact component={Login}/>
                         <Route path="/dashboard" exact component={Dashboard}/>
 
-                        <Route path="/user" exact component={Users}/>
+                        <Route path="/user" exact component={GettAllUsers}/>
+                        <Route path="/user/add" exact component={SignUp}/>
 
                         <Route path="/classroom" exact component={Classroom}/>
 

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import "./Home.css";
+import "../../Stylesheets/Home.css";
 import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
 import AuthenticationService from "../Login/AuthenticationService";
