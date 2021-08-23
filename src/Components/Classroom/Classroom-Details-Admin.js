@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import axios from "axios";
+import {Badge, Button, ButtonGroup, Card, Form, Image, InputGroup, Modal, OverlayTrigger, Table, Tooltip} from "react-bootstrap";
 import moment from "moment";
+import pdfImg from "./pdf.png";
 class ClassroomDetailsAdmin extends Component{
 
     constructor(props){
@@ -108,6 +110,13 @@ class ClassroomDetailsAdmin extends Component{
                     <h6>Added By</h6>
                     <p>{addedBy}</p>
                 </div>
+
+                <div className={"text-center image-card"}>
+                    <img alt={"card-background-image"} width={300}
+                         src={pdfImg}/>
+                </div>
+
+
 
 
 

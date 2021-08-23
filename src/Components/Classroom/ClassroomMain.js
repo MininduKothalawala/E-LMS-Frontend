@@ -3,7 +3,6 @@ import {Card, Container} from "react-bootstrap";
 
 class ClassroomMain extends Component {
 
-
     render() {
         return(
             <div>

@@ -29,6 +29,11 @@ class ClassroomListTeacher extends Component {
         this.props.history.push(`/teacherClassDetails/`+id)
     }
 
+    handleUpdate = (id) => {
+        this.props.history.push(`/updateClassDetails/`+id)
+       // this.handleShow()
+    }
+
     render() {
         return (
 
@@ -56,7 +61,7 @@ class ClassroomListTeacher extends Component {
                                 <td>{event.topic}</td>
                                 <td>{event.date}</td>
                                 <td>{event.time}</td>
-                                <td><button key={event.id} onClick={() => this.gotoDetails(event.id)}>View More Details</button></td>
+                                <td><button key={event.id} onClick={() => this.gotoDetails(event.id)}>View More Details</button> </td><td> <button key={event.id} onClick={() => this.handleUpdate(event.id)}>Edit</button>  <button key={event.id} onClick={() => this.handleUpdate(event.id)}>Delete</button></td>
                             </tr>
                         )
                     }

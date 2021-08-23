@@ -9,10 +9,10 @@ class ClassroomDataService {
     //     return axios.get(`${API_URL}/all`)
     // }
     //
-    // //get template by ID
-    // getTemplate(id) {
-    //     return axios.get(`${API_URL}/${id}`)
-    // }
+    //get template by ID
+    getClassroom(id) {
+        return axios.get(`${API_URL}/getbyid/${id}`)
+    }
     //
     // //get template by type
     // filterByType(type) {
@@ -40,9 +40,9 @@ class ClassroomDataService {
     //     return axios.put(`${API_URL}/updateDesc`, data)
     // }
     //
-    // editTemplate(data) {
-    //     return axios.put(`${API_URL}/update`, data)
-    // }
+    editClassroom(data) {
+        return axios.put(`${API_URL}/`, data)
+    }
     //
     // deleteTemplate(id, imgId, fileId) {
     //     return axios.delete(`${API_URL}/${id}/${imgId}/${fileId}`)

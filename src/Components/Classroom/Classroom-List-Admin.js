@@ -47,8 +47,6 @@ class ClassroomListAdmin extends Component {
     </thead>
 
     <tbody>
-
-
             {
                 this.state.classrooms.map(event =>
                     <tr>
