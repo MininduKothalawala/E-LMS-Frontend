@@ -17,7 +17,7 @@ class gettAllUsers extends Component {
 
         this.state = {
             User: [],
-            username: '',
+            indexno: '',
             name: '',
             password: '',
             email: '',
@@ -79,7 +79,7 @@ class gettAllUsers extends Component {
                 <Table bordered hover striped variant={"dark"}>
                     <thead>
                     <tr className={"tableHeaders"}>
-                        <th>Username</th>
+                        <th>Index No</th>
                         <th>Name</th>
                         <th>Email Address</th>
                         <th>Mobile Number</th>
@@ -100,8 +100,8 @@ class gettAllUsers extends Component {
                                 User.map(user => {
                                     // console.log(user)
                                     return (
-                                        <tr key={user.username}>
-                                            <td style={{verticalAlign: 'middle'}}>{user.username}</td>
+                                        <tr key={user.indexno}>
+                                            <td style={{verticalAlign: 'middle'}}>{user.indexno}</td>
                                             <td style={{verticalAlign: 'middle'}}>{user.name}</td>
                                             <td style={{verticalAlign: 'middle'}}>{user.email}</td>
                                             <td style={{verticalAlign: 'middle'}}>{user.mobileNo}</td>

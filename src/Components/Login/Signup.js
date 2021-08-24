@@ -11,7 +11,7 @@ class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            indexno: '',
             name: '',
             password: '',
             email: '',
@@ -38,7 +38,7 @@ class SignUp extends Component {
         if (this.state.role !== "role") {
 
             let newuser = {
-                username: this.state.username,
+                indexno: this.state.indexno,
                 password: this.state.password,
                 name: this.state.name,
                 role: this.state.role,
@@ -104,10 +104,10 @@ class SignUp extends Component {
                             </div>
 
                             <div className={"mb-3"}>
-                                <label htmlFor="username" className="grey-text">
-                                    Username
+                                <label htmlFor="indexno" className="grey-text">
+                                    Index No
                                 </label>
-                                <input type="text" id="username" name="username" className="form-control"
+                                <input type="text" id="indexno" name="indexno" className="form-control"
                                        placeholder={"ex: JohnMayer27"}
                                        required={true} onChange={this.handleChange}
                                 />
