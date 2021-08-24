@@ -1,8 +1,9 @@
-import {Component} from "react";
+import React, {Component} from "react";
 import axios from "axios";
-import {Button, Table} from "react-bootstrap";
+import {Button, Col, Form, InputGroup, Row, Table} from "react-bootstrap";
 import swal from "sweetalert";
-import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import "../../Stylesheets/Admin-Tables-styles.css"
 
 class FontAwesomeIcon extends Component {
     render() {
@@ -27,8 +28,8 @@ class NoticeList extends Component {
     refreshTable = () => {
         axios.get('http://localhost:8080/Notice/')
             .then(response => {
-                this.setState({notices: response.data})
                 console.log(response.data)
+                this.setState({notices: response.data})
             })
             .catch((error) => {
                 console.log(error);
@@ -61,50 +62,57 @@ class NoticeList extends Component {
 
         return (
             <div>
-                <Table bordered hover striped variant={"dark"}>
-                    <thead>
-                    <tr className={"tableHeaders"}>
-                        <th>Notice ID</th>
-                        <th>Subject</th>
-                        <th>Grade</th>
-                        <th>Topic</th>
-                        <th>Body</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
 
-                    {
-                        notices.length === 0 ?
-                            <tr align="center">
-                                <td colSpan="6"><h6 className={"mt-3"}>No records at the moment</h6>
-                                </td>
-                            </tr>
+                <p>NOTICE MANAGEMENT</p>
+                <div className={"table-wrapper"}>
 
-                            : [
-                                notices.map(notice => {
-                                    // console.log(user)
-                                    return (
-                                        <tr key={notice.username}>
-                                            <td style={{verticalAlign: 'middle'}}>{notice.noticeId}</td>
-                                            <td style={{verticalAlign: 'middle'}}>{notice.noticeSubject}</td>
-                                            <td style={{verticalAlign: 'middle'}}>{notice.noticeGrade}</td>
-                                            <td style={{verticalAlign: 'middle'}}>{notice.noticeTopic}</td>
-                                            <td style={{verticalAlign: 'middle'}}>{notice.noticeBody}</td>
-                                            <td style={{verticalAlign: 'middle'}}>
-                                                <Button variant={"danger"} type={"submit"}
-                                                        onClick={this.deleteItem.bind(this, notice.noticeId)}>
-                                                    <FontAwesomeIcon icon={faTrashAlt}/>
-                                                </Button>
+                    <div>
+                        <h3>Notices</h3>
+                    </div>
+                    <Table bordered responsive>
+                        <thead className={"table-custom-header"}>
+                        <tr>
+                            <th>Notice ID</th>
+                            <th>Subject</th>
+                            <th>Grade</th>
+                            <th>Topic</th>
+                            <th>Body</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-                                            </td>
-                                        </tr>
-                                    )
-                                })
-                            ]
-                    }
-                    </tbody>
-                </Table>
+                        {
+                            notices.length === 0 ?
+                                <tr align="center">
+                                    <td colSpan="6"><h6 className={"mt-3"}>No records at the moment</h6>
+                                    </td>
+                                </tr>
+
+                                : [
+                                    notices.map(notice => {
+                                        return (
+                                            <tr key={notice.username}>
+                                                <td>{notice.noticeId}</td>
+                                                <td>{notice.noticeSubject}</td>
+                                                <td>{notice.noticeGrade}</td>
+                                                <td>{notice.noticeTopic}</td>
+                                                <td>{notice.noticeBody}</td>
+                                                <td>
+                                                    <Button variant={"danger"} type={"submit"}
+                                                            onClick={this.deleteItem.bind(this, notice.noticeId)}>
+                                                        <FontAwesomeIcon icon={faTrashAlt}/>
+                                                    </Button>
+
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                ]
+                        }
+                        </tbody>
+                    </Table>
+                </div>
             </div>
         )
     }
