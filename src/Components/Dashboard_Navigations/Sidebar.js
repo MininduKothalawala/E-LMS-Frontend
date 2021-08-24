@@ -354,7 +354,7 @@ class Sidebar extends Component {
                                     </Nav.Item>
                                     <Nav.Item>
                                         <Nav.Link eventKey="add-class">
-                                            <Link to="/class/add" className={"second-nav-item-link"}>ADD CLASS</Link>
+                                            <Link to="/addClassroom" className={"second-nav-item-link"}>ADD CLASS</Link>
                                         </Nav.Link>
                                     </Nav.Item>
                                 </Nav>

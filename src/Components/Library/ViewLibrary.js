@@ -1,20 +1,31 @@
 import React, {Component} from 'react';
-import {Badge, Button, ButtonGroup, Card, Container, Table} from "react-bootstrap";
+import {Badge, Button, ButtonGroup, Col, Form, InputGroup, Row, Table} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import LibraryDataService from "./LibraryDataService";
+import "../../Stylesheets/Admin-Tables-styles.css"
+import {faFilePdf} from "@fortawesome/free-regular-svg-icons";
 
 class ViewLibrary extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            libraries: []
+            libraries: [],
+            search: ''
         }
     }
 
     componentDidMount() {
         this.refreshTable();
+    }
+
+    handleSearchInput = (event) => {
+        event.preventDefault();
+
+        this.setState({
+            search: event.target.value
+        })
     }
 
     refreshTable = () => {
@@ -35,19 +46,44 @@ class ViewLibrary extends Component {
 
     }
 
+    searchResource = (e) => {
+
+    }
+
     render() {
         const { libraries } = this.state;
 
         return(
             <div>
-                <div>
-                    <Container className={"my-5"}>
-                        <Card>
-                            <Card.Body>
-                                <h1>Library</h1>
 
-                                <Table striped responsive hover bordered>
-                                    <thead>
+                <p>LIBRARY MANAGEMENT</p>
+                <div className={"table-wrapper"}>
+                    <div>
+                        <h3>Resource List</h3>
+                    </div>
+                    <div className={"mb-2"}>
+                        <Row>
+                            <Col xl={5} lg={5}>
+                                <InputGroup>
+                                    <InputGroup.Text bsPrefix={"input-search-icon"}>
+                                        <FontAwesomeIcon icon={faSearch}/>
+                                    </InputGroup.Text>
+                                    <Form.Control type="text"
+                                                  placeholder="Search"
+                                                  required
+                                                  value={this.state.search}
+                                                  onChange={this.handleSearchInput} />
+                                </InputGroup>
+                            </Col>
+                            <Col className={"text-end"}>
+                                    <button className={"filter-btn-guide"}>TEACHERS' GUIDE</button>
+                                    <button className={"filter-btn-syllabus"}>SYLLABUS</button>
+                            </Col>
+                        </Row>
+                    </div>
+                        <div>
+                                <Table responsive bordered>
+                                    <thead className={"table-custom-header"}>
                                     <tr>
                                         <th className={"text-center"}>File</th>
                                         <th className={"text-center"}>Resource Type</th>
@@ -66,20 +102,23 @@ class ViewLibrary extends Component {
                                             : [
                                                 libraries.map(library =>
                                                     <tr key={library.id}>
-                                                        <td><a href={`http://localhost:8080/` + library.fileId}>{library.fileName}</a></td>
-                                                        <td className={"text-center"} style={{verticalAlign: 'middle'}}>
-                                                            {library.resourceType === 'syllabus' &&
+                                                        <td>
+                                                            <FontAwesomeIcon icon={faFilePdf} className={"table-pdf-icon"}/>
+                                                            <a href={`http://localhost:8080/` + library.fileId}>{library.fileName}</a>
+                                                        </td>
+                                                        <td className={"text-center"}>
+                                                            {library.resourceType === 'SYLLABUS' &&
                                                             <Badge bg="warning" text="dark" className={"px-3 py-2"}
                                                                    key={"0"}>SYLLABUS</Badge>
                                                             }
-                                                            {library.resourceType === 'guide' &&
+                                                            {library.resourceType === 'GUIDE' &&
                                                             <Badge bg="success" className={"px-3 py-2"}
-                                                                   key={"0"}>TEAC HERS' GUIDE</Badge>
+                                                                   key={"0"}>TEACHERS' GUIDE</Badge>
                                                             }
                                                         </td>
-                                                        <td style={{verticalAlign: 'middle'}}>{library.grade}</td>
-                                                        <td style={{verticalAlign: 'middle'}}>{library.subject}</td>
-                                                        <td className={"text-center"} style={{verticalAlign: 'middle'}}>
+                                                        <td>{library.grade}</td>
+                                                        <td>{library.subject}</td>
+                                                        <td className={"text-center"}>
                                                             <ButtonGroup>
                                                                 <Button variant={"warning"} type={"submit"}
                                                                         onClick={() => this.editResource(library.id)}>
@@ -97,10 +136,8 @@ class ViewLibrary extends Component {
                                     }
                                     </tbody>
                                 </Table>
-                            </Card.Body>
-                        </Card>
-                    </Container>
-                </div>
+                        </div>
+                    </div>
             </div>
         )
     }

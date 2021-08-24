@@ -1,5 +1,5 @@
 /*
- * Common styles for all forms
+ * Common styles for all admin-forms
  */
 
 .form-wrapper {
@@ -7,11 +7,6 @@
     border: 4px solid var(--alabaster);
     border-radius: 8px;
     margin: 10px 50px 80px;
-}
-
-.container h3 {
-    font-weight: 800;
-    color: var(--jet);
 }
 
 .form-label {
@@ -46,6 +41,8 @@ p {
 }
 
 h3 {
+    font-weight: 800;
+    color: var(--jet);
     margin-bottom: 30px;
 }
 
