@@ -1,0 +1,77 @@
+/*
+ * Common styles for all admin-tables
+ */
+.table-wrapper {
+    padding: 50px;
+    border: 4px solid var(--alabaster);
+    border-radius: 8px;
+    margin: 10px 50px 80px;
+}
+
+.table-wrapper table {
+    margin-top: 20px;
+}
+
+.table-custom-header {
+    background-color: var(--alabaster);
+}
+
+tr:nth-child(even) {
+    background-color: rgba(233, 239, 217, 0.3);
+}
+
+tr:hover {
+    background-color: rgba(233, 239, 217, 0.6);
+}
+
+td {
+    vertical-align: middle;
+}
+
+th {
+    text-align: center;
+}
+
+.filter-btn-syllabus, .filter-btn-guide, .filter-btn-admin, .filter-btn-teacher, .filter-btn-student {
+    padding: 10px 30px;
+    border: 3px solid var(--alabaster);
+    font-weight: 500;
+    background-color: var(--white);
+    width: 200px;
+}
+
+.filter-btn-syllabus:hover, .filter-btn-guide:hover, .filter-btn-admin:hover, .filter-btn-teacher:hover, .filter-btn-student:hover {
+    background-color: var(--alabaster);
+}
+
+.filter-btn-guide, .filter-btn-student {
+    border-radius: 5px 0 0 5px;
+}
+
+.filter-btn-syllabus, .filter-btn-admin{
+    border-radius: 0 5px 5px 0;
+}
+
+.view-more-btn {
+    padding: 10px 30px;
+    border: 3px solid var(--maize-crayola);
+    border-radius: 5px;
+    font-weight: 500;
+    background-color: var(--white);
+}
+
+.view-more-btn:hover {
+    background-color: var(--maize-crayola);
+}
+
+.input-search-icon {
+    background-color: var(--alabaster);
+    padding: 10px 20px;
+}
+
+.table-pdf-icon {
+    color: var(--jet);
+    margin-left: 10px;
+    margin-right: 20px;
+}
+

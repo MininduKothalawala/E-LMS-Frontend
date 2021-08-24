@@ -1,0 +1,99 @@
+.background {
+    position: relative;
+    background-image: url('../Assets/Home-bg.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 100%;
+    width: auto;
+    height: 800px;
+}
+
+.row-upper {
+    margin-top: 100px;
+}
+
+.classroom-btn {
+    font-weight: 500;
+    background-color: var(--jet);
+    color: var(--white) !important;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.classroom-btn:hover {
+    background-color: var(--black);
+}
+
+.login-btn {
+    color: var(--jet);
+    text-decoration: none;
+    font-weight: 500;
+    border: 3px solid var(--white);
+    border-radius: 5px;
+    padding: 10px 20px;
+    background-color: var(--white);
+}
+
+.login-btn:hover{
+    border: 3px solid var(--jet);
+}
+
+.title, .sub-title {
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 800;
+    line-height: 70px;
+    margin-bottom: 30px;
+    color: var(--jet);
+}
+
+.title{
+    font-size: 60px;
+}
+
+.sub-title {
+    font-size: 50px;
+}
+
+.paragraph {
+    text-align: justify;
+}
+
+.form-control-home {
+    border: 2px solid rgba(51, 53, 51, 0.22);
+    border-radius: 7px;
+    padding: 15px 20px;
+    margin-top: 10px;
+}
+
+.contact-form-btn {
+    padding: 10px 30px;
+    border: 2px;
+    border-radius: 5px;
+    margin: 30px 0 20px 20px;
+    font-weight: 500;
+    color: var(--alabaster);
+    background-color: var(--jet);
+}
+
+.contact-form-btn:hover {
+    color: var(--white);
+    background-color: var(--black);
+}
+
+.footer {
+    background-color: var(--jet);
+    color: var(--white);
+    padding: 10px;
+    margin-top: 100px;
+}
+
+.custom-modal-body-login {
+    background-color: var(--maize-crayola);
+    border: none;
+}
+
+.close-login {
+    float: right;
+    padding: 30px 30px 0 0;
+}
