@@ -55,15 +55,14 @@ class Frontend extends Component {
                         <Route path="/addNotices" exact component={AddNotice}/>
                         <Route path="/noticeList" exact component={NoticeList}/>
 
-                        <Route path="/classroom" exact component={ClassroomListAdmin}/>
                         <Route path="/addClassroom" exact component={AddClassroom}/>
-                        <Route path="/adminClassDetails/:id" exact component={ClassroomDetailsAdmin}/>
-                        <Route path="/adminClassroomList" exact component={ClassroomListAdmin}/>
+                        <Route path="/classroom" exact component={ClassroomListAdmin}/>
                         <Route path="/teacherClassroomList" exact component={ClassroomListTeacher}/>
+                        <Route path="/adminClassDetails/:id" exact component={ClassroomDetailsAdmin}/>
+                        <Route path="/studentClassroomList" exact component={ClassroomListStudent}/>
                         <Route path="/adminClassDetails/:id" exact component={ClassroomDetailsAdmin}/>
                         <Route path="/updateClassDetails" exact component={ClassroomUpdate}/>
                         <Route path="/teacherClassDetails/:id" exact component={ClassroomDetailsTeacher}/>
-                        <Route path="/studentClassroomList" exact component={ClassroomListStudent}/>
 
                     </Switch>
 
