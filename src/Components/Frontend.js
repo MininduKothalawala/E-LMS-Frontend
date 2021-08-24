@@ -57,7 +57,7 @@ class Frontend extends Component {
 
                         <Route path="/classroom" exact component={ClassroomListAdmin}/>
                         <Route path="/addClassroom" exact component={AddClassroom}/>
-                        <Route path="/adminClassDetails/:id"  component={ClassroomDetailsAdmin}/>
+                        <Route path="/adminClassDetails/:id" exact component={ClassroomDetailsAdmin}/>
                         <Route path="/adminClassroomList" exact component={ClassroomListAdmin}/>
                         <Route path="/teacherClassroomList" exact component={ClassroomListTeacher}/>
                         <Route path="/adminClassDetails/:id" exact component={ClassroomDetailsAdmin}/>

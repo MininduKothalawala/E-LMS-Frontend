@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Swal from "sweetalert2";
 import LibraryDataService from "../Library/LibraryDataService";
-import {Button, Card, Container, Form} from "react-bootstrap";
+import {Form} from "react-bootstrap";
 import "../../Stylesheets/Form-styles.css"
 
 class AddResource extends Component {
