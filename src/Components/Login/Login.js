@@ -7,9 +7,10 @@ import Swal from "sweetalert2";
 import logo from "../../Assets/elms-logo-black-vertical.svg";
 import top_design from "../../Assets/login-upper-design.svg";
 import rectangle from "../../Assets/Rectangle-footer.svg";
-import "../../Stylesheets/Login.css"
-import {faEnvelope, faLock, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faEnvelope, faLock, faSearch, faTrashAlt, faUser} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import "../../Stylesheets/Login.css"
+
 class Login extends Component {
 
     constructor(props) {
@@ -82,32 +83,42 @@ class Login extends Component {
                     <Image src={logo} height={170}/>
                 </Row>
                 <Container className={"px-4"}>
-                    <Card style={{border: 'none'}}>
-                        <Card.Body>
-                            <Form>
-                                <div className={"mb-3"}>
-                                    <label htmlFor="userId" className="grey-text">
-                                       Index No
-                                    </label>
-                                    <input type="text" name="indexno" className="form-control" placeholder={"ex: John Mayer"}
-                                           value={this.state.indexno} required onChange={this.handleChange}/>
-                                </div>
+                    <Form>
+                        <Form.Group controlId={"userId"} >
+                            <InputGroup>
+                                <InputGroup.Text bsPrefix={"input-login-icon"}>
+                                    <FontAwesomeIcon icon={faUser}/>
+                                </InputGroup.Text>
+                                <Form.Control type={"text"}
+                                              name={"indexno"}
+                                              placeholder={"User ID"}
+                                              required
+                                              value={this.state.indexno}
+                                              onChange={this.handleChange}
+                                              className={"form-control-login"}/>
+                            </InputGroup>
+                        </Form.Group>
 
-                                <div className={"mb-3"}>
-                                    <label htmlFor="password" className="grey-text">
-                                        Password
-                                    </label>
-                                    <input type="password" name="password" className="form-control" placeholder="Password"
-                                           value={this.state.password} required onChange={this.handleChange}/>
-                                </div>
+                        <Form.Group controlId={"password"} className={"mt-4"}>
+                            <InputGroup>
+                                <InputGroup.Text bsPrefix={"input-login-icon"}>
+                                    <FontAwesomeIcon icon={faLock}/>
+                                </InputGroup.Text>
+                                <Form.Control type={"password"}
+                                              name={"password"}
+                                              placeholder={"Password"}
+                                              required
+                                              value={this.state.password}
+                                              onChange={this.handleChange}
+                                              className={"form-control-login"}/>
+                            </InputGroup>
+                        </Form.Group>
 
-                                <div className={"mb-3 mt-4"}>
-                                    <Button variant={"primary"} name={"signup"} block onClick={this.loginClicked}
-                                            style={{fontSize: 20, borderRadius: '0'}} className={"py-3"}>Login</Button>
-                                </div>
-                            </Form>
-                        </Card.Body>
-                    </Card>
+                        <div className={"text-center"}>
+                            <Button name={"signup"} onClick={this.loginClicked}
+                                    className={"login-form-btn"}>Login</Button>
+                        </div>
+                    </Form>
                 </Container>
                 <Row className={"mt-5"}>
                     <Image src={rectangle} />

@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router";
-import {Col, Form, InputGroup, Row, Table} from "react-bootstrap";
+import {Badge, Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import swal from "sweetalert";
-import "../../Stylesheets/Admin-Tables-styles.css"
+import "../../Stylesheets/Admin-Tables-styles.css";
 
 export let getAllUsers;
 
@@ -18,7 +18,7 @@ class gettAllUsers extends Component {
 
         this.state = {
             User: [],
-            indexno: '',
+            username: '',
             name: '',
             password: '',
             email: '',
@@ -109,13 +109,12 @@ class gettAllUsers extends Component {
                     <Table bordered responsive>
                         <thead className={"table-custom-header"}>
                         <tr>
-                            {/*TODO - headers must be changed */}
-                            <th>Index No</th>
+                            <th>User ID</th>
                             <th>Name</th>
                             <th>Email Address</th>
                             <th>Mobile Number</th>
-                            <th>Role</th>
-                            <th>Action</th>
+                            <th className={"text-center"}>Role</th>
+                            <th className={"text-center"}>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -130,13 +129,15 @@ class gettAllUsers extends Component {
                                 : [
                                     User.map(user => {
                                         return (
-                                            <tr key={user.indexno}>
+                                            <tr key={user.username}>
                                                 <td>{user.indexno}</td>
                                                 <td>{user.name}</td>
                                                 <td>{user.email}</td>
                                                 <td>{user.mobileNo}</td>
-                                                <td>{user.role}</td>
-                                                <td>
+                                                <td className={"text-center"}>
+                                                    <Badge bg={"dark"}>{user.role}</Badge>
+                                                </td>
+                                                <td className={"text-center"}>
                                                     <Button variant={"danger"} type={"submit"}
                                                             onClick={this.deleteItem.bind(this, user.indexno)}>
                                                         <FontAwesomeIcon icon={faTrashAlt}/>
@@ -156,7 +157,6 @@ class gettAllUsers extends Component {
 
                 </div>
             </div>
-
         )
 
 

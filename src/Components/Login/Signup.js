@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {Button, Card, Col, Row} from "react-bootstrap";
+import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import UserService from "./UserService";
 import * as Swal from "sweetalert2";
 import {withRouter} from "react-router";
-
-
+import "../../Stylesheets/Form-styles.css"
 
 class SignUp extends Component {
 
@@ -49,15 +48,16 @@ class SignUp extends Component {
             UserService.createUser(newuser)
                 .then(res => {
                     console.log(res.data)
-
+                    this.clearData();
                     Swal.fire({
                         icon: 'success',
                         title: 'Successful',
-                        html: '<p>User has been added!</p>',
-                        background: '#041c3d',
-                        confirmButtonColor: '#3aa2e7',
+                        text: 'User has been added!!',
+                        background: '#fff',
+                        confirmButtonColor: '#333533',
                         iconColor: '#60e004'
                     })
+
 
                 })
                 .catch(err => {
@@ -67,95 +67,87 @@ class SignUp extends Component {
         } else {
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                html: '<p>Please select a Role!</p>',
-                background: '#041c3d',
-                confirmButtonColor: '#3aa2e7',
+                title: 'Successful',
+                text: 'Please select a Role!',
+                background: '#fff',
+                confirmButtonColor: '#333533',
                 iconColor: '#e0b004'
             })
         }
-
-
     }
+
+    clearData = () => {
+        this.setState({
+            indexno: '',
+            name: '',
+            password: '',
+            email: '',
+            mobile_no: '',
+            role: 'role'
+        })
+    }
+
     render() {
         return (
             <div>
-                <Card style={{border: 'none'}}>
-                    <Card.Body className={"p-0"}>
-                        <form onSubmit={this.handleSubmit}>
-                            <div className={"mb-3"}>
-                                <label htmlFor="name" className="grey-text">
-                                    Full Name
-                                </label>
-                                <input type="text" id="name" name="name" className="form-control"
-                                       placeholder={"ex: John Mayer"}
-                                       required={true} onChange={this.handleChange}/>
-                            </div>
+                <p>USER MANAGEMENT</p>
+                <div className={"form-wrapper"}>
 
-                            <div className={"mb-3"}>
-                                <label htmlFor="email" className="grey-text">
-                                    Email Address
-                                </label>
-                                <input type="email" id="email" name="email" className="form-control"
-                                       placeholder={"ex: john@mail.com"}
-                                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                                       required={true} onChange={this.handleChange}
-                                />
-                            </div>
+                    <div>
+                        <h3>User Registration</h3>
+                    </div>
 
-                            <div className={"mb-3"}>
-                                <label htmlFor="indexno" className="grey-text">
-                                    Index No
-                                </label>
-                                <input type="text" id="indexno" name="indexno" className="form-control"
-                                       placeholder={"ex: JohnMayer27"}
-                                       required={true} onChange={this.handleChange}
-                                />
-                            </div>
+                    <div className={"p-0"}>
+                        <Form onSubmit={this.handleSubmit}>
+                            <Row>
+                                <Form.Group controlId={"formFullName"}>
+                                    <Form.Label>Full Name</Form.Label>
+                                    <Form.Control type="text" placeholder="Full name" value={this.state.name} name="name" required onChange={this.handleChange} />
+                                </Form.Group>
+                            </Row>
 
-                            <div className={"mb-3"}>
-                                <label htmlFor="password" className="grey-text">
-                                    Password
-                                </label>
-                                <input type="password" id="password" name="password" className="form-control"
-                                       placeholder={"Use a strong password"}
-                                       required={true} onChange={this.handleChange}
-                                />
-                            </div>
+                            <Form.Group controlId={"formEmail"}>
+                                <Form.Label>Email Address</Form.Label>
+                                <Form.Control type="email" placeholder="Email Address" name="email" value={this.state.email} required onChange={this.handleChange}
+                                              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                            </Form.Group>
 
-                            <Row className={"mb-3"}>
-                                <Col md={6}>
-                                    <label htmlFor="mobile_no" className="grey-text">
-                                        Mobile No
-                                    </label>
-                                    <input type="text" id="mobile_no" name="mobile_no" className="form-control"
-                                           placeholder={"ex: 07xxxxxxxx"}
-                                           maxLength={10} pattern="[0-9]{10}"
-                                           onChange={this.handleChange} required={true}/>
-                                </Col>
-                                <Col md={6}>
-                                    <label htmlFor="role" className="grey-text">
-                                        Select a Role
-                                    </label>
-                                    <select className="form-control" id="role" name={"role"} value={this.state.role}
-                                            required={true} onChange={this.handleChange}>
+                            <Row>
+                                <Form.Group as={Col} controlId={"formIndexNo"}>
+                                    <Form.Label>Index number</Form.Label>
+                                    <Form.Control type="text" placeholder="Index number" name="indexno" value={this.state.indexno} required onChange={this.handleChange}/>
+                                </Form.Group>
+                                <Form.Group as={Col} controlId={"formPassword"}>
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" placeholder="Password" name="password" value={this.state.password} required isInvalid={false} onChange={this.handleChange} />
+                                </Form.Group>
+                            </Row>
+
+                            <Row>
+                                <Form.Group as={Col} controlId={"formMobile"}>
+                                    <Form.Label>Mobile number</Form.Label>
+                                    <Form.Control type="text" placeholder="Mobile number" name="mobile_no" value={this.state.mobile_no} maxLength={10} required onChange={this.handleChange} />
+                                </Form.Group>
+                                <Form.Group as={Col} controlId={"formUserRole"}>
+                                    <Form.Label>Select Role</Form.Label>
+                                    <Form.Select required
+                                                 name={"role"} value={this.state.role}
+                                                 onChange={this.handleChange}>
                                         <option value={"role"}>Select role</option>
                                         <option value={"admin"}>Admin</option>
                                         <option value={"teacher"}>Teacher</option>
                                         <option value={"student"}>Student</option>
-                                    </select>
-                                </Col>
+                                    </Form.Select>
+                                </Form.Group>
                             </Row>
 
-                            <div className={"mb-3 mt-4"}>
-                                <Button variant={"dark"} type={"submit"} name={"signup"} block style={{
-                                    fontSize: 20,
-                                    borderRadius: '0'
-                                }} className={"py-3"} >Add User</Button>
+                            <div className={"text-end"}>
+                                <button type={"reset"} className={"reset-form-btn"}>Reset</button>
+                                <button type={"submit"} className={"submit-form-btn"}>Add User</button>
                             </div>
-                        </form>
-                    </Card.Body>
-                </Card>
+                        </Form>
+                    </div>
+                </div>
 
             </div>
 
