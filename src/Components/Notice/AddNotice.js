@@ -1,7 +1,9 @@
-import {Component} from "react";
+import React, {Component} from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
-import {Button, Card, Col, Container, Row} from "react-bootstrap";
+import "../../Stylesheets/Form-styles.css"
+import {Col, Form, Row} from "react-bootstrap";
+import {forEach} from "react-bootstrap/ElementChildren";
 
 class AddNotice extends Component {
     constructor(props) {
@@ -19,8 +21,14 @@ class AddNotice extends Component {
             noticeSubject: '',
             noticeGrade: '',
             noticeTopic: '',
-            noticeBody: ''
+            noticeBody: '',
+            grades: [],
+            subjects: []
         }
+    }
+
+    componentDidMount() {
+        this.getSubjectList();
     }
 
     handleSubmit(e) {
@@ -75,6 +83,14 @@ class AddNotice extends Component {
 
     handleChangeNoticeGrade(e) {
         this.setState({noticeGrade: e.target.value});
+
+        axios.get(`http://localhost:8080/Subject/${e.target.value}`).then(
+            response =>{
+                this.setState({
+                    subjects: response.data
+                })
+            }
+        )
     }
 
     handleChangeNoticeTopic(e) {
@@ -85,83 +101,94 @@ class AddNotice extends Component {
         this.setState({noticeBody: e.target.value});
     }
 
+    getSubjectList = () =>{
+        axios.get("http://localhost:8080/Subject/").then(
+            response =>{
+                this.setState({
+                    grades: response.data
+                })
+            }
+        )
+    }
+
     render() {
-
         return (
-            <Container className={"my-5 py-4"}>
-                <Card className={"adminCard"}>
-                    <div className={"text-center adminCardTitle"}>Add Item</div>
-                    <Card.Body className={"m-3"}>
-                        <form onSubmit={this.handleSubmit}>
+            <div>
+
+                <p>NOTICE MANAGEMENT</p>
+                <div className={"form-wrapper"}>
+                    <div>
+                        <h3>Add Notice</h3>
+                    </div>
+
+                    <div>
+                        <Form onSubmit={this.handleSubmit}>
+                            <Form.Group controlId={"formNoticeId"}>
+                                <Form.Label>Notice ID</Form.Label>
+                                <Form.Control type="text" placeholder="Notice ID"
+                                              required
+                                              isInvalid={false}
+                                              onChange={this.handleChangeID}/>
+                                <Form.Control.Feedback type="invalid">
+                                    Please enter the notice ID.
+                                </Form.Control.Feedback>
+                            </Form.Group>
+
                             <Row>
-                                <Col>
-                                    <div className={"mb-3"}>
-                                        <label htmlFor="noticeId" className="grey-text">
-                                            Item ID
-                                        </label>
-                                        <input type="text" id="noticeId" name="ID" className="form-control"
-                                               required={true}
-                                               onChange={this.handleChangeID}/>
-                                    </div>
+                                <Form.Group as={Col} controlId={"formNoticeGrade"}>
+                                    <Form.Label>Grade</Form.Label>
+                                    <Form.Control as ={"select"} onChange={this.handleChangeNoticeGrade}>
+                                        {
+                                            this.state.grades.map(item =>
+                                                <option value={item.grade}>{item.grade}</option>
+                                            )
+                                        }
+                                    </Form.Control>
+                                </Form.Group>
 
-                                    <div className={"mb-3"}>
-                                        <label htmlFor="noticeSubject" className="grey-text">
-                                            Category
-                                        </label>
-                                        <select className="browser-default custom-select" id="noticeSubject"
-                                                name="Subjrct" onChange={this.handleChangeNoticeSubject}>
-                                            <option>Choose your option</option>
-                                            <option value="Sinhala">Sinhala</option>
-                                            <option value="English">English</option>
-                                            <option value="History">History</option>
-                                        </select>
-                                    </div>
-
-                                    <div className={"mb-3"}>
-                                        <label htmlFor="noticeGrade" className="grey-text">
-                                            Category
-                                        </label>
-                                        <select className="browser-default custom-select" id="noticeGrade"
-                                                name="Grade" onChange={this.handleChangeNoticeGrade}>
-                                            <option>Choose your option</option>
-                                            <option value="1">Grade 1</option>
-                                            <option value="2">Grade 2</option>
-                                            <option value="3">Grade 3</option>
-                                        </select>
-                                    </div>
-
-                                    <Row className={"mb-3"}>
-                                        <Col>
-                                            <label htmlFor="noticeTopic" className="grey-text">
-                                                Topic
-                                            </label>
-                                            <input type="text" id="noticeTopic" name="Topic" className="form-control"
-                                                   onChange={this.handleChangeNoticeTopic}/>
-                                        </Col>
-                                    </Row>
-
-                                    <Row className={"mb-3"}>
-                                        <Col>
-                                            <label htmlFor="noticeBody" className="grey-text">
-                                                Body
-                                            </label>
-                                            <input type="text" id="noticeBody" name="Notice" className="form-control"
-                                                   onChange={this.handleChangeNoticeBody}/>
-                                        </Col>
-                                    </Row>
-
-                                    <div className={"text-right"}>
-                                        <Button variant={"primary"} type={"submit"}>Add Item</Button>
-                                    </div>
-
-                                </Col>
+                                <Form.Group as={Col} controlId={"formNoticeSubject"}>
+                                    <Form.Label>Subject</Form.Label>
+                                    <Form.Control as ={"select"} onChange={this.handleChangeNoticeSubject}>
+                                        {
+                                            this.state.subjects.map(subject =>
+                                                <option value={subject}>{subject}</option>
+                                            )
+                                        }
+                                    </Form.Control>
+                                </Form.Group>
                             </Row>
-                        </form>
-                    </Card.Body>
-                </Card>
-            </Container>
+
+                            <Form.Group controlId={"formNoticeTopic"}>
+                                <Form.Label>Topic</Form.Label>
+                                <Form.Control type="text" name="Topic" placeholder="Notice topic"
+                                              required isInvalid={false}
+                                              onChange={this.handleChangeNoticeTopic} />
+                                <Form.Control.Feedback type="invalid">
+                                    Please enter a topic.
+                                </Form.Control.Feedback>
+                            </Form.Group>
+
+                            <Form.Group controlId={"formNoticeBody"}>
+                                <Form.Label>Body</Form.Label>
+                                <Form.Control as="textarea" name="Notice" placeholder="Type your notice here"
+                                              required isInvalid={false}
+                                              onChange={this.handleChangeNoticeBody} />
+                                <Form.Control.Feedback type="invalid">
+                                    Please type your notice.
+                                </Form.Control.Feedback>
+                            </Form.Group>
+
+                            <div className={"text-end"}>
+                                <button type={"reset"} className={"reset-form-btn"}>Reset</button>
+                                <button type={"submit"} className={"submit-form-btn"}>Add Notice</button>
+                            </div>
+                        </Form>
+                    </div>
+                </div>
+            </div>
         )
     }
 }
 
 export default AddNotice;
+

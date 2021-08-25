@@ -1,0 +1,147 @@
+/*
+ * Styling for Sidebar and Content
+ */
+
+.div-admin-grid {
+    display: grid;
+    grid-template-columns: 300px auto;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-areas:
+    'sidebar-top'
+    'sidebar-middle'
+    'sidebar-bottom';
+    background: var(--jet);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100%;
+    transition: all 0.5s ease;
+}
+
+.sidebar-close {
+    float: right;
+    padding: 30px 50px 5px 5px;
+}
+
+.sidebar-top-image {
+    background-image: url('../Assets/sidenav-upper-logo.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: auto;
+    height: 350px;
+    object-fit: contain;
+}
+
+.sidebar-top {
+    grid-area: sidebar-top;
+    height: 400px;
+}
+
+.sidebar-middle {
+    grid-area: sidebar-middle;
+}
+
+.sidebar-bottom {
+    grid-area: sidebar-bottom;
+}
+
+.logout-div {
+    color: var(--white);
+    padding: 30px 40px 0 40px;
+    border-top: 1px solid #4d4d4d;
+}
+
+.icon-text:hover {
+    cursor: pointer;
+    color: var(--maize-crayola);
+}
+
+.list-group-item {
+    background-color: var(--jet);
+    border: none;
+    color: var(--white) ;
+    padding: 30px 40px;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.list-group-item.active {
+    background-color: transparent;
+    border-left: 13px solid var(--maize-crayola);
+    color: var(--maize-crayola);
+    padding-left: 27px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.dashboard-links {
+    text-decoration: none;
+}
+
+.dashboard-icon {
+    display: grid;
+    grid-template-columns: 25% auto;
+    grid-template-rows: auto;
+}
+
+.dash-svg-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.hamburger-menu {
+    color: var(--jet);
+    background-color: transparent;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    visibility: hidden;
+}
+
+.hamburger-menu:hover {
+    color: var(--black);
+}
+
+.secondary-nav {
+    background-color: var(--maize-crayola);
+    padding: 20px 50px 20px 0;
+}
+
+.main-content {
+    padding: 60px 10px 40px;
+}
+
+.second-nav-item-link, .second-nav-item-link:hover {
+    color: var(--jet);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav-link, .nav-link:hover {
+    color: var(--jet);
+}
+
+.nav-pills .nav-link.active {
+    background-color: transparent;
+    color: var(--jet);
+    border-bottom: 4px solid var(--jet);
+    border-radius: 0;
+}
+
+.nav-item {
+    padding: 0 .5rem ;
+}
+
+.col-xxl-1, .col-lg-1{
+    width: 3%;
+}
+
+h6 {
+  color: var(--jet);
+    font-weight: 600;
+}
