@@ -1,3 +1,10 @@
-div {
-    background-color: #F5CB5CFF;
+/*
+ * Styling for Dashboard
+ */
+
+.dash-wrapper {
+    padding: 50px;
+    border: 4px solid var(--alabaster);
+    border-radius: 8px;
+    margin: 10px 50px 80px;
 }
