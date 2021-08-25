@@ -33,6 +33,13 @@ class AddClassroom extends Component{
         }
     }
 
+    // componentDidMount() {
+    //     const loggedUser = AuthenticationService.loggedUserId();
+    //     this.setState({
+    //         username: loggedUser
+    //     });
+    // }
+
 
     // onChangeGrade(e){
     //     this.setState({
@@ -138,55 +145,55 @@ class AddClassroom extends Component{
         const classImg = this.state.classImg[0];
 
 
-            const formData = new FormData();
-            formData.append('grade', grade)
-            formData.append('subject', subject)
-            formData.append('topic', topic)
-            formData.append('description', description)
-            formData.append('date', date)
-            formData.append('time', time)
-            formData.append('link', link)
-            formData.append('addedBy', addedBy)
-            formData.append('lecFile', lecFile)
-            formData.append('tuteFile', tuteFile)
-            formData.append('classImg', classImg)
+        const formData = new FormData();
+        formData.append('grade', grade)
+        formData.append('subject', subject)
+        formData.append('topic', topic)
+        formData.append('description', description)
+        formData.append('date', date)
+        formData.append('time', time)
+        formData.append('link', link)
+        formData.append('addedBy', addedBy)
+        formData.append('lecFile', lecFile)
+        formData.append('tuteFile', tuteFile)
+        formData.append('classImg', classImg)
 
-            const config = {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
+        const config = {
+            headers: {
+                "Content-Type": "multipart/form-data"
             }
+        }
 
         ClassroomDataService.addClassroom(formData, config)
-                .then(res => {
-                    console.log(formData);
-                    console.log(res);
+            .then(res => {
+                console.log(formData);
+                console.log(res);
 
-                    if (res.status === 201) {
-                        console.log("CREATED");
+                if (res.status === 201) {
+                    console.log("CREATED");
 
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Successful',
-                            html: '<p>Your files has been uploaded!!</p>',
-                            background: '#041c3d',
-                            confirmButtonColor: '#3aa2e7',
-                            iconColor: '#60e004'
-                        })
-                        this.clearData();
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            html: '<p>There was an error uploading!</p>',
-                            background: '#041c3d',
-                            showConfirmButton: false,
-                            timer: 1500,
-                            iconColor: '#e00404'
-                        })
-                    }
-                })
-        }
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Successful',
+                        html: '<p>Your files has been uploaded!!</p>',
+                        background: '#041c3d',
+                        confirmButtonColor: '#3aa2e7',
+                        iconColor: '#60e004'
+                    })
+                    this.clearData();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        html: '<p>There was an error uploading!</p>',
+                        background: '#041c3d',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        iconColor: '#e00404'
+                    })
+                }
+            })
+    }
 
     clearData = () => {
         this.setState({
@@ -250,21 +257,23 @@ class AddClassroom extends Component{
 
                             <Form.Group controlId={"classDate"}>
                                 <Form.Label>Date</Form.Label>
-                                <Form.Control as={"input"} name={"date"} placeholder={"Enter a date"} required
+                                <Form.Control as={"input"} name={"date"} type = {"date"} placeholder={"Enter a date"} required
                                               value={date} onChange={this.handleChange}/>
                             </Form.Group>
 
                             <Form.Group controlId={"classTime"}>
                                 <Form.Label>Time</Form.Label>
-                                <Form.Control as={"input"} name={"time"} placeholder={"Enter a time"} required
+                                <Form.Control as={"input"} name={"time"} type = {"time"} placeholder={"Enter a time"} required
                                               value={time} onChange={this.handleChange}/>
                             </Form.Group>
 
                             <Form.Group controlId={"classLink"}>
                                 <Form.Label>Link</Form.Label>
-                                <Form.Control as={"input"} name={"link"} placeholder={"Enter a link"} required
+                                <Form.Control as={"input"} name={"link"} type = {"link"} placeholder={"Enter a link"} required
                                               value={link} onChange={this.handleChange}/>
                             </Form.Group>
+
+
 
                             <Form.Group controlId={"classAdd"}>
                                 <Form.Label>AddedBy</Form.Label>
@@ -272,28 +281,28 @@ class AddClassroom extends Component{
                                               value={addedBy} onChange={this.handleChange}/>
                             </Form.Group>
 
-                          
 
 
 
 
 
 
-                                <div className="custom-file">
-                                    <label>Lecture : </label>
-                                    <input
-                                        type="file"
-                                        className="custom-file-input"
-                                        id="inputGroupFile01"
-                                        aria-describedby="inputGroupFileAddon01"
-                                        accept={".pptx, .ppt, .docx, .doc"}
-                                        onChange={this.handleLecFileChange}
-                                        required={true}
-                                    />
-                                    <label className="custom-file-label" htmlFor="inputGroupFile01">
-                                        {/*{this.state.imageName}*/}
-                                    </label>
-                                </div>
+
+                            <div className="custom-file">
+                                <label>Lecture : </label>
+                                <input
+                                    type="file"
+                                    className="custom-file-input"
+                                    id="inputGroupFile01"
+                                    aria-describedby="inputGroupFileAddon01"
+                                    accept={".pptx, .ppt, .pdf"}
+                                    onChange={this.handleLecFileChange}
+                                    required={true}
+                                />
+                                <label className="custom-file-label" htmlFor="inputGroupFile01">
+                                    {/*{this.state.imageName}*/}
+                                </label>
+                            </div>
 
 
                             <div className="custom-file">
@@ -303,7 +312,7 @@ class AddClassroom extends Component{
                                     className="custom-file-input"
                                     id="inputGroupFile01"
                                     aria-describedby="inputGroupFileAddon01"
-                                    accept={".pptx, .ppt, .docx, .doc"}
+                                    accept={".docx, .doc"}
                                     onChange={this.handleTuteFileChange}
                                     required={true}
                                 />

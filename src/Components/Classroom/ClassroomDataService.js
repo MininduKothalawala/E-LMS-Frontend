@@ -24,9 +24,17 @@ class ClassroomDataService {
     //     return axios.get(`${API_URL}/findByUser/${username}`)
     // }
     //
-    // downloadFile(id) {
-    //     return axios.get(`${API_URL}/download/${id}`, {responseType: 'blob'})
-    // }
+    downloadLec(id) {
+        return axios.get(`${API_URL}/downloadLec/${id}`, {responseType: 'blob'})
+    }
+
+    downloadTute(id) {
+        return axios.get(`${API_URL}/downloadTute/${id}`, {responseType: 'blob'})
+    }
+
+    getImage(id) {
+        return axios.get(`${API_URL}/image/${id}`, {responseType: 'blob'})
+    }
 
     addClassroom(data) {
         return axios.post(`${API_URL}/addClassroom`, data)
