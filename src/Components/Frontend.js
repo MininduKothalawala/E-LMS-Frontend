@@ -3,21 +3,8 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import Home from "./Home/Home";
 import Sidebar from "./Dashboard_Navigations/Sidebar";
-import ViewLibrary from "./Library/ViewLibrary";
-import Notices from "./Notice/Notices";
 import Login from "./Login/Login";
-import AddNotice from "./Notice/AddNotice";
-import NoticeList from "./Notice/NoticeList";
-import AddResource from "./Library/AddResource";
-import SignUp from "./Login/Signup";
-import GettAllUsers from "./User/GettAllUsers";
-import AddClassroom from "./Classroom/Add-Classroom";
-import ClassroomListAdmin from "./Classroom/Classroom-List-Admin";
-import ClassroomListTeacher from "./Classroom/Classroom-List-Teacher";
-import ClassroomDetailsAdmin from "./Classroom/Classroom-Details-Admin";
-import ClassroomDetailsTeacher from "./Classroom/Classroom-Details-Teacher";
-import ClassroomUpdate from "./Classroom/Classroom-Update";
-import ClassroomListStudent from "./Classroom/Classroom-List-Student";
+import NotFound from "./404NotFound/NotFound";
 
 
 class Frontend extends Component {
@@ -35,24 +22,26 @@ class Frontend extends Component {
 
                         <Route path="/dashboard" exact component={Sidebar}/>
 
-                        <Route path="/user" exact component={GettAllUsers}/>
-                        <Route path="/user/add" exact component={SignUp}/>
+                        <Route component={NotFound}/>
 
-                        <Route path="/library" exact component={ViewLibrary}/>
-                        <Route path="/library/add" exact component={AddResource}/>
+                        {/*<Route path="/user" exact component={GettAllUsers}/>*/}
+                        {/*<Route path="/user/add" exact component={SignUp}/>*/}
 
-                        <Route path="/notice" exact component={Notices}/>
-                        <Route path="/addNotices" exact component={AddNotice}/>
-                        <Route path="/noticeList" exact component={NoticeList}/>
+                        {/*<Route path="/library" exact component={ViewLibrary}/>*/}
+                        {/*<Route path="/library/add" exact component={AddResource}/>*/}
 
-                        <Route path="/addClassroom" exact component={AddClassroom}/>
-                        <Route path="/classroom" exact component={ClassroomListAdmin}/>
-                        <Route path="/teacherClassroomList" exact component={ClassroomListTeacher}/>
-                        <Route path="/adminClassDetails/:id" exact component={ClassroomDetailsAdmin}/>
-                        <Route path="/studentClassroomList" exact component={ClassroomListStudent}/>
-                        <Route path="/adminClassDetails/:id" exact component={ClassroomDetailsAdmin}/>
-                        <Route path="/updateClassDetails" exact component={ClassroomUpdate}/>
-                        <Route path="/teacherClassDetails/:id" exact component={ClassroomDetailsTeacher}/>
+                        {/*<Route path="/notice" exact component={Notices}/>*/}
+                        {/*<Route path="/addNotices" exact component={AddNotice}/>*/}
+                        {/*<Route path="/noticeList" exact component={NoticeList}/>*/}
+
+                        {/*<Route path="/addClassroom" exact component={AddClassroom}/>*/}
+                        {/*<Route path="/classroom" exact component={ClassroomListAdmin}/>*/}
+                        {/*<Route path="/teacherClassroomList" exact component={ClassroomListTeacher}/>*/}
+                        {/*<Route path="/adminClassDetails/:id" exact component={ClassroomDetailsAdmin}/>*/}
+                        {/*<Route path="/studentClassroomList" exact component={ClassroomListStudent}/>*/}
+                        {/*<Route path="/adminClassDetails/:id" exact component={ClassroomDetailsAdmin}/>*/}
+                        {/*<Route path="/updateClassDetails" exact component={ClassroomUpdate}/>*/}
+                        {/*<Route path="/teacherClassDetails/:id" exact component={ClassroomDetailsTeacher}/>*/}
 
                     </Switch>
 
