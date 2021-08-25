@@ -1,18 +1,35 @@
 import React, {Component} from "react";
-import {Col, Container, Form, Image, Nav, Navbar, Row} from "react-bootstrap";
+import {CloseButton, Col, Container, Form, Image, Modal, Navbar, Row} from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
-import {Link} from "react-router-dom";
 import logo from "../../Assets/elms-logo-black.svg"
 import studyImg from "../../Assets/elearning.png";
 import mailBoxImg from "../../Assets/Mailbox-bro.png";
 import "../../Stylesheets/Home.css";
+import Login from "../Login/Login";
+import AuthenticationService from "../Login/AuthenticationService";
+import {Link} from "react-router-dom";
 
 class Home extends  Component {
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            show: false
+        }
+    }
+
+    //Modal box
+    showModalBox = () => {
+        this.setState({show: true})
+    }
+    //Modal box
+    closeModalBox = () => {
+        this.setState({show: false})
+    }
 
     render() {
 
-        // const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
+        const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
 
         return(
             <div>
@@ -28,8 +45,12 @@ class Home extends  Component {
                             {/*TODO: Design should be changed when collapsing*/}
                             <Navbar.Collapse id={"responsive-navbar-nav"}  className={"justify-content-end"}>
                                 <Navbar.Text>
-                                    <Link to={"/dashboard"} className={"classroom-btn"}>My Classroom</Link>
-                                    {/*<Link to={"/dashboard"} className={"login-btn"}>Sign In</Link>*/}
+                                    { isUserLoggedIn &&
+                                        <Link to={"/dashboard"} className={"classroom-btn"}>My Classroom</Link>
+                                    }
+                                    { !isUserLoggedIn &&
+                                        <button className={"login-btn"} onClick={this.showModalBox}>Sign In</button>
+                                    }
                                 </Navbar.Text>
                             </Navbar.Collapse>
                             {/*TODO: When Logged in MY CLASSROOM Should be displayed*/}
@@ -68,7 +89,6 @@ class Home extends  Component {
                             <div className={"sub-title"}>
                                 Contact Us
                             </div>
-
                                 <Form>
                                     <Row>
                                         <Form.Group as={Col} controlId={"formContactName"}>
@@ -76,14 +96,16 @@ class Home extends  Component {
                                             <Form.Control type={"text"}
                                                           name={"name"}
                                                           placeholder="Your name"
-                                                          required />
+                                                          required
+                                                          className={"form-control-home"}/>
                                         </Form.Group>
                                         <Form.Group as={Col} controlId={"formContactEmail"}>
                                             <Form.Label>Email</Form.Label>
                                             <Form.Control type={"text"}
                                                           name={"email"}
                                                           placeholder="Your email"
-                                                          required />
+                                                          required
+                                                          className={"form-control-home"}/>
                                         </Form.Group>
                                     </Row>
                                     <Form.Group controlId={"formNoticeBody"}>
@@ -92,7 +114,8 @@ class Home extends  Component {
                                                       name="message"
                                                       placeholder="Type your message here"
                                                       rows={5}
-                                                      required />
+                                                      required
+                                                      className={"form-control-home"}/>
                                     </Form.Group>
                                     <div className={"text-center"}>
                                         <button type={"submit"} className={"contact-form-btn"}>Send</button>
@@ -109,6 +132,15 @@ class Home extends  Component {
                             Copyright &copy; 2021. All Rights Reserved
                     </Container>
                 </div>
+
+
+                {/*------------------------ Modal Box for Login ------------------------*/}
+                <Modal show={this.state.show} centered fullscreen={"sm-down"} size={"md"}>
+                    <Modal.Header className={"custom-modal-body-login px-4"}>
+                        <CloseButton onClick={this.closeModalBox} className={"close-login"} /> <br/>
+                    </Modal.Header>
+                    <Modal.Body className={"custom-modal-body-login p-0"}> <Login/> </Modal.Body>
+                </Modal>
 
             </div>
         )

@@ -1,5 +1,10 @@
-.offcanvas-start {
-    width: 300px;
+/*
+ * Styling for Sidebar and Content
+ */
+
+.div-admin-grid {
+    display: grid;
+    grid-template-columns: 300px auto;
 }
 
 .wrapper {
@@ -95,6 +100,7 @@
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
+    visibility: hidden;
 }
 
 .hamburger-menu:hover {
@@ -103,7 +109,11 @@
 
 .secondary-nav {
     background-color: var(--maize-crayola);
-    padding: 20px 30px;
+    padding: 20px 50px 20px 0;
+}
+
+.main-content {
+    padding: 60px 10px 40px;
 }
 
 .second-nav-item-link, .second-nav-item-link:hover {

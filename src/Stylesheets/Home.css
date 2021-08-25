@@ -1,3 +1,7 @@
+/*
+ * Styling for Landing page
+ */
+
 .background {
     position: relative;
     background-image: url('../Assets/Home-bg.svg');
@@ -59,7 +63,7 @@
     text-align: justify;
 }
 
-.form-control{
+.form-control-home {
     border: 2px solid rgba(51, 53, 51, 0.22);
     border-radius: 7px;
     padding: 15px 20px;
@@ -86,4 +90,14 @@
     color: var(--white);
     padding: 10px;
     margin-top: 100px;
+}
+
+.custom-modal-body-login {
+    background-color: var(--maize-crayola);
+    border: none;
+}
+
+.close-login {
+    float: right;
+    padding: 30px 30px 0 0;
 }

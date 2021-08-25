@@ -28,25 +28,40 @@ td {
     vertical-align: middle;
 }
 
-.filter-btn-syllabus, .filter-btn-guide {
+th {
+    text-align: center;
+}
+
+.filter-btn-syllabus, .filter-btn-guide, .filter-btn-admin, .filter-btn-teacher, .filter-btn-student {
     padding: 10px 30px;
     border: 3px solid var(--alabaster);
     font-weight: 500;
     background-color: var(--white);
+    width: 200px;
 }
 
-.filter-btn-syllabus:hover, .filter-btn-guide:hover {
+.filter-btn-syllabus:hover, .filter-btn-guide:hover, .filter-btn-admin:hover, .filter-btn-teacher:hover, .filter-btn-student:hover {
     background-color: var(--alabaster);
 }
 
-.filter-btn-syllabus {
-    border-radius: 0 5px 5px 0;
-    width: 200px;
+.filter-btn-guide, .filter-btn-student {
+    border-radius: 5px 0 0 5px;
 }
 
-.filter-btn-guide {
-    border-radius: 5px 0 0 5px;
-    width: 200px;
+.filter-btn-syllabus, .filter-btn-admin{
+    border-radius: 0 5px 5px 0;
+}
+
+.view-more-btn {
+    padding: 10px 30px;
+    border: 3px solid var(--maize-crayola);
+    border-radius: 5px;
+    font-weight: 500;
+    background-color: var(--white);
+}
+
+.view-more-btn:hover {
+    background-color: var(--maize-crayola);
 }
 
 .input-search-icon {
@@ -59,3 +74,4 @@ td {
     margin-left: 10px;
     margin-right: 20px;
 }
+
