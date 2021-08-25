@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router";
-import {Table} from "react-bootstrap";
+import {Badge, Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import swal from "sweetalert";
+import "../../Stylesheets/Admin-Tables-styles.css";
 
 export let getAllUsers;
 
@@ -76,55 +77,86 @@ class gettAllUsers extends Component {
 
         return (
             <div>
-                <Table bordered hover striped variant={"dark"}>
-                    <thead>
-                    <tr className={"tableHeaders"}>
-                        <th>Username</th>
-                        <th>Name</th>
-                        <th>Email Address</th>
-                        <th>Mobile Number</th>
-                        <th>Role</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
 
-                    {
-                        User.length === 0 ?
-                            <tr align="center">
-                                <td colSpan="6"><h6 className={"mt-3"}>No records at the moment</h6>
-                                </td>
-                            </tr>
+                <p>USER MANAGEMENT</p>
 
-                            : [
-                                User.map(user => {
-                                    // console.log(user)
-                                    return (
-                                        <tr key={user.username}>
-                                            <td style={{verticalAlign: 'middle'}}>{user.username}</td>
-                                            <td style={{verticalAlign: 'middle'}}>{user.name}</td>
-                                            <td style={{verticalAlign: 'middle'}}>{user.email}</td>
-                                            <td style={{verticalAlign: 'middle'}}>{user.mobileNo}</td>
-                                            <td style={{verticalAlign: 'middle'}}>{user.role}</td>
-                                            <td style={{verticalAlign: 'middle'}}>
-                                                <Button variant={"danger"} type={"submit"}
-                                                        onClick={this.deleteItem.bind(this, user.username)}>
-                                                    <FontAwesomeIcon icon={faTrashAlt}/>
-                                                </Button>
+                <div className={"table-wrapper"}>
+                    <div>
+                        <h3>Users</h3>
+                    </div>
+                    {/*<div className={"mb-2"}>*/}
+                    {/*    <Row>*/}
+                    {/*        <Col xl={5} lg={5}>*/}
+                    {/*            <InputGroup>*/}
+                    {/*                <InputGroup.Text bsPrefix={"input-search-icon"}>*/}
+                    {/*                    <FontAwesomeIcon icon={faSearch}/>*/}
+                    {/*                </InputGroup.Text>*/}
+                    {/*                <Form.Control type="text"*/}
+                    {/*                              placeholder="Search"*/}
+                    {/*                              required*/}
+                    {/*                              value={this.state.search}*/}
+                    {/*                              onChange={this.handleSearchInput} />*/}
+                    {/*            </InputGroup>*/}
+                    {/*        </Col>*/}
+                    {/*        <Col className={"text-end"}>*/}
+                    {/*            <button className={"filter-btn-student"}>STUDENT</button>*/}
+                    {/*            <button className={"filter-btn-teacher"}>TEACHERS</button>*/}
+                    {/*            <button className={"filter-btn-admin"}>ADMINS</button>*/}
+                    {/*        </Col>*/}
+                    {/*    </Row>*/}
+                    {/*</div>*/}
 
-                                            </td>
-                                        </tr>
-                                    )
-                                })
+                    <Table bordered responsive>
+                        <thead className={"table-custom-header"}>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Email Address</th>
+                            <th>Mobile Number</th>
+                            <th className={"text-center"}>Role</th>
+                            <th className={"text-center"}>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-                            ]
-                    }
+                        {
+                            User.length === 0 ?
+                                <tr align="center">
+                                    <td colSpan="6"><h6 className={"mt-3"}>No records at the moment</h6>
+                                    </td>
+                                </tr>
+
+                                : [
+                                    User.map(user => {
+                                        return (
+                                            <tr key={user.username}>
+                                                <td>{user.indexno}</td>
+                                                <td>{user.name}</td>
+                                                <td>{user.email}</td>
+                                                <td>{user.mobileNo}</td>
+                                                <td className={"text-center"}>
+                                                    <Badge bg={"dark"}>{user.role}</Badge>
+                                                </td>
+                                                <td className={"text-center"}>
+                                                    <Button variant={"danger"} type={"submit"}
+                                                            onClick={this.deleteItem.bind(this, user.indexno)}>
+                                                        <FontAwesomeIcon icon={faTrashAlt}/>
+                                                    </Button>
+
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+
+                                ]
+                        }
 
 
-                    </tbody>
-                </Table>
+                        </tbody>
+                    </Table>
+
+                </div>
             </div>
-
         )
 
 
