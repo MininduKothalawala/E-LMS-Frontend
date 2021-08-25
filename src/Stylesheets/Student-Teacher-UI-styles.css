@@ -1,0 +1,59 @@
+/*
+ * Common styling for landing pages of Student and teacher
+ */
+.st-wrapper {
+    padding: 30px 50px 50px;
+    margin: 0 50px 80px;
+}
+
+.st-title {
+    padding-bottom: 40px;
+    border-bottom: 4px solid var(--maize-crayola);
+    margin-bottom: 70px;
+}
+
+.st-title div {
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.st-class-card {
+    border: 3px solid var(--maize-crayola);
+    border-radius: 15px;
+    background-color: var(--white);
+    width: 19rem;
+}
+
+.st-class-card:hover {
+    box-shadow: 1px 1px 10px rgba(245, 203, 92, 0.8);
+}
+
+.st-card-header {
+    padding: 15px 20px 15px;
+    font-weight: 500;
+}
+
+.st-card-title {
+    font-weight: 500;
+    font-size: 30px;
+    margin-top: 10px;
+}
+
+.st-card-footer {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid var(--maize-crayola);
+}
+
+.st-card-badge {
+    background-color: var(--maize-crayola);
+    color: var(--jet);
+}
+
+.no-data-text {
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--jet);
+    text-align: center;
+    padding-top: 50px;
+}
