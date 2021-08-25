@@ -37,6 +37,12 @@ import ClassroomListStudent from "../Classroom/Classroom-List-Student";
 import Notices from "../Notice/Notices";
 import MainLibrary from "../Library/MainLibrary";
 
+import ClassroomDetailsAdmin from "../Classroom/Classroom-Details-Admin";
+import ClassroomDetailsTeacher from "../Classroom/Classroom-Details-Teacher";
+import ClassroomUpdate from "../Classroom/Classroom-Update";
+import ClassListAdmin from "../Classroom/Classroom-List-Admin";
+import ClassroomDetailsStudent from "../Classroom/Classroom-Details-Student";
+
 class Sidebar extends Component {
     constructor(props) {
         super(props);

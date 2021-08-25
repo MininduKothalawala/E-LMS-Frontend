@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Link, withRouter} from "react-router-dom";
 import axios from "axios";
 import {Container,Card,Row,Image} from "react-bootstrap";
+import pdf from "./pdf.png";
 
 
 class ClassroomListStudent extends Component {
@@ -27,7 +28,7 @@ class ClassroomListStudent extends Component {
     }
 
     gotoDetails = (id) => {
-        this.props.history.push(`/adminClassDetails/`+id)
+        this.props.history.push(`/studentClassDetails/`+id)
     }
 
     render() {
@@ -36,8 +37,8 @@ class ClassroomListStudent extends Component {
 
 
 
-                <div >
-                    <Card>
+            <div >
+                <Card>
                     <Container>
 
 
@@ -60,11 +61,12 @@ class ClassroomListStudent extends Component {
                                                                 <div><h5 className={"text-center"}>{event.grade}</h5>
                                                                     <h5 className={"text-center"}>{event.subject}</h5></div>
 
-                                                               <div><h2 className={"text-center"}> {event.topic}</h2></div>
+                                                                <div><h2 className={"text-center"}> {event.topic}</h2></div>
                                                                 <div><h4>By {event.addedBy}</h4></div>
-                                                              <div><p className={"text-center"}>Date : {event.date}</p>
-                                                                  <p className={"text-center"}>Time : {event.time}</p></div>
+                                                                <div><p className={"text-center"}>Date : {event.date}</p>
+                                                                    <p className={"text-center"}>Time : {event.time}</p></div>
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                 )
@@ -77,8 +79,8 @@ class ClassroomListStudent extends Component {
 
 
                     </Container>
-                    </Card>
-                </div>
+                </Card>
+            </div>
 
 
 
