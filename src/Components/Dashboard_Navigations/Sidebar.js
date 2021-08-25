@@ -523,7 +523,7 @@ class Sidebar extends Component {
                                 {/*------------------------------------------ LIBRARY -------------------------------------------*/}
 
                                 {/*********************** ADMIN ***********************/}
-                                { loadContent === 'library' &&
+                                { loggedAsAdmin && loadContent === 'library' &&
                                 <div>
                                     <ViewLibrary />
                                 </div>
