@@ -32,6 +32,10 @@ import AddNotice from "../Notice/AddNotice";
 import AddResource from "../Library/AddResource";
 import GettAllUsers from "../User/GettAllUsers";
 import SignUp from "../Login/Signup";
+import ClassroomListTeacher from "../Classroom/Classroom-List-Teacher";
+import ClassroomListStudent from "../Classroom/Classroom-List-Student";
+import Notices from "../Notice/Notices";
+import MainLibrary from "../Library/MainLibrary";
 
 class Sidebar extends Component {
     constructor(props) {
@@ -455,7 +459,7 @@ class Sidebar extends Component {
                                 {/*********************** TEACHER ***********************/}
                                 { loggedAsTeacher && loadContent === 'classroom' &&
                                 <div>
-                                    <ClassroomListAdmin />
+                                    <ClassroomListTeacher />
                                 </div>
                                 }
 
@@ -465,7 +469,7 @@ class Sidebar extends Component {
                                 {/*********************** STUDENT ***********************/}
                                 { loggedAsStudent && loadContent === 'classroom' &&
                                 <div>
-                                    <ClassroomListAdmin />
+                                    <ClassroomListStudent />
                                 </div>
                                 }
 
@@ -492,7 +496,7 @@ class Sidebar extends Component {
                                 {/*********************** TEACHER ***********************/}
                                 { loggedAsTeacher && loadContent === 'notice' &&
                                 <div>
-                                    <NoticeList />
+                                    <Notices />
                                 </div>
                                 }
 
@@ -502,7 +506,7 @@ class Sidebar extends Component {
                                 {/*********************** STUDENT ***********************/}
                                 { loggedAsStudent && loadContent === 'notice' &&
                                 <div>
-                                    <NoticeList />
+                                    <Notices />
                                 </div>
                                 }
 
@@ -529,7 +533,7 @@ class Sidebar extends Component {
                                 {/*********************** TEACHER ***********************/}
                                 { loggedAsTeacher && loadContent === 'library' &&
                                 <div>
-                                    <ViewLibrary />
+                                    <MainLibrary />
                                 </div>
                                 }
 
@@ -539,7 +543,7 @@ class Sidebar extends Component {
                                 {/*********************** STUDENT ***********************/}
                                 { loggedAsStudent && loadContent === 'library' &&
                                 <div>
-                                    <ViewLibrary />
+                                    <MainLibrary />
                                 </div>
                                 }
 
