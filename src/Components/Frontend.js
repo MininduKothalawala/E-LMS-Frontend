@@ -4,7 +4,6 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from "./Home/Home";
 import Sidebar from "./Dashboard_Navigations/Sidebar";
 import ViewLibrary from "./Library/ViewLibrary";
-import Dashboard from "./Dashboard/Dashboard";
 import Notices from "./Notice/Notices";
 import Login from "./Login/Login";
 import AddNotice from "./Notice/AddNotice";
@@ -23,27 +22,18 @@ import ClassroomListStudent from "./Classroom/Classroom-List-Student";
 
 class Frontend extends Component {
 
-    componentDidMount() {
-        console.log(window.location.pathname)
-    }
+    componentDidMount() { }
 
     render() {
         return(
             <div>
                 <Router>
 
-                    {/* Sidebar will not appear for home, login and register */}
-                    {
-                        window.location.pathname !== '/' &&
-                        window.location.pathname !== '/login' &&
-                        window.location.pathname !== '/register' &&
-                        <Sidebar/>
-                     }
-
                     <Switch>
                         <Route path="/" exact component={Home}/>
                         <Route path="/login" exact component={Login}/>
-                        <Route path="/dashboard" exact component={Dashboard}/>
+
+                        <Route path="/dashboard" exact component={Sidebar}/>
 
                         <Route path="/user" exact component={GettAllUsers}/>
                         <Route path="/user/add" exact component={SignUp}/>

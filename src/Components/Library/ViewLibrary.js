@@ -3,8 +3,8 @@ import {Badge, Button, ButtonGroup, Col, Form, InputGroup, Row, Table} from "rea
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import LibraryDataService from "./LibraryDataService";
-import "../../Stylesheets/Admin-Tables-styles.css"
 import {faFilePdf} from "@fortawesome/free-regular-svg-icons";
+import "../../Stylesheets/Admin-Tables-styles.css"
 
 class ViewLibrary extends Component {
     constructor(props) {
@@ -30,7 +30,7 @@ class ViewLibrary extends Component {
 
     refreshTable = () => {
         LibraryDataService.fetchLibraryResources()
-            .then( res => {
+            .then(res => {
                 console.log(res.data)
                 this.setState({
                     libraries: res.data
@@ -51,15 +51,15 @@ class ViewLibrary extends Component {
     }
 
     render() {
-        const { libraries } = this.state;
+        const {libraries} = this.state;
 
-        return(
+        return (
             <div>
 
                 <p>LIBRARY MANAGEMENT</p>
                 <div className={"table-wrapper"}>
                     <div>
-                        <h3>Resource List</h3>
+                        <h3>Library Resources</h3>
                     </div>
                     <div className={"mb-2"}>
                         <Row>
@@ -72,72 +72,72 @@ class ViewLibrary extends Component {
                                                   placeholder="Search"
                                                   required
                                                   value={this.state.search}
-                                                  onChange={this.handleSearchInput} />
+                                                  onChange={this.handleSearchInput}/>
                                 </InputGroup>
                             </Col>
                             <Col className={"text-end"}>
-                                    <button className={"filter-btn-guide"}>TEACHERS' GUIDE</button>
-                                    <button className={"filter-btn-syllabus"}>SYLLABUS</button>
+                                <button className={"filter-btn-guide"}>TEACHERS' GUIDE</button>
+                                <button className={"filter-btn-syllabus"}>SYLLABUS</button>
                             </Col>
                         </Row>
                     </div>
-                        <div>
-                                <Table responsive bordered>
-                                    <thead className={"table-custom-header"}>
-                                    <tr>
-                                        <th className={"text-center"}>File</th>
-                                        <th className={"text-center"}>Resource Type</th>
-                                        <th className={"text-center"}>Grade</th>
-                                        <th className={"text-center"}>Subject</th>
-                                        <th className={"text-center"}>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {
-                                        libraries.length === 0 ?
-                                            <tr align={"center"}>
-                                                <td colSpan={"6"}>No records at the moment</td>
-                                            </tr>
 
-                                            : [
-                                                libraries.map(library =>
-                                                    <tr key={library.id}>
-                                                        <td>
-                                                            <FontAwesomeIcon icon={faFilePdf} className={"table-pdf-icon"}/>
-                                                            <a href={`http://localhost:8080/` + library.fileId}>{library.fileName}</a>
-                                                        </td>
-                                                        <td className={"text-center"}>
-                                                            {library.resourceType === 'SYLLABUS' &&
-                                                            <Badge bg="warning" text="dark" className={"px-3 py-2"}
-                                                                   key={"0"}>SYLLABUS</Badge>
-                                                            }
-                                                            {library.resourceType === 'GUIDE' &&
-                                                            <Badge bg="success" className={"px-3 py-2"}
-                                                                   key={"0"}>TEACHERS' GUIDE</Badge>
-                                                            }
-                                                        </td>
-                                                        <td>{library.grade}</td>
-                                                        <td>{library.subject}</td>
-                                                        <td className={"text-center"}>
-                                                            <ButtonGroup>
-                                                                <Button variant={"warning"} type={"submit"}
-                                                                        onClick={() => this.editResource(library.id)}>
-                                                                    <FontAwesomeIcon icon={faEdit}/>
-                                                                </Button>
-                                                                <Button variant={"danger"} type={"submit"}
-                                                                        onClick={() => this.deleteResource(library.id)}>
-                                                                    <FontAwesomeIcon icon={faTrashAlt}/>
-                                                                </Button>
-                                                            </ButtonGroup>
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            ]
-                                    }
-                                    </tbody>
-                                </Table>
-                        </div>
-                    </div>
+                    <Table responsive bordered>
+                        <thead className={"table-custom-header"}>
+                        <tr>
+                            <th>File</th>
+                            <th>Resource Type</th>
+                            <th>Grade</th>
+                            <th>Subject</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            libraries.length === 0 ?
+                                <tr align={"center"}>
+                                    <td colSpan={"6"}>No records at the moment</td>
+                                </tr>
+
+                                : [
+                                    libraries.map(library =>
+                                        <tr key={library.id}>
+                                            <td>
+                                                <FontAwesomeIcon icon={faFilePdf} className={"table-pdf-icon"}/>
+                                                <a href={`http://localhost:8080/` + library.fileId}>{library.fileName}</a>
+                                            </td>
+                                            <td className={"text-center"}>
+                                                {library.resourceType === 'SYLLABUS' &&
+                                                <Badge bg="warning" text="dark" className={"px-3 py-2"}
+                                                       key={"0"}>SYLLABUS</Badge>
+                                                }
+                                                {library.resourceType === 'GUIDE' &&
+                                                <Badge bg="success" className={"px-3 py-2"}
+                                                       key={"0"}>TEACHERS' GUIDE</Badge>
+                                                }
+                                            </td>
+                                            <td>{library.grade}</td>
+                                            <td>{library.subject}</td>
+                                            <td className={"text-center"}>
+                                                <ButtonGroup>
+                                                    <Button variant={"warning"} type={"submit"}
+                                                            onClick={() => this.editResource(library.id)}>
+                                                        <FontAwesomeIcon icon={faEdit}/>
+                                                    </Button>
+                                                    <Button variant={"danger"} type={"submit"}
+                                                            onClick={() => this.deleteResource(library.id)}>
+                                                        <FontAwesomeIcon icon={faTrashAlt}/>
+                                                    </Button>
+                                                </ButtonGroup>
+                                            </td>
+                                        </tr>
+                                    )
+                                ]
+                        }
+                        </tbody>
+                    </Table>
+
+                </div>
             </div>
         )
     }
