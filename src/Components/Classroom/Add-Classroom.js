@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Accordion, Button, Card, Container, Form} from "react-bootstrap";
 import * as Swal from "sweetalert2";
 import ClassroomDataService from "./ClassroomDataService";
+import AuthenticationService from "../Login/AuthenticationService";
 
 class AddClassroom extends Component{
 
@@ -25,7 +26,7 @@ class AddClassroom extends Component{
             date:'',
             time : '',
             link: '',
-            addedBy :'',
+            username :'',
             lecFile : undefined,
             tuteFile : undefined,
             classImg : undefined,
@@ -33,12 +34,12 @@ class AddClassroom extends Component{
         }
     }
 
-    // componentDidMount() {
-    //     const loggedUser = AuthenticationService.loggedUserId();
-    //     this.setState({
-    //         username: loggedUser
-    //     });
-    // }
+    componentDidMount() {
+        const loggedUser = AuthenticationService.loggedUserName();
+        this.setState({
+            username: loggedUser
+        });
+    }
 
 
     // onChangeGrade(e){
@@ -138,7 +139,7 @@ class AddClassroom extends Component{
         const date = this.state.date;
         const time = this.state.time;
         const link = this.state.link;
-        const addedBy = this.state.addedBy;
+        const addedBy = this.state.username;
 
         const lecFile = this.state.lecFile[0];
         const tuteFile = this.state.tuteFile[0];
@@ -176,8 +177,8 @@ class AddClassroom extends Component{
                         icon: 'success',
                         title: 'Successful',
                         html: '<p>Your files has been uploaded!!</p>',
-                        background: '#041c3d',
-                        confirmButtonColor: '#3aa2e7',
+                        background: '#db900f',
+                        confirmButtonColor: '#dccd6a',
                         iconColor: '#60e004'
                     })
                     this.clearData();
@@ -205,7 +206,6 @@ class AddClassroom extends Component{
             date:'',
             time : '',
             link: '',
-            addedBy :'',
             lecFile : undefined,
             tuteFile : undefined,
             classImg : undefined
@@ -275,11 +275,7 @@ class AddClassroom extends Component{
 
 
 
-                            <Form.Group controlId={"classAdd"}>
-                                <Form.Label>AddedBy</Form.Label>
-                                <Form.Control as={"input"} name={"addedBy"} placeholder={"Enter a AddedBy"} required
-                                              value={addedBy} onChange={this.handleChange}/>
-                            </Form.Group>
+
 
 
 
