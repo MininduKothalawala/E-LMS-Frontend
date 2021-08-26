@@ -1,6 +1,12 @@
 import React, {Component} from "react";
 import axios from "axios";
 import {Link, withRouter} from 'react-router-dom';
+import {Badge, Button, ButtonGroup, Col, Form, InputGroup, Row, Table} from "react-bootstrap";
+import moment from "moment";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEdit, faExternalLinkAlt, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faFilePdf} from "@fortawesome/free-regular-svg-icons";
+import "../../Stylesheets/Admin-Tables-styles.css"
 
 
 class ClassroomListAdmin extends Component {
@@ -31,39 +37,76 @@ class ClassroomListAdmin extends Component {
 
     render() {
         return (
-
             <div>
-<table>
-    <thead>
-    <tr>
-        <th>Grade</th>
-        <th>Subject</th>
-        <th>Topic</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Added By</th>
-        <th>More Details</th>
-    </tr>
-    </thead>
 
-    <tbody>
-            {
-                this.state.classrooms.map(event =>
-                    <tr>
-                <td>{event.grade}</td>
-                <td>{event.subject}</td>
-                    <td>{event.topic}</td>
-                    <td>{event.date}</td>
-                    <td>{event.time}</td>
-                    <td>{event.addedBy}</td>
-                        <td><button key={event.id} onClick={() => this.gotoDetails(event.id)}>View More Details</button></td>
-                    </tr>
-                )
-            }
+                <p>CLASSROOM MANAGEMENT</p>
+                <div className={"table-wrapper"}>
+                    <div>
+                        <h3>Classrooms</h3>
+                    </div>
+                    {/*<div className={"mb-2"}>*/}
+                    {/*    <Row>*/}
+                    {/*        <Col xl={5} lg={5}>*/}
+                    {/*            <InputGroup>*/}
+                    {/*                <InputGroup.Text bsPrefix={"input-search-icon"}>*/}
+                    {/*                    <FontAwesomeIcon icon={faSearch}/>*/}
+                    {/*                </InputGroup.Text>*/}
+                    {/*                <Form.Control type="text"*/}
+                    {/*                              placeholder="Search"*/}
+                    {/*                              required*/}
+                    {/*                              value={this.state.search}*/}
+                    {/*                              onChange={this.handleSearchInput}/>*/}
+                    {/*            </InputGroup>*/}
+                    {/*        </Col>*/}
+                    {/*        <Col className={"text-end"}>*/}
+                    {/*            <button className={"filter-btn-guide"}>TEACHERS' GUIDE</button>*/}
+                    {/*            <button className={"filter-btn-syllabus"}>SYLLABUS</button>*/}
+                    {/*        </Col>*/}
+                    {/*    </Row>*/}
+                    {/*</div>*/}
 
+                    <Table responsive bordered>
+                        <thead className={"table-custom-header"}>
+                        <tr>
+                            <th>Grade</th>
+                            <th>Subject</th>
+                            <th>Topic</th>
+                            <th className={"text-center"}>Date</th>
+                            <th className={"text-center"}>Time</th>
+                            <th className={"text-center"}>Added By</th>
+                            <th className={"text-center"}>More Details</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            this.state.classrooms.length === 0 ?
+                                <tr align={"center"}>
+                                    <td colSpan={"6"}>No records at the moment</td>
+                                </tr>
 
-    </tbody>
-</table>
+                                : [
+                                    this.state.classrooms.map(event =>
+                                        <tr key={event.id}>
+                                            <td>{event.grade}</td>
+                                            <td>{event.subject}</td>
+                                            <td>{event.topic}</td>
+                                            <td className={"text-center"}>{moment(event.date).format('YYYY-MM-DD')}</td>
+                                            <td className={"text-center"}>{event.time}</td>
+                                            <td className={"text-center"}>
+                                                <Badge bg={"success"} className={"user-badge"}>{event.addedBy}</Badge>
+                                            </td>
+                                            <td className={"text-center"}>
+                                                <Button className={"class-view-more-btn"} key={event.id} onClick={() => this.gotoDetails(event.id)}><FontAwesomeIcon icon={faExternalLinkAlt}/></Button>
+                                            </td>
+                                        </tr>
+                                    )
+                                ]
+                        }
+                        </tbody>
+                    </Table>
+
+                </div>
+
             </div>
         )
     }

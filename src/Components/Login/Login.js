@@ -1,16 +1,22 @@
 import React, {Component} from 'react';
-import {Form, Button, Card} from 'react-bootstrap';
+import {Form, Button, Card, Row, Image, Container, InputGroup} from 'react-bootstrap';
 import AuthenticationService from './AuthenticationService';
 import AthenticationDataService from './AuthenticationDataService';
 import {withRouter} from 'react-router-dom';
 import Swal from "sweetalert2";
+import logo from "../../Assets/elms-logo-black-vertical.svg";
+import top_design from "../../Assets/login-upper-design.svg";
+import rectangle from "../../Assets/Rectangle-footer.svg";
+import {faEnvelope, faLock, faSearch, faTrashAlt, faUser} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import "../../Stylesheets/Login.css"
 
 class Login extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            indexno: '',
             password: '',
             hasLoginFailed: false,
             showSuccessMsg: false
@@ -26,7 +32,7 @@ class Login extends Component {
     }
 
     loginClicked() {
-        if (this.state.username === '' || this.state.password === '') {
+        if (this.state.indexno === '' || this.state.password === '') {
             Swal.fire({
                 icon: 'warning',
                 title: 'Fileds cannot be empty',
@@ -35,18 +41,18 @@ class Login extends Component {
                 iconColor: '#e0b004'
             })
         } else {
-            AthenticationDataService.getUser(this.state.username)
+            AthenticationDataService.getUser(this.state.indexno)
                 .then(
                     response => {
                         console.log(response.data)
                         if (response.data != null) {
                             if (this.state.password === response.data.password) {
-                                AuthenticationService.successfulLogin(response.data.username, response.data.name, response.data.role)
+                                AuthenticationService.successfulLogin(response.data.indexno, response.data.name, response.data.role)
                                 this.props.history.push("/dashboard")
                             } else {
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Wrong username or password',
+                                    title: 'Wrong indexno or password',
                                     background: '#041c3d',
                                     iconColor: '#e00404',
                                     confirmButtonColor: '#3aa2e7'
@@ -55,7 +61,7 @@ class Login extends Component {
                         } else {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Wrong username or password',
+                                title: 'Wrong indexno or password',
                                 background: '#041c3d',
                                 iconColor: '#e00404',
                                 confirmButtonColor: '#3aa2e7'
@@ -69,34 +75,56 @@ class Login extends Component {
 
     render() {
         return (
-            <Card style={{border: 'none'}}>
-                <Card.Body>
+            <div className={"bg-login"}>
+                <Row>
+                    <Image src={top_design} />
+                </Row>
+                <Row className={"my-5"}>
+                    <Image src={logo} height={170}/>
+                </Row>
+                <Container className={"px-4"}>
                     <Form>
-                        <div className={"mb-3"}>
-                            <label htmlFor="userId" className="grey-text">
-                                User ID
-                            </label>
-                            <input type="text" name="username" className="form-control" placeholder={"ex: John Mayer"}
-                                   value={this.state.username} required onChange={this.handleChange}/>
-                        </div>
+                        <Form.Group controlId={"userId"} >
+                            <InputGroup>
+                                <InputGroup.Text bsPrefix={"input-login-icon"}>
+                                    <FontAwesomeIcon icon={faUser}/>
+                                </InputGroup.Text>
+                                <Form.Control type={"text"}
+                                              name={"indexno"}
+                                              placeholder={"User ID"}
+                                              required
+                                              value={this.state.indexno}
+                                              onChange={this.handleChange}
+                                              className={"form-control-login"}/>
+                            </InputGroup>
+                        </Form.Group>
 
-                        <div className={"mb-3"}>
-                            <label htmlFor="password" className="grey-text">
-                                Password
-                            </label>
-                            <input type="password" name="password" className="form-control" placeholder="Password"
-                                   value={this.state.password} required onChange={this.handleChange}/>
-                        </div>
+                        <Form.Group controlId={"password"} className={"mt-4"}>
+                            <InputGroup>
+                                <InputGroup.Text bsPrefix={"input-login-icon"}>
+                                    <FontAwesomeIcon icon={faLock}/>
+                                </InputGroup.Text>
+                                <Form.Control type={"password"}
+                                              name={"password"}
+                                              placeholder={"Password"}
+                                              required
+                                              value={this.state.password}
+                                              onChange={this.handleChange}
+                                              className={"form-control-login"}/>
+                            </InputGroup>
+                        </Form.Group>
 
-                        <div className={"mb-3 mt-4"}>
-                            <Button variant={"primary"} name={"signup"} block onClick={this.loginClicked}
-                                    style={{fontSize: 20, borderRadius: '0'}} className={"py-3"}>Login</Button>
+                        <div className={"text-center"}>
+                            <Button name={"signup"} onClick={this.loginClicked}
+                                    className={"login-form-btn"}>Login</Button>
                         </div>
                     </Form>
-                </Card.Body>
-            </Card>
+                </Container>
+                <Row className={"mt-5"}>
+                    <Image src={rectangle} />
+                </Row>
+            </div>
         );
     }
 }
-
 export default withRouter(Login);

@@ -75,11 +75,13 @@ th {
     margin-left: 10px;
     margin-right: 20px;
 }
+.user-badge {
+    font-size: 15px;
+}
 
 .user-badge {
     font-size: 14px;
 }
-
 
 /*.class-view-more-btn{*/
 /*    border: 3px solid var(--maize-crayola);*/

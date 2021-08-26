@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {Badge, Button, ButtonGroup, Table} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faDownload, faEdit, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import LibraryDataService from "./LibraryDataService";
 import {faFilePdf} from "@fortawesome/free-regular-svg-icons";
-import "../../Stylesheets/Admin-Tables-styles.css";
+import "../../Stylesheets/Admin-Tables-styles.css"
+import ClassroomDataService from "../Classroom/ClassroomDataService";
 
 class ViewLibrary extends Component {
     constructor(props) {
@@ -38,17 +39,35 @@ class ViewLibrary extends Component {
             })
     }
 
-    // editResource = (id) => {
-    //
-    // }
-    //
-    // deleteResource = (id) => {
-    //
-    // }
-    //
-    // searchResource = (e) => {
-    //
-    // }
+    downloadResource = (e, fileId, fileName) => {
+        e.preventDefault();
+
+        LibraryDataService.downloadResource(fileId)
+            .then(res => {
+                console.log(res)
+                const downloadUrl = window.URL.createObjectURL(new Blob([res.data]));
+                const link = document.createElement("a");
+                link.href = downloadUrl;
+                link.setAttribute('download', fileName);
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+            })
+    }
+
+
+
+    editResource = (id) => {
+
+    }
+
+    deleteResource = (id) => {
+
+    }
+
+    searchResource = (e) => {
+
+    }
 
     render() {
         const {libraries} = this.state;
@@ -127,6 +146,10 @@ class ViewLibrary extends Component {
                                                     <Button variant={"danger"} type={"submit"}
                                                             onClick={() => this.deleteResource(library.id)}>
                                                         <FontAwesomeIcon icon={faTrashAlt}/>
+                                                    </Button>
+                                                    <Button variant={"danger"} type={"submit"}
+                                                            onClick={(e) => this.downloadResource(e,library.id, library.fileName)}>
+                                                        <FontAwesomeIcon icon={faDownload}/>
                                                     </Button>
                                                 </ButtonGroup>
                                             </td>
