@@ -3,13 +3,8 @@ import axios from "axios";
 import {Button, Col, Form, InputGroup, Row, Table} from "react-bootstrap";
 import swal from "sweetalert";
 import {faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
-import "../../Stylesheets/Admin-Tables-styles.css"
-
-class FontAwesomeIcon extends Component {
-    render() {
-        return null;
-    }
-}
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import "../../Stylesheets/Admin-Tables-styles.css";
 
 class NoticeList extends Component {
 
@@ -77,7 +72,7 @@ class NoticeList extends Component {
                             <th>Grade</th>
                             <th>Topic</th>
                             <th>Body</th>
-                            <th>Action</th>
+                            <th className={"text-center"}>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -97,13 +92,12 @@ class NoticeList extends Component {
                                                 <td>{notice.noticeSubject}</td>
                                                 <td>{notice.noticeGrade}</td>
                                                 <td>{notice.noticeTopic}</td>
-                                                <td>{notice.noticeBody}</td>
-                                                <td>
+                                                <td width={"500px"}>{notice.noticeBody}</td>
+                                                <td className={"text-center"}>
                                                     <Button variant={"danger"} type={"submit"}
                                                             onClick={this.deleteItem.bind(this, notice.noticeId)}>
                                                         <FontAwesomeIcon icon={faTrashAlt}/>
                                                     </Button>
-
                                                 </td>
                                             </tr>
                                         )

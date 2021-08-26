@@ -238,7 +238,7 @@ class Sidebar extends Component {
                             {/*----------------- Sidebar Navigation Tabs -----------------*/}
                             <div className={"sidebar-middle"}>
                                 <ListGroup variant="flush">
-                                    { loggedAsAdmin &&
+                                    { isUserLoggedIn &&
                                     <Link className={"dashboard-links"}>
                                         <ListGroupItem active={dashboard}
                                                        onClick={() => this.listItemActive("dashboard")}>
