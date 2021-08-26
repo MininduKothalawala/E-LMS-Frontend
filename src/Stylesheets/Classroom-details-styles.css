@@ -39,9 +39,9 @@
     border-radius: 10px;
 }
 
-.download-icon-btn:hover {
-    box-shadow: 1px 1px 10px rgba(245, 203, 92, 0.8);
-}
+/*.download-icon-btn:hover {*/
+/*    box-shadow: 1px 1px 10px rgba(245, 203, 92, 0.8);*/
+/*}*/
 
 .detail-box-title, .detail-box-title-secondary {
     font-weight: 800;
