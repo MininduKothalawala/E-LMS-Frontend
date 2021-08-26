@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Badge, Button, ButtonGroup, Col, Form, InputGroup, Row, Table} from "react-bootstrap";
+import {Badge, Button, ButtonGroup, Table} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faDownload, faEdit, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import LibraryDataService from "./LibraryDataService";
@@ -80,35 +80,35 @@ class ViewLibrary extends Component {
                     <div>
                         <h3>Library Resources</h3>
                     </div>
-                    <div className={"mb-2"}>
-                        <Row>
-                            <Col xl={5} lg={5}>
-                                <InputGroup>
-                                    <InputGroup.Text bsPrefix={"input-search-icon"}>
-                                        <FontAwesomeIcon icon={faSearch}/>
-                                    </InputGroup.Text>
-                                    <Form.Control type="text"
-                                                  placeholder="Search"
-                                                  required
-                                                  value={this.state.search}
-                                                  onChange={this.handleSearchInput}/>
-                                </InputGroup>
-                            </Col>
-                            <Col className={"text-end"}>
-                                <button className={"filter-btn-guide"}>TEACHERS' GUIDE</button>
-                                <button className={"filter-btn-syllabus"}>SYLLABUS</button>
-                            </Col>
-                        </Row>
-                    </div>
+                    {/*<div className={"mb-2"}>*/}
+                    {/*    <Row>*/}
+                    {/*        <Col xl={5} lg={5}>*/}
+                    {/*            <InputGroup>*/}
+                    {/*                <InputGroup.Text bsPrefix={"input-search-icon"}>*/}
+                    {/*                    <FontAwesomeIcon icon={faSearch}/>*/}
+                    {/*                </InputGroup.Text>*/}
+                    {/*                <Form.Control type="text"*/}
+                    {/*                              placeholder="Search"*/}
+                    {/*                              required*/}
+                    {/*                              value={this.state.search}*/}
+                    {/*                              onChange={this.handleSearchInput}/>*/}
+                    {/*            </InputGroup>*/}
+                    {/*        </Col>*/}
+                    {/*        <Col className={"text-end"}>*/}
+                    {/*            <button className={"filter-btn-guide"}>TEACHERS' GUIDE</button>*/}
+                    {/*            <button className={"filter-btn-syllabus"}>SYLLABUS</button>*/}
+                    {/*        </Col>*/}
+                    {/*    </Row>*/}
+                    {/*</div>*/}
 
                     <Table responsive bordered>
                         <thead className={"table-custom-header"}>
                         <tr>
-                            <th>File</th>
-                            <th>Resource Type</th>
+                            <th className={"text-center"}>File</th>
+                            <th className={"text-center"}>Resource Type</th>
                             <th>Grade</th>
                             <th>Subject</th>
-                            <th>Action</th>
+                            <th className={"text-center"}>Action</th>
                         </tr>
                         </thead>
                         <tbody>

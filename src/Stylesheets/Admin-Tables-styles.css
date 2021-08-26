@@ -29,7 +29,7 @@ td {
 }
 
 th {
-    text-align: center;
+    text-align: left;
 }
 
 .filter-btn-syllabus, .filter-btn-guide, .filter-btn-admin, .filter-btn-teacher, .filter-btn-student {
@@ -53,14 +53,16 @@ th {
 }
 
 .view-more-btn {
-
-    border: 3px solid var(--maize-crayola);
-
+    padding: 8px 30px;
+    border: 2px solid var(--alabaster);
+    font-weight: 500;
     background-color: var(--white);
+    width: 200px;
+    border-radius: 5px;
 }
 
 .view-more-btn:hover {
-    background-color: var(--maize-crayola);
+    background-color: var(--alabaster);
 }
 
 .input-search-icon {
@@ -77,33 +79,37 @@ th {
     font-size: 15px;
 }
 
-.class-view-more-btn{
-    border: 3px solid var(--maize-crayola);
-    margin-right: 10px;
-    background-color: var(--maize-crayola);
+.user-badge {
+    font-size: 14px;
 }
-.class-view-more-btn:hover{
-    border: 3px solid var(--maize-crayola);
-    color: var(--maize-crayola);
-    background-color: var(--white);
-}
-.class-delete-btn{
-    border: 3px solid var(--bs-red);
-    margin-right: 10px;
-    background-color: var(--bs-red);
-}
-.class-delete-btn:hover{
-    border: 3px solid var(--bs-red);
-    color: var(--bs-red);
-    background-color: var(--white);
-}
-.class-edit-btn{
-    border: 3px solid var(--bs-blue);
-    margin-right: 10px;
-    background-color: var(--bs-blue);
-}
-.class-edit-btn:hover{
-    border: 3px solid var(--bs-blue);
-    color: var(--bs-blue);
-    background-color: var(--white);
-}
+
+/*.class-view-more-btn{*/
+/*    border: 3px solid var(--maize-crayola);*/
+/*    margin-right: 10px;*/
+/*    background-color: var(--maize-crayola);*/
+/*}*/
+/*.class-view-more-btn:hover{*/
+/*    border: 3px solid var(--maize-crayola);*/
+/*    color: var(--maize-crayola);*/
+/*    background-color: var(--white);*/
+/*}*/
+/*.class-delete-btn{*/
+/*    border: 3px solid var(--bs-red);*/
+/*    margin-right: 10px;*/
+/*    background-color: var(--bs-red);*/
+/*}*/
+/*.class-delete-btn:hover{*/
+/*    border: 3px solid var(--bs-red);*/
+/*    color: var(--bs-red);*/
+/*    background-color: var(--white);*/
+/*}*/
+/*.class-edit-btn{*/
+/*    border: 3px solid var(--bs-blue);*/
+/*    margin-right: 10px;*/
+/*    background-color: var(--bs-blue);*/
+/*}*/
+/*.class-edit-btn:hover{*/
+/*    border: 3px solid var(--bs-blue);*/
+/*    color: var(--bs-blue);*/
+/*    background-color: var(--white);*/
+/*}*/
