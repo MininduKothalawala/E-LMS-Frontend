@@ -2,15 +2,22 @@ import React, {Component} from "react";
 import axios from "axios";
 import moment from "moment";
 import ClassroomDataService from "./ClassroomDataService";
-import pdfImg from "./pdf.png";
-import tuteImg from "./tute.png"
+// import pdfImg from "../../Assets/pdf.png";
+// import tuteImg from "../../Assets/tute.png";
+import pdf from "../../Assets/pdf.svg";
+import word from "../../Assets/word.svg";
+import "../../Stylesheets/Classroom-details-styles.css";
+import {Button, Col, Image, Row} from "react-bootstrap";
+import {faDownload} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
 class ClassroomDetailsTeacher extends Component{
 
     constructor(props){
         super(props);
 
         this.state = {
-            id: this.props.match.params.id,
+            id: props.classId,
             grade : '',
             subject:'',
             topic : '',
@@ -19,16 +26,11 @@ class ClassroomDetailsTeacher extends Component{
             time : '',
             link: '',
             addedBy :'',
-            // lecFile : undefined,
-            // tuteFile : undefined,
-            // classImg : undefined,
             isChecked: false,
             lec_filename : undefined,
             lec_fileId : undefined,
             tute_filename : undefined,
             tute_fileId : undefined,
-            classImg : undefined,
-            // isChecked: false
             img_filename: undefined,
             img_fileId : undefined
 
@@ -89,8 +91,6 @@ class ClassroomDetailsTeacher extends Component{
                     tute_filename:response.data.tute_filename,
                     tute_fileId : response.data.tute_fileId,
                     img_fileId : response.data.img_fileId
-                    //lecFile:response.data.lecFile,
-
                 })
 
             })
@@ -103,99 +103,77 @@ class ClassroomDetailsTeacher extends Component{
 
     render() {
 
-        const {id, grade, subject, topic,description, date, time, link, addedBy, classImg, lec_fileId,lec_filename, tute_filename, tute_fileId} = this.state
+        const {id, grade, subject, topic,description, date, time, link, addedBy, img_fileId, lec_fileId,lec_filename, tute_filename, tute_fileId} = this.state
 
         return(
-
-
-
-            <div >
-
-                <div>
-                    <h5>Classroom Details</h5>
-                </div>
-                <hr/>
-
-
-
-
-                <div>
-                    <h6>Grade</h6>
-                    <p>{grade}</p>
+            <div className={"wrapper-div"}>
+                <div className={"text-center"}>
+                    <Image className={"detail-class-img"}
+                           src={`http://localhost:8080/classroom/image/${img_fileId}`} />
                 </div>
 
-                <div >
-                    <h6>Subject</h6>
-                    <p >{subject}</p>
+                <div className={"detail-box-section"}>
+                    <div className={"detail-group-left-title"}>Grade</div>
+                    <div className={"detail-group-right-text"}>{grade}</div>
                 </div>
 
-                <div>
-                    <h6>Topic</h6>
-                    <p>{topic}</p>
+                <div className={"detail-box-section"}>
+                    <div className={"detail-group-left-title"}>Subject</div>
+                    <div className={"detail-group-right-text"}>{subject}</div>
                 </div>
 
-                <div>
-                    <h6>Description</h6>
-                    <p>{description}</p>
+                <div className={"detail-box-section"}>
+                    <div className={"detail-group-left-title"}>Topic</div>
+                    <div className={"detail-group-right-text"}>{topic}</div>
                 </div>
 
-                <div>
-                    <h6>Date</h6>
-                    <p>{moment(date).format("MMMM DD, YYYY")}</p>
+                <div className={"detail-box-secondary-section"}>
+                    <div className={"detail-box-title-secondary"}>Description</div>
+                    <div className={"detail-box-text"}>{description}</div>
                 </div>
 
-                <div>
-                    <h6>Time</h6>
-                    <p>{time}</p>
+                <div className={"detail-box-section"}>
+                    <div className={"detail-group-left-title"}>Date</div>
+                    <div className={"detail-group-right-text"}>{moment(date).format("MMMM DD, YYYY")}</div>
                 </div>
 
-                <div>
-                    <h6>Link</h6>
-                    <p>  <a href={link}>{link}</a></p>
-
-
+                <div className={"detail-box-section"}>
+                    <div className={"detail-group-left-title"}>Time</div>
+                    <div className={"detail-group-right-text"}>{time}</div>
                 </div>
 
-                <div className={"text-left image-card"}>
-                    <h6>Lecture</h6>
-                    <img alt={"card-background-image"} width={150} height={200}
-                         src={pdfImg}/>
+                <div className={"detail-box-section"}>
+                    <div className={"detail-group-left-title"}>Link</div>
+                    <div className={"detail-group-right-text"}><a href={link}>{link}</a></div>
                 </div>
 
-                <button variant={"success"} type={"submit"}
-                        onClick={(e) => this.handleDownloadLec(e, lec_filename, lec_fileId)}>Download Lecture
-
-                </button>
-
-                <div className={"text-right image-card"}>
-                    <h6>Tutorial</h6>
-                    <img alt={"card-background-image"} width={150} height={200}
-                         src={tuteImg}/>
+                <div className={"detail-box-section"}>
+                    <div className={"detail-group-left-title"}>Added By</div>
+                    <div className={"detail-group-right-text"}>{addedBy}</div>
                 </div>
 
-
-                <button variant={"success"} type={"submit"}
-                        onClick={(e) => this.handleDownloadTute(e, tute_filename, tute_fileId)}>Download Tute
-
-                </button>
-
-
-
-
-
-
-
-
-
-
-
-
+                <Row className={"px-3"}>
+                    <div className={"detail-box-title mb-5 px-0"}>Download</div>
+                    <Col className={"text-center"} xl={3}>
+                        <div className={"download-icon-btn py-3 mb-2"}>
+                            <Image src={pdf} width={75} />
+                        </div>
+                        <Button variant={"success"} type={"submit"}
+                                onClick={(e) => this.handleDownloadLec(e, lec_filename, lec_fileId)}>
+                            <FontAwesomeIcon icon={faDownload}/> &nbsp;Lecture
+                        </Button>
+                    </Col>
+                    <Col className={"text-center"} xl={3}>
+                        <div className={"download-icon-btn py-3 mb-2"}>
+                            <Image src={word} width={75} />
+                        </div>
+                        <Button variant={"success"} type={"submit"}
+                                onClick={(e) => this.handleDownloadTute(e, tute_filename, tute_fileId)}>
+                            <FontAwesomeIcon icon={faDownload}/> &nbsp;&nbsp; Tute
+                        </Button>
+                    </Col>
+                </Row>
             </div>
-
-
-
-
-
 
         )
     }

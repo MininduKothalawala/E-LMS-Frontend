@@ -1,12 +1,14 @@
 import React, {Component} from "react";
 import axios from "axios";
 import {Link, withRouter} from 'react-router-dom';
-import {Badge, Button, ButtonGroup, Col, Form, InputGroup, Row, Table} from "react-bootstrap";
+import {Badge, Button, ButtonGroup, CloseButton, Col, Form, InputGroup, Modal, Row, Table} from "react-bootstrap";
 import moment from "moment";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faExternalLinkAlt, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {faFilePdf} from "@fortawesome/free-regular-svg-icons";
 import "../../Stylesheets/Admin-Tables-styles.css"
+import Login from "../Login/Login";
+import ClassroomDetailsAdmin from "./Classroom-Details-Admin";
 
 
 class ClassroomListAdmin extends Component {
@@ -16,7 +18,8 @@ class ClassroomListAdmin extends Component {
 
         this.state = {
             id: '',
-            classrooms: []
+            classrooms: [],
+            show: false
         }
     }
     componentDidMount() {
@@ -32,7 +35,22 @@ class ClassroomListAdmin extends Component {
     }
 
     gotoDetails = (id) => {
-        this.props.history.push(`/adminClassDetails/`+id)
+        // set show:true so the modal box will be visible
+        // set id to pass it to the next component through props,
+
+        this.setState({
+            id: id,
+            show: true
+        })
+    }
+
+    //Modal box
+    showModalBox = () => {
+        this.setState({show: true})
+    }
+    //Modal box
+    closeModalBox = () => {
+        this.setState({show: false})
     }
 
     render() {
@@ -96,7 +114,9 @@ class ClassroomListAdmin extends Component {
                                                 <Badge bg={"success"} className={"user-badge"}>{event.addedBy}</Badge>
                                             </td>
                                             <td className={"text-center"}>
-                                                <Button className={"class-view-more-btn"} key={event.id} onClick={() => this.gotoDetails(event.id)}><FontAwesomeIcon icon={faExternalLinkAlt}/></Button>
+                                                <Button variant={"primary"} key={event.id} onClick={() => this.gotoDetails(event.id)}>
+                                                    <FontAwesomeIcon icon={faExternalLinkAlt}/>
+                                                </Button>
                                             </td>
                                         </tr>
                                     )
@@ -106,6 +126,19 @@ class ClassroomListAdmin extends Component {
                     </Table>
 
                 </div>
+
+
+                {/*------------------------ Modal Box for ViewMore Page ------------------------*/}
+                <Modal show={this.state.show} onHide={this.closeModalBox} centered fullscreen={"sm-down"} size={"lg"}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Classroom Details</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className={"custom-modal-body-login p-0"}>
+                        <ClassroomDetailsAdmin classId={this.state.id} />
+                    </Modal.Body>
+                </Modal>
+                {/*------------------------------------------------------------------------------*/}
+
 
             </div>
         )
