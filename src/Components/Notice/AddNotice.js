@@ -21,6 +21,7 @@ class AddNotice extends Component {
             noticeGrade: '',
             noticeTopic: '',
             noticeBody: '',
+            enteredTime: '',
             grades: [],
             subjects: [],
             isDisabled: true
@@ -50,7 +51,8 @@ class AddNotice extends Component {
             noticeSubject: this.state.noticeSubject,
             noticeGrade: this.state.noticeGrade,
             noticeTopic: this.state.noticeTopic,
-            noticeBody: this.state.noticeBody
+            noticeBody: this.state.noticeBody,
+            enteredTime: new Date().toLocaleString()
         }
 
         console.log(notices);

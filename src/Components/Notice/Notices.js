@@ -69,7 +69,7 @@
 // export default Notices;
 
 import React, {Component} from 'react';
-import {Badge, Card, Col, Container, Form, Row} from "react-bootstrap";
+import {Badge, Button, Card, Col, Container, Form, Row} from "react-bootstrap";
 import axios from "axios";
 import {faCalendarAlt, faMapMarkerAlt, faMoneyBill} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -83,11 +83,18 @@ class Notices extends Component {
 
         this.state = {
             id: '',
-            notices: []
+            notices: [],
+            grades: [],
+            filterGrade: ''
         }
     }
 
     componentDidMount() {
+        this.refreshNotices();
+        this.getSubjectList();
+    }
+
+    refreshNotices = () =>{
         axios.get(`http://localhost:8080/Notice/`)
             .then(response => {
                 console.log(response.data)
@@ -99,7 +106,31 @@ class Notices extends Component {
             })
     }
 
-    render() {
+    noticeFilterHandler = (e) =>{
+        this.setState({filterGrade: e.target.value});
+
+        axios.get(`http://localhost:8080/Notice/grade/${e.target.value}`)
+            .then(response => {
+                console.log(response.data)
+                this.setState({notices: response.data})
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    getSubjectList = () =>{
+        axios.get("http://localhost:8080/Subject/").then(
+            response =>{
+                this.setState({
+                    grades: response.data
+                })
+            }
+        )
+    }
+
+
+        render() {
         return(
             <div className={"st-wrapper"}>
                 <Row className={"st-title mx-0"}>
@@ -107,21 +138,24 @@ class Notices extends Component {
                         <div className={"tab-title"}>NOTICES</div>
                     </Col>
 
-                    {/*--------------------------- Search ---------------------------*/}
-                    {/*<Col className={"px-0"} xl={3}>*/}
-                    {/*    <Form>*/}
-                    {/*        <Form.Group controlId={"formResourceGrade"}>*/}
-                    {/*            <Form.Select>*/}
-                    {/*                <option>Select grade</option>*/}
-                    {/*                <option value={1}>Grade 1</option>*/}
-                    {/*                <option value={2}>Grade 2</option>*/}
-                    {/*                <option value={3}>Grade 3</option>*/}
-                    {/*                <option value={4}>Grade 4</option>*/}
-                    {/*                <option value={5}>Grade 5</option>*/}
-                    {/*            </Form.Select>*/}
-                    {/*        </Form.Group>*/}
-                    {/*    </Form>*/}
-                    {/*</Col>*/}
+                    <Col className={"px-0"} xl={3}>
+                        <Form.Group as={Col} controlId={"formNoticeGrade"}>
+                            <Form.Select onChange={this.noticeFilterHandler}>
+                                {
+                                    this.state.grades.map(item =>
+                                        <option value={item.grade}>{item.grade}</option>
+                                    )
+                                }
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+
+                    <Col>
+                        <Button variant={"outline-success"}
+                                onClick={this.refreshNotices}>
+                            Clear Filter
+                        </Button>
+                    </Col>
                 </Row>
 
                 {/*--------------------------- Card Deck ---------------------------*/}
