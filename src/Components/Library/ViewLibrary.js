@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {Badge, Button, ButtonGroup, Table} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDownload, faEdit, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faArrowDown, faEdit, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import LibraryDataService from "./LibraryDataService";
 import {faFilePdf} from "@fortawesome/free-regular-svg-icons";
 import "../../Stylesheets/Admin-Tables-styles.css"
-import ClassroomDataService from "../Classroom/ClassroomDataService";
 
 class ViewLibrary extends Component {
     constructor(props) {
@@ -21,13 +20,13 @@ class ViewLibrary extends Component {
         this.refreshTable();
     }
 
-    handleSearchInput = (event) => {
-        event.preventDefault();
-
-        this.setState({
-            search: event.target.value
-        })
-    }
+    // handleSearchInput = (event) => {
+    //     event.preventDefault();
+    //
+    //     this.setState({
+    //         search: event.target.value
+    //     })
+    // }
 
     refreshTable = () => {
         LibraryDataService.fetchLibraryResources()
@@ -57,17 +56,17 @@ class ViewLibrary extends Component {
 
 
 
-    editResource = (id) => {
-
-    }
-
-    deleteResource = (id) => {
-
-    }
-
-    searchResource = (e) => {
-
-    }
+    // editResource = (id) => {
+    //
+    // }
+    //
+    // deleteResource = (id) => {
+    //
+    // }
+    //
+    // searchResource = (e) => {
+    //
+    // }
 
     render() {
         const {libraries} = this.state;
@@ -123,7 +122,7 @@ class ViewLibrary extends Component {
                                         <tr key={library.id}>
                                             <td>
                                                 <FontAwesomeIcon icon={faFilePdf} className={"table-pdf-icon"}/>
-                                                <a href={`http://localhost:8080/` + library.fileId}>{library.fileName}</a>
+                                                {library.fileName}
                                             </td>
                                             <td className={"text-center"}>
                                                 {library.resourceType === 'SYLLABUS' &&
@@ -139,6 +138,10 @@ class ViewLibrary extends Component {
                                             <td>{library.subject}</td>
                                             <td className={"text-center"}>
                                                 <ButtonGroup>
+                                                    <Button variant={"success"} type={"submit"}
+                                                            onClick={(event) => this.downloadResource(event, library.fileId, library.fileName)}>
+                                                        <FontAwesomeIcon icon={faArrowDown}/>
+                                                    </Button>
                                                     <Button variant={"warning"} type={"submit"}
                                                             onClick={() => this.editResource(library.id)}>
                                                         <FontAwesomeIcon icon={faEdit}/>
@@ -146,10 +149,6 @@ class ViewLibrary extends Component {
                                                     <Button variant={"danger"} type={"submit"}
                                                             onClick={() => this.deleteResource(library.id)}>
                                                         <FontAwesomeIcon icon={faTrashAlt}/>
-                                                    </Button>
-                                                    <Button variant={"danger"} type={"submit"}
-                                                            onClick={(e) => this.downloadResource(e,library.id, library.fileName)}>
-                                                        <FontAwesomeIcon icon={faDownload}/>
                                                     </Button>
                                                 </ButtonGroup>
                                             </td>
