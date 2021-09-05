@@ -113,14 +113,18 @@ class gettAllUsers extends Component {
                             email: res.data.email,
                             mobile_no: res.data.mobile_no,
                             role: res.data.role,
-
+                            indexno: res.data.indexno,
                         })
                         Swal.fire({
-                            title: 'Search Result',
+                            title: this.state.name,
                             html: ' <table class="table table-bordered">\n' +
                                 '              <tr>\n' +
                                 '                <th>Name</th>\n' +
                                 '                <td>'+this.state.name+'</td>\n' +
+                                '              </tr>\n' +
+                                '              <tr>\n' +
+                                '                <th>IndexNo</th>\n' +
+                                '                <td>'+this.state.indexno+'</td>\n' +
                                 '              </tr>\n' +
                                 '              <tr>\n' +
                                 '                <th>Email\t</th>\n' +
@@ -266,7 +270,7 @@ class gettAllUsers extends Component {
                                             <InputGroup>
 
                                                 <Form.Control type="text"
-                                                              placeholder="Search"
+                                                              placeholder="Search By IndexNo"
                                                               required
                                                               value={this.state.search}
                                                               onChange={this.handleChange} onClick={this.clearData}/>
