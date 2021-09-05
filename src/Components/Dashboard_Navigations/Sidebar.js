@@ -35,7 +35,7 @@ import SignUp from "../Login/Signup";
 import ClassroomListTeacher from "../Classroom/Classroom-List-Teacher";
 import ClassroomListStudent from "../Classroom/Classroom-List-Student";
 import Notices from "../Notice/Notices";
-import MainLibrary from "../Library/MainLibrary";
+/*import MainLibrary from "../Library/MainLibrary";*/
 
 import ClassroomDetailsAdmin from "../Classroom/Classroom-Details-Admin";
 import ClassroomDetailsTeacher from "../Classroom/Classroom-Details-Teacher";
@@ -539,7 +539,7 @@ class Sidebar extends Component {
                                 {/*********************** TEACHER ***********************/}
                                 { loggedAsTeacher && loadContent === 'library' &&
                                 <div>
-                                    <MainLibrary />
+                              {/*      <MainLibrary />*/}
                                 </div>
                                 }
 
@@ -549,7 +549,7 @@ class Sidebar extends Component {
                                 {/*********************** STUDENT ***********************/}
                                 { loggedAsStudent && loadContent === 'library' &&
                                 <div>
-                                    <MainLibrary />
+                                {/*    <MainLibrary />*/}
                                 </div>
                                 }
 

@@ -10,7 +10,9 @@ import "../../Stylesheets/Admin-Tables-styles.css";
 import UserDataService from "./UserDataService";
 import Swal from "sweetalert2";
 import EditUser from "./EditUser";
-
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import {faPrint} from "@fortawesome/free-solid-svg-icons/faPrint";
 export let getAllUsers;
 
 
@@ -36,7 +38,6 @@ class gettAllUsers extends Component {
     componentDidMount() {
         this.getAllUsers();
     }
-
 
     getAllUsers = () => {
         axios.get('http://localhost:8080/api/adminuser/alladmin').then(response => {
@@ -102,16 +103,54 @@ class gettAllUsers extends Component {
         e.preventDefault();
 
         if (indexno !== '') {
+
             UserDataService.searchByAddedUser(indexno)
                 .then(res => {
-                    if (res.data.length > 0) {
-                        this.setState({user: res.data})
+                    console.log(res.data)
+                    if (res.data != null) {
+                        this.setState({
+                            name: res.data.name,
+                            email: res.data.email,
+                            mobile_no: res.data.mobile_no,
+                            role: res.data.role,
+
+                        })
+                        Swal.fire({
+                            title: 'Search Result',
+                            html: ' <table class="table table-bordered">\n' +
+                                '              <tr>\n' +
+                                '                <th>Name</th>\n' +
+                                '                <td>'+this.state.name+'</td>\n' +
+                                '              </tr>\n' +
+                                '              <tr>\n' +
+                                '                <th>Email\t</th>\n' +
+                                '                <td>'+this.state.email+'</td>\n' +
+                                '              </tr>\n' +
+                                '              <tr>\n' +
+                                '                <th>Phone Number</th>\n' +
+                                '                <td>'+this.state.mobile_no+'</td>\n' +
+                                '              </tr>\n' +
+                                '              <tr>\n' +
+                                '                <th>Role</th>\n' +
+                                '                <td>'+this.state.role+'</td>\n' +
+                                '              </tr>\n' +
+                                '           </table>\n' ,
+                            showClass: {
+                                popup: 'animate__animated animate__fadeInDown'
+                            },
+                            hideClass: {
+                                popup: 'animate__animated animate__fadeOutUp'
+                            },
+
+                            confirmButtonColor: '#3aa2e7',
+                            iconColor: '#e00404'
+                        })
+
                     } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Not Found',
                             html: '<p>Please enter a valid indexno!</p>',
-                            background: '#041c3d',
                             confirmButtonColor: '#3aa2e7',
                             iconColor: '#e00404'
                         })
@@ -123,7 +162,6 @@ class gettAllUsers extends Component {
                 icon: 'warning',
                 title: 'Warning',
                 html: '<p>Search field cannot be empty!</p>',
-                background: '#041c3d',
                 confirmButtonColor: '#3aa2e7',
                 iconColor: '#e0b004'
             })
@@ -134,15 +172,17 @@ class gettAllUsers extends Component {
         event.preventDefault();
 
         this.setState({
-            [event.target.name]: event.target.value
+            search: event.target.value
         })
     }
+
     editUser = (indexno) => {
         console.log(indexno)
         this.setState({indexno: indexno})
         this.handleShow()
 
     }
+
     handleShow = () => {
         this.setState({show: true})
     }
@@ -151,6 +191,45 @@ class gettAllUsers extends Component {
         this.setState({show: false})
         this.getAllUsers();
     }
+
+    ExportPdfReport = () => {
+
+        const unit = "pt";
+        const size = "A4";
+        const orientation = "portrait";
+        const marginLeft = 60;
+
+        const doc = new jsPDF(orientation, unit, size);
+
+        const title = "User Infromation";
+
+        const headers = [["User ID", "Name", "Email Address", "Mobile No", "Role"]];
+
+        const User = this.state.User.map(
+            user => [
+                user.indexno,
+                user.name,
+                user.email,
+                user.mobile_no,
+                user.role
+
+            ]
+        );
+
+        let content = {
+            startY: 50,
+            head: headers,
+            body: User,
+
+        };
+        doc.setFontSize(20);
+        doc.text(title, marginLeft, 50);
+        require('jspdf-autotable');
+        doc.autoTable(content);
+
+        doc.save("userdetails_doc.pdf")
+    }
+
 
 
     render() {
@@ -183,20 +262,20 @@ class gettAllUsers extends Component {
                                 </div>*/}
                                 <div className={"mb-2"}>
                                     <Row>
-                                        <Col xl={5} lg={5}>
+                                        <Col xl={6} lg={6}>
                                             <InputGroup>
-                                                <Button variant={"dark"} type={"submit"}
-                                                        onClick={(e) => this.handleSearch(e, search)}>
-                                                    <FontAwesomeIcon icon={faSearch}/>
-                                                </Button>
+
                                                 <Form.Control type="text"
                                                               placeholder="Search"
                                                               required
                                                               value={this.state.search}
                                                               onChange={this.handleChange} onClick={this.clearData}/>
-                                            </InputGroup>
-                                        </Col>
-                                        <Col className={"text-end"}>
+                                                <Button variant={"dark"} type={"submit"}
+                                                        onClick={(e) => this.handleSearch(e, search)}>
+                                                    <FontAwesomeIcon icon={faSearch}/>
+                                                </Button>
+                                            </InputGroup></Col>
+                                        <Col className={"text-end"} xl={6} lg={6}>
                                             <Button variant={"outline-info"} type={"submit"} className={"temp-btn-status"}
                                                     onClick={this.getAllUsers}>ALL USER</Button>
                                             <Button variant={"outline-success"} type={"submit"} className={"temp-btn-status"}
@@ -205,6 +284,14 @@ class gettAllUsers extends Component {
                                                     onClick={() => this.handleFilter("teacher")}>TEACHER</Button>
                                             <Button variant={"outline-warning"} type={"submit"} className={"temp-btn-status"}
                                                     onClick={() => this.handleFilter("student")}>STUDENT</Button>
+                                        </Col>
+
+                                        <Col className={"text-end"}>
+                                            <Button variant={"outline-secondary"}
+                                                    onClick={this.ExportPdfReport}>
+                                                <FontAwesomeIcon icon={faPrint}/>
+                                            </Button>
+
                                         </Col>
                                     </Row>
                                 </div>
@@ -225,6 +312,7 @@ class gettAllUsers extends Component {
 
                         {
                             User.length === 0 ?
+
                                 <tr align="center">
                                     <td colSpan="6"><h6 className={"mt-3"}>No records at the moment</h6>
                                     </td>
@@ -237,7 +325,7 @@ class gettAllUsers extends Component {
                                                 <td>{user.indexno}</td>
                                                 <td>{user.name}</td>
                                                 <td>{user.email}</td>
-                                                <td>{user.mobileNo}</td>
+                                                <td>{user.mobile_no}</td>
                                                 <td className={"text-center"}>
                                                     <Badge bg={"dark"}>{user.role}</Badge>
                                                 </td>
