@@ -24,6 +24,13 @@ class LibraryDataService {
         return axios.delete(`${API_URL}/${id}`)
     }
 
+    downloadResource(id) {
+        return axios.get(`${API_URL}/download/${id}`, {responseType: 'blob'})
+    }
+
+    filterByType(type) {
+        return axios.get(`${API_URL}/filter/${type}`)
+    }
 }
 
 export default new LibraryDataService();

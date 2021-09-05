@@ -10,6 +10,7 @@ import ClassroomDetailsAdmin from "./Classroom/Classroom-Details-Admin";
 import ClassroomDetailsTeacher from "./Classroom/Classroom-Details-Teacher";
 import ClassroomUpdate from "./Classroom/Classroom-Update";
 import ClassroomDetailsStudent from "./Classroom/Classroom-Details-Student";
+import NoticeList from "./Notice/NoticeList";
 
 
 class Frontend extends Component {
@@ -48,10 +49,10 @@ class Frontend extends Component {
                         {/*<Route path="/updateClassDetails" exact component={ClassroomUpdate}/>*/}
                         {/*<Route path="/teacherClassDetails/:id" exact component={ClassroomDetailsTeacher}/>*/}
 
-                        <Route path="/adminClassDetails/:id" exact component={ClassroomDetailsAdmin}/>
-                        <Route path="/updateClassDetails" exact component={ClassroomUpdate}/>
-                        <Route path="/teacherClassDetails/:id" exact component={ClassroomDetailsTeacher}/>
-                        <Route path="/studentClassDetails/:id" exact component={ClassroomDetailsStudent}/>
+                        {/*<Route path="/adminClassDetails/:id" exact component={ClassroomDetailsAdmin}/>*/}
+                        {/*<Route path="/updateClassDetails" exact component={ClassroomUpdate}/>*/}
+                        {/*<Route path="/teacherClassDetails/:id" exact component={ClassroomDetailsTeacher}/>*/}
+                        {/*<Route path="/studentClassDetails/:id" exact component={ClassroomDetailsStudent}/>*/}
 
                     </Switch>
 

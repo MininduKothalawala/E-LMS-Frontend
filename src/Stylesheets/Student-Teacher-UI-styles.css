@@ -39,6 +39,12 @@
     margin-top: 10px;
 }
 
+.st-class-img {
+    height: 200px;
+    width: 300px;
+    object-fit: contain;
+}
+
 .st-card-footer {
     margin-top: 20px;
     padding-top: 20px;
@@ -56,4 +62,72 @@
     color: var(--jet);
     text-align: center;
     padding-top: 50px;
+}
+
+.st-library-card {
+    border: 3px solid var(--maize-crayola);
+    border-radius: 15px;
+    background-color: var(--white);
+    width: 36rem;
+}
+
+.st-library-card-header {
+    display: grid;
+    grid-template-columns: 20% auto;
+    font-weight: 500;
+}
+
+.st-library-card-grade {
+    border-right: 3px solid var(--maize-crayola);
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.st-library-grade-title {
+    font-weight: 700;
+    font-size: 20px;
+    text-align: center;
+}
+
+.st-library-grade-no {
+    font-weight: 700;
+    font-size: 50px;
+    text-align: center;
+}
+
+.st-library-card-subject {
+    display: grid;
+    grid-template-columns: auto 20%;
+    padding: 20px;
+}
+
+.st-sub {
+    display: grid;
+    grid-template-rows: auto auto;
+}
+
+.st-library-subject-text {
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.st-library-subject-file {
+    font-size: 14px;
+}
+
+.st-library-card-download-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.st-download-btn {
+    color: var(--light-crayola);
+    background-color: transparent;
+    border: none;
+    font-size: 40px;
+}
+
+.st-download-btn:hover {
+    color: var(--maize-crayola);
 }

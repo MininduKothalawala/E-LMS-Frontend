@@ -3,7 +3,6 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import "../../Stylesheets/Form-styles.css"
 import {Col, Form, Row} from "react-bootstrap";
-import {forEach} from "react-bootstrap/ElementChildren";
 
 class AddNotice extends Component {
     constructor(props) {
@@ -22,13 +21,26 @@ class AddNotice extends Component {
             noticeGrade: '',
             noticeTopic: '',
             noticeBody: '',
+            enteredTime: '',
             grades: [],
-            subjects: []
+            subjects: [],
+            isDisabled: true
         }
     }
 
     componentDidMount() {
         this.getSubjectList();
+        this.createNoticeId();
+    }
+
+    createNoticeId = () =>{
+        axios.get("http://localhost:8080/Notice/id").then(
+            response =>{
+                this.setState({
+                    noticeId: response.data
+                })
+            }
+        )
     }
 
     handleSubmit(e) {
@@ -39,7 +51,8 @@ class AddNotice extends Component {
             noticeSubject: this.state.noticeSubject,
             noticeGrade: this.state.noticeGrade,
             noticeTopic: this.state.noticeTopic,
-            noticeBody: this.state.noticeBody
+            noticeBody: this.state.noticeBody,
+            enteredTime: new Date().toLocaleString()
         }
 
         console.log(notices);
@@ -48,13 +61,14 @@ class AddNotice extends Component {
             .then(res => {
                 console.log(res.data)
                 if (res.status === 200) {
+                    this.clearData();
 
                     Swal.fire({
                         icon: 'success',
                         title: 'Successful',
-                        html: '<p>Conference added successfully!!</p>',
-                        background: '#041c3d',
-                        confirmButtonColor: '#3aa2e7',
+                        text: 'Notice has been added!!',
+                        background: '#fff',
+                        confirmButtonColor: '#333533',
                         iconColor: '#60e004'
                     })
 
@@ -62,10 +76,9 @@ class AddNotice extends Component {
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        html: '<p>There was an error uploading!!</p>',
-                        background: '#041c3d',
-                        showConfirmButton: false,
-                        timer: 1500,
+                        text: 'Error occurred!',
+                        background: '#fff',
+                        confirmButtonColor: '#333533',
                         iconColor: '#e00404'
                     })
                 }
@@ -87,7 +100,8 @@ class AddNotice extends Component {
         axios.get(`http://localhost:8080/Subject/${e.target.value}`).then(
             response =>{
                 this.setState({
-                    subjects: response.data
+                    subjects: response.data,
+                    isDisabled: false
                 })
             }
         )
@@ -111,6 +125,19 @@ class AddNotice extends Component {
         )
     }
 
+    clearData = () => {
+        this.setState({
+            noticeId: '',
+            noticeSubject: '',
+            noticeGrade: '',
+            noticeTopic: '',
+            noticeBody: '',
+            grades: [],
+            subjects: [],
+            isDisabled: true
+        })
+    }
+
     render() {
         return (
             <div>
@@ -127,55 +154,51 @@ class AddNotice extends Component {
                                 <Form.Label>Notice ID</Form.Label>
                                 <Form.Control type="text" placeholder="Notice ID"
                                               required
-                                              isInvalid={false}
+                                              disabled
+                                              name={"noticeId"}
+                                              value={this.state.noticeId}
                                               onChange={this.handleChangeID}/>
-                                <Form.Control.Feedback type="invalid">
-                                    Please enter the notice ID.
-                                </Form.Control.Feedback>
                             </Form.Group>
 
                             <Row>
                                 <Form.Group as={Col} controlId={"formNoticeGrade"}>
                                     <Form.Label>Grade</Form.Label>
-                                    <Form.Control as ={"select"} onChange={this.handleChangeNoticeGrade}>
+                                    <Form.Select required onChange={this.handleChangeNoticeGrade}>
                                         {
                                             this.state.grades.map(item =>
                                                 <option value={item.grade}>{item.grade}</option>
                                             )
                                         }
-                                    </Form.Control>
+                                    </Form.Select>
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId={"formNoticeSubject"}>
                                     <Form.Label>Subject</Form.Label>
-                                    <Form.Control as ={"select"} onChange={this.handleChangeNoticeSubject}>
+                                    <Form.Text className="text-muted">
+                                        &nbsp; (Enables after selecting a grade)
+                                    </Form.Text>
+                                    <Form.Select required onChange={this.handleChangeNoticeSubject} disabled={this.state.isDisabled}>
                                         {
                                             this.state.subjects.map(subject =>
                                                 <option value={subject}>{subject}</option>
                                             )
                                         }
-                                    </Form.Control>
+                                    </Form.Select>
                                 </Form.Group>
                             </Row>
 
                             <Form.Group controlId={"formNoticeTopic"}>
                                 <Form.Label>Topic</Form.Label>
-                                <Form.Control type="text" name="Topic" placeholder="Notice topic"
-                                              required isInvalid={false}
+                                <Form.Control type="text" name="noticeTopic" placeholder="Notice topic"
+                                              required value={this.state.noticeTopic}
                                               onChange={this.handleChangeNoticeTopic} />
-                                <Form.Control.Feedback type="invalid">
-                                    Please enter a topic.
-                                </Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group controlId={"formNoticeBody"}>
                                 <Form.Label>Body</Form.Label>
-                                <Form.Control as="textarea" name="Notice" placeholder="Type your notice here"
-                                              required isInvalid={false}
+                                <Form.Control as="textarea" name="noticeBody" value={this.state.noticeBody} placeholder="Type your notice here"
+                                              required
                                               onChange={this.handleChangeNoticeBody} />
-                                <Form.Control.Feedback type="invalid">
-                                    Please type your notice.
-                                </Form.Control.Feedback>
                             </Form.Group>
 
                             <div className={"text-end"}>

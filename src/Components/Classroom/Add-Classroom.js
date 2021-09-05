@@ -1,93 +1,43 @@
 import React, {Component} from "react";
-import {Accordion, Button, Card, Container, Form} from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 import * as Swal from "sweetalert2";
 import ClassroomDataService from "./ClassroomDataService";
+import "../../Stylesheets/Form-styles.css"
+import axios from "axios";
+import moment from "moment";
+import AuthenticationService from "../Login/AuthenticationService";
 
 class AddClassroom extends Component{
 
     constructor(props){
         super(props);
 
-        // this.onChangeGrade = this.onChangeGrade.bind(this);
-        // this.onChangeSubject = this.onChangeSubject.bind(this);
-        // this.onChangeTopic = this.onChangeTopic.bind(this);
-        // this.onChangeDescription = this.onChangeDescription.bind(this);
-        // this.onChangeDate = this.onChangeDate.bind(this);
-        // this.onChangeTime = this.onChangeTime.bind(this);
-        // this.onChangeLink = this.onChangeLink.bind(this);
-        // this.onSubmit2 = this.onSubmit2.bind(this);
-
         this.state = {
-            grade : '',
-            subject:'',
+            classGrade: '',
+            classSubject: '',
+            grades: [],
+            subjects: [],
+            isDisabled: true,
             topic : '',
             description: '',
-            date:'',
-            time : '',
+            date: moment(new Date()).format('YYYY-MM-DD'),
+            time : moment(new Date()).format("h:mm"),
             link: '',
-            addedBy :'',
+            username  :'',
             lecFile : undefined,
             tuteFile : undefined,
-            classImg : undefined,
-            isChecked: false
+            classImg : undefined
         }
     }
 
-    // componentDidMount() {
-    //     const loggedUser = AuthenticationService.loggedUserId();
-    //     this.setState({
-    //         username: loggedUser
-    //     });
-    // }
+    componentDidMount() {
+        this.getSubjectList();
 
-
-    // onChangeGrade(e){
-    //     this.setState({
-    //         grade : e.target.value
-    //     });
-    // }
-    //
-    // onChangeSubject(e){
-    //     this.setState({
-    //         subject : e.target.value
-    //     });
-    // }
-    //
-    // onChangeTopic(e){
-    //     this.setState({
-    //         topic : e.target.value
-    //     });
-    // }
-    //
-    // onChangeDescription(e){
-    //     this.setState({
-    //         description : e.target.value
-    //     });
-    // }
-    //
-    // onChangeDate(e){
-    //     this.setState({
-    //         date : e.target.value
-    //     });
-    // }
-    //
-    // onChangeTime(e){
-    //     this.setState({
-    //         time : e.target.value
-    //     });
-    // }
-    //
-    // onChangeLink(e){
-    //     this.setState({
-    //         link : e.target.value
-    //     });
-    // }
-    //
-    // onChangeAddedBy(e){
-    //     this.setState({
-    //         addedBy : e.target.value
-    //     });
-    // }
+        const loggedUser = AuthenticationService.loggedUserName();
+        this.setState({
+            username: loggedUser
+        });
+    }
 
     handleChange = (event) => {
         event.preventDefault();
@@ -95,14 +45,6 @@ class AddClassroom extends Component{
         this.setState({
             [event.target.name]: event.target.value
         })
-    }
-
-    handleToggle = () => {
-        this.setState({
-            isChecked: !this.state.isChecked
-        })
-
-        console.log(this.state.isChecked)
     }
 
     handleLecFileChange = (event) => {
@@ -129,16 +71,43 @@ class AddClassroom extends Component{
         })
     }
 
+    handleChangeClassGrade = (event) => {
+        this.setState({classGrade: event.target.value});
+
+        axios.get(`http://localhost:8080/Subject/${event.target.value}`).then(
+            response =>{
+                this.setState({
+                    subjects: response.data,
+                    isDisabled: false
+                })
+            }
+        )
+    }
+
+    handleChangeClassSubject = (event) => {
+        this.setState({classSubject: event.target.value});
+    }
+
+    getSubjectList = () =>{
+        axios.get("http://localhost:8080/Subject/").then(
+            response =>{
+                this.setState({
+                    grades: response.data
+                })
+            }
+        )
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
-        const grade = this.state.grade;
-        const subject = this.state.subject;
+        const grade = this.state.classGrade;
+        const subject = this.state.classSubject;
         const topic = this.state.topic;
         const description = this.state.description;
         const date = this.state.date;
         const time = this.state.time;
         const link = this.state.link;
-        const addedBy = this.state.addedBy;
+        const addedBy = this.state.username;
 
         const lecFile = this.state.lecFile[0];
         const tuteFile = this.state.tuteFile[0];
@@ -170,25 +139,23 @@ class AddClassroom extends Component{
                 console.log(res);
 
                 if (res.status === 201) {
-                    console.log("CREATED");
-
+                    this.clearData();
                     Swal.fire({
                         icon: 'success',
                         title: 'Successful',
-                        html: '<p>Your files has been uploaded!!</p>',
-                        background: '#041c3d',
-                        confirmButtonColor: '#3aa2e7',
+                        text: 'Classroom has been added!!',
+                        background: '#fff',
+                        confirmButtonColor: '#333533',
                         iconColor: '#60e004'
                     })
-                    this.clearData();
+
                 } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        html: '<p>There was an error uploading!</p>',
-                        background: '#041c3d',
-                        showConfirmButton: false,
-                        timer: 1500,
+                        text: 'Error occurred!',
+                        background: '#fff',
+                        confirmButtonColor: '#333533',
                         iconColor: '#e00404'
                     })
                 }
@@ -198,54 +165,67 @@ class AddClassroom extends Component{
     clearData = () => {
         this.setState({
             id: -1,
-            grade : '',
-            subject:'',
+            classGrade: '',
+            classSubject: '',
+            grades: [],
+            subjects: [],
             topic : '',
             description: '',
-            date:'',
-            time : '',
+            date: moment(new Date()).format('YYYY-MM-DD'),
+            time : moment(new Date()).format('HH:mm'),
             link: '',
-            addedBy :'',
             lecFile : undefined,
             tuteFile : undefined,
-            classImg : undefined
+            classImg : undefined,
+            isDisabled: true
         })
     }
+
     render() {
-        const {grade, subject, topic, description, date, time, link, addedBy} = this.state;
+        const {topic, description, date, time, link, username} = this.state;
 
         return (
             <div>
-                <h1>Add Classroom</h1>
 
-                <Card style={{border: 'none'}}>
-                    <Card.Body className={"p-0"}>
+                <p>CLASSROOM MANAGEMENT</p>
+
+                <div className={"form-wrapper"}>
+                    <div>
+                        <h3>Add Classroom</h3>
+                    </div>
+
+                    <div>
                         <Form onSubmit={this.handleSubmit}>
-                            <Form.Group controlId={"classGrd"}>
-                                <Form.Label>Grade</Form.Label>
-                                <Form.Control as={"select"} name={"grade"} required
-                                              value={grade} onChange={this.handleChange}>
-                                    <option value={"Grade 6"}>Grade 6</option>
-                                    <option value={"Grade 7"}>Grade 7</option>
-                                    <option value={"Grade 8"}>Grade 8</option>
-                                    <option value={"Grade 9"}>Grade 9</option>
-                                </Form.Control>
-                            </Form.Group>
+                            <Row>
+                                <Form.Group as={Col} controlId={"classGrd"}>
+                                    <Form.Label>Grade</Form.Label>
+                                    <Form.Select required onChange={this.handleChangeClassGrade}>
+                                        {
+                                            this.state.grades.map(item =>
+                                                <option value={item.grade}>{item.grade}</option>
+                                            )
+                                        }
+                                    </Form.Select>
+                                </Form.Group>
 
-                            <Form.Group controlId={"classSub"}>
-                                <Form.Label>Subject</Form.Label>
-                                <Form.Control as={"select"} name={"subject"} required
-                                              value={subject} onChange={this.handleChange}>
-                                    <option value={"Science"}>Science</option>
-                                    <option value={"Maths"}>Maths</option>
-                                    <option value={"Sinhala"}>Sinhala</option>
-                                    <option value={"English"}>English</option>
-                                </Form.Control>
-                            </Form.Group>
+                                <Form.Group as={Col} controlId={"classSubject"}>
+                                    <Form.Label>Subject</Form.Label>
+                                    <Form.Text className="text-muted">
+                                        &nbsp; (Enables after selecting a grade)
+                                    </Form.Text>
+                                    <Form.Select required onChange={this.handleChangeClassSubject} disabled={this.state.isDisabled}>
+                                        {
+                                            this.state.subjects.map(subject =>
+                                                <option value={subject}>{subject}</option>
+                                            )
+                                        }
+                                    </Form.Select>
+                                </Form.Group>
+                            </Row>
 
                             <Form.Group controlId={"classT"}>
                                 <Form.Label>Topic</Form.Label>
-                                <Form.Control as={"input"} name={"topic"} placeholder={"Enter a Topic"} required
+                                <Form.Control as={"input"} name={"topic"} placeholder={"Enter a topic"} required
                                               value={topic} onChange={this.handleChange}/>
                             </Form.Group>
 
@@ -255,93 +235,76 @@ class AddClassroom extends Component{
                                               value={description} onChange={this.handleChange}/>
                             </Form.Group>
 
-                            <Form.Group controlId={"classDate"}>
-                                <Form.Label>Date</Form.Label>
-                                <Form.Control as={"input"} name={"date"} type = {"date"} placeholder={"Enter a date"} required
-                                              value={date} onChange={this.handleChange}/>
-                            </Form.Group>
+                            <Row>
+                                <Form.Group as={Col} controlId={"classDate"}>
+                                    <Form.Label>Date</Form.Label>
+                                    <Form.Control type={"date"} name={"date"}
+                                                  required
+                                                  value={date}
+                                                  min={moment().format("YYYY-MM-DD")}
+                                                  onChange={this.handleChange}/>
+                                </Form.Group>
 
-                            <Form.Group controlId={"classTime"}>
-                                <Form.Label>Time</Form.Label>
-                                <Form.Control as={"input"} name={"time"} type = {"time"} placeholder={"Enter a time"} required
-                                              value={time} onChange={this.handleChange}/>
-                            </Form.Group>
+                                <Form.Group as={Col} controlId={"classTime"}>
+                                    <Form.Label>Time</Form.Label>
+                                    <Form.Control name={"time"} type={"time"}
+                                                  required
+                                                  value={time}
+                                                  onChange={this.handleChange}/>
+                                </Form.Group>
+                            </Row>
 
                             <Form.Group controlId={"classLink"}>
                                 <Form.Label>Link</Form.Label>
-                                <Form.Control as={"input"} name={"link"} type = {"link"} placeholder={"Enter a link"} required
+                                <Form.Control name={"link"} type={"link"} placeholder={"Enter a link"}
+                                              required
                                               value={link} onChange={this.handleChange}/>
                             </Form.Group>
 
-
-
                             <Form.Group controlId={"classAdd"}>
                                 <Form.Label>AddedBy</Form.Label>
-                                <Form.Control as={"input"} name={"addedBy"} placeholder={"Enter a AddedBy"} required
-                                              value={addedBy} onChange={this.handleChange}/>
+                                <Form.Control name={"username"}
+                                              disabled
+                                              required
+                                              value={username}
+                                              onChange={this.handleChange}/>
                             </Form.Group>
 
+                            <Form.Group controlId={"formLectureFile"}>
+                                <Form.Label>Lecture</Form.Label>
+                                <Form.Control type={"file"}
+                                              name={"lecFile"}
+                                              accept={".pptx, .ppt, .pdf"}
+                                              onChange={this.handleLecFileChange}
+                                              required />
+                            </Form.Group>
 
+                            <Form.Group controlId={"formTuteFile"}>
+                                <Form.Label>Tute</Form.Label>
+                                <Form.Control type={"file"}
+                                              name={"tuteFile"}
+                                              accept={".docx, .doc"}
+                                              onChange={this.handleTuteFileChange}
+                                              required />
+                            </Form.Group>
 
+                            <Form.Group controlId={"formImageFile"}>
+                                <Form.Label>Image</Form.Label>
+                                <Form.Control type={"file"}
+                                              name={"classImg"}
+                                              accept={".jpg, .jpeg, .png"}
+                                              onChange={this.handleClassImgChange}
+                                              required />
+                            </Form.Group>
 
-
-
-
-
-                            <div className="custom-file">
-                                <label>Lecture : </label>
-                                <input
-                                    type="file"
-                                    className="custom-file-input"
-                                    id="inputGroupFile01"
-                                    aria-describedby="inputGroupFileAddon01"
-                                    accept={".pptx, .ppt, .pdf"}
-                                    onChange={this.handleLecFileChange}
-                                    required={true}
-                                />
-                                <label className="custom-file-label" htmlFor="inputGroupFile01">
-                                    {/*{this.state.imageName}*/}
-                                </label>
+                            <div className={"text-end"}>
+                                <button type={"reset"} className={"reset-form-btn"}>Reset</button>
+                                <button type={"submit"} className={"submit-form-btn"}>Add Classroom</button>
                             </div>
 
-
-                            <div className="custom-file">
-                                <label>Tute : </label>
-                                <input
-                                    type="file"
-                                    className="custom-file-input"
-                                    id="inputGroupFile01"
-                                    aria-describedby="inputGroupFileAddon01"
-                                    accept={".docx, .doc"}
-                                    onChange={this.handleTuteFileChange}
-                                    required={true}
-                                />
-                            </div>
-
-                            <div className="custom-file">
-                                <label>Image : </label>
-                                <input
-                                    type="file"
-                                    className="custom-file-input"
-                                    id="inputGroupFile01"
-                                    aria-describedby="inputGroupFileAddon01"
-                                    accept={".jpg, .jpeg, .png"}
-                                    onChange={this.handleClassImgChange}
-                                    required={true}
-                                />
-                            </div>
-
-
-
-
-
-
-                            <div >
-                                <Button variant="primary" type={"submit"}>Submit</Button>
-                            </div>
                         </Form>
-                    </Card.Body>
-                </Card>
+                    </div>
+                </div>
             </div>
         )
 
