@@ -1,7 +1,7 @@
 class AthenticationService {
     
-    successfulLogin(username, name, role, password){
-        sessionStorage.setItem('authenticatedUserId', username);
+    successfulLogin(indexno, name, role, password){
+        sessionStorage.setItem('authenticatedUserId', indexno);
         sessionStorage.setItem('authenticatedUserName', name);
         sessionStorage.setItem('authenticatedUserRole', role);
     }

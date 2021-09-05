@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router";
-import {Badge, Table} from "react-bootstrap";
+import {Badge, Col, InputGroup, Row, Table, Form, ButtonGroup, Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import swal from "sweetalert";
 import "../../Stylesheets/Admin-Tables-styles.css";
+import UserDataService from "./UserDataService";
+import Swal from "sweetalert2";
+import EditUser from "./EditUser";
 
 export let getAllUsers;
 
@@ -18,12 +21,14 @@ class gettAllUsers extends Component {
 
         this.state = {
             User: [],
-            username: '',
+            indexno: '',
+            search:'',
             name: '',
             password: '',
             email: '',
             mobile_no: '',
-            role: ''
+            role: '',
+            show: false
         }
         this.getAllUsers = this.getAllUsers.bind(this);
     }
@@ -44,6 +49,27 @@ class gettAllUsers extends Component {
         }).catch(function (error) {
             console.log(error);
         })
+    }
+
+    //filter by type
+    handleFilter = (type) => {
+
+        UserDataService.filterByType(type)
+            .then(res => {
+                if (res.status === 200) {
+                    // console.log(res);
+                    this.setState({User: res.data})
+                }
+            })
+
+    }
+
+    clearData = () => {
+        this.setState({
+            search: '',
+            type: ''
+        })
+        this.getAllUsers();
     }
 
     deleteItem(id) {
@@ -71,9 +97,64 @@ class gettAllUsers extends Component {
 
     }
 
+    //search by added user
+    handleSearch = (e, indexno) => {
+        e.preventDefault();
+
+        if (indexno !== '') {
+            UserDataService.searchByAddedUser(indexno)
+                .then(res => {
+                    if (res.data.length > 0) {
+                        this.setState({user: res.data})
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Not Found',
+                            html: '<p>Please enter a valid indexno!</p>',
+                            background: '#041c3d',
+                            confirmButtonColor: '#3aa2e7',
+                            iconColor: '#e00404'
+                        })
+                        this.clearData();
+                    }
+                })
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                html: '<p>Search field cannot be empty!</p>',
+                background: '#041c3d',
+                confirmButtonColor: '#3aa2e7',
+                iconColor: '#e0b004'
+            })
+        }
+
+    }
+    handleChange = (event) => {
+        event.preventDefault();
+
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+    editUser = (indexno) => {
+        console.log(indexno)
+        this.setState({indexno: indexno})
+        this.handleShow()
+
+    }
+    handleShow = () => {
+        this.setState({show: true})
+    }
+
+    handleClose = () => {
+        this.setState({show: false})
+        this.getAllUsers();
+    }
+
 
     render() {
-        const {User} = this.state;
+        const {User,search} = this.state;
 
         return (
             <div>
@@ -84,27 +165,50 @@ class gettAllUsers extends Component {
                     <div>
                         <h3>Users</h3>
                     </div>
-                    {/*<div className={"mb-2"}>*/}
-                    {/*    <Row>*/}
-                    {/*        <Col xl={5} lg={5}>*/}
-                    {/*            <InputGroup>*/}
-                    {/*                <InputGroup.Text bsPrefix={"input-search-icon"}>*/}
-                    {/*                    <FontAwesomeIcon icon={faSearch}/>*/}
-                    {/*                </InputGroup.Text>*/}
-                    {/*                <Form.Control type="text"*/}
-                    {/*                              placeholder="Search"*/}
-                    {/*                              required*/}
-                    {/*                              value={this.state.search}*/}
-                    {/*                              onChange={this.handleSearchInput} />*/}
-                    {/*            </InputGroup>*/}
-                    {/*        </Col>*/}
-                    {/*        <Col className={"text-end"}>*/}
-                    {/*            <button className={"filter-btn-student"}>STUDENT</button>*/}
-                    {/*            <button className={"filter-btn-teacher"}>TEACHERS</button>*/}
-                    {/*            <button className={"filter-btn-admin"}>ADMINS</button>*/}
-                    {/*        </Col>*/}
-                    {/*    </Row>*/}
-                    {/*</div>*/}
+                    <div>
+                        {/*  <ButtonGroup className={"temp-btn-grp"}>
+                            <Form className={"mr-5"}>
+                             <div>
+                                    <InputGroup>
+                                        <Form type={"text"} name={"search"} placeholder={"Search by indexno"}
+                                                      className={"form-control"} value={search}
+                                                      onChange={this.handleChange} onClick={this.clearData}/>
+                                        <InputGroup.Append>
+                                            <Button variant={"dark"} type={"submit"}
+                                                    onClick={(e) => this.handleSearch(e, search)}>
+                                                <FontAwesomeIcon icon={faSearch}/>
+                                            </Button>
+                                        </InputGroup.Append>
+                                    </InputGroup>
+                                </div>*/}
+                                <div className={"mb-2"}>
+                                    <Row>
+                                        <Col xl={5} lg={5}>
+                                            <InputGroup>
+                                                <Button variant={"dark"} type={"submit"}
+                                                        onClick={(e) => this.handleSearch(e, search)}>
+                                                    <FontAwesomeIcon icon={faSearch}/>
+                                                </Button>
+                                                <Form.Control type="text"
+                                                              placeholder="Search"
+                                                              required
+                                                              value={this.state.search}
+                                                              onChange={this.handleChange} onClick={this.clearData}/>
+                                            </InputGroup>
+                                        </Col>
+                                        <Col className={"text-end"}>
+                                            <Button variant={"outline-info"} type={"submit"} className={"temp-btn-status"}
+                                                    onClick={this.getAllUsers}>ALL USER</Button>
+                                            <Button variant={"outline-success"} type={"submit"} className={"temp-btn-status"}
+                                                    onClick={() => this.handleFilter("admin")}>ADMIN</Button>
+                                            <Button variant={"outline-primary"} type={"submit"} className={"temp-btn-status"}
+                                                    onClick={() => this.handleFilter("teacher")}>TEACHER</Button>
+                                            <Button variant={"outline-warning"} type={"submit"} className={"temp-btn-status"}
+                                                    onClick={() => this.handleFilter("student")}>STUDENT</Button>
+                                        </Col>
+                                    </Row>
+                                </div>
+                    </div>
 
                     <Table bordered responsive>
                         <thead className={"table-custom-header"}>
@@ -129,7 +233,7 @@ class gettAllUsers extends Component {
                                 : [
                                     User.map(user => {
                                         return (
-                                            <tr key={user.username}>
+                                            <tr key={user.indexno}>
                                                 <td>{user.indexno}</td>
                                                 <td>{user.name}</td>
                                                 <td>{user.email}</td>
@@ -138,22 +242,36 @@ class gettAllUsers extends Component {
                                                     <Badge bg={"dark"}>{user.role}</Badge>
                                                 </td>
                                                 <td className={"text-center"}>
+                                                    <ButtonGroup>
+                                                    <Button variant={"warning"} type={"submit"}
+                                                            onClick={() => this.editUser(user.indexno)}>
+                                                        <FontAwesomeIcon icon={faEdit}/>
+                                                    </Button>
                                                     <Button variant={"danger"} type={"submit"}
                                                             onClick={this.deleteItem.bind(this, user.indexno)}>
                                                         <FontAwesomeIcon icon={faTrashAlt}/>
                                                     </Button>
-
+                                                    </ButtonGroup>
                                                 </td>
+
                                             </tr>
                                         )
                                     })
 
                                 ]
                         }
-
-
                         </tbody>
                     </Table>
+                    {/*--------------------------Modal Box to Edit Template--------------------------*/}
+
+                    <Modal show={this.state.show} onHide={this.handleClose} centered>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Update</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body> <EditUser indexno={this.state.indexno} /> </Modal.Body>
+                    </Modal>
+
+                    {/*--------------------------------------------------------------------------------*/}
 
                 </div>
             </div>
