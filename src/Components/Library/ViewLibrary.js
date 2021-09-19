@@ -30,6 +30,7 @@ class ViewLibrary extends Component {
     //Modal box
     closeModalBox = () => {
         this.setState({show: false})
+        this.refreshTable();
     }
 
     /**
@@ -152,9 +153,16 @@ class ViewLibrary extends Component {
 
                 <p>LIBRARY MANAGEMENT</p>
                 <div className={"table-wrapper"}>
-                    <div>
-                        <h3>Library Resources</h3>
-                    </div>
+                    <Row>
+                        <Col>
+                            <h3>Library Resources</h3>
+                        </Col>
+                        <Col className={"text-end"}>
+                            <button className={"print-pdf-btn text-end"} onClick={() => this.filterResource("Guide")}>Report</button>
+                        </Col>
+                    </Row>
+
+                    {/*----------------------------------------------------------Search and Filtering----------------------------------------------------------*/}
                     <div className={"mb-2"}>
                         <Row>
                             <Col xl={5} lg={5}>
@@ -172,8 +180,12 @@ class ViewLibrary extends Component {
                                 <button className={"filter-btn-guide"} onClick={() => this.filterResource("Guide")}>TEACHERS' GUIDE</button>
                                 <button className={"filter-btn-syllabus"} onClick={() => this.filterResource("Syllabus")}>SYLLABUS</button>
                             </Col>
+                            {/*<Col className={"text-end"}>*/}
+                            {/*    <button className={"print-pdf-btn"} onClick={() => this.filterResource("Guide")}>GUIDE</button>*/}
+                            {/*</Col>*/}
                         </Row>
                     </div>
+                    {/*----------------------------------------------------------------------------------------------------------------------------------------*/}
 
                     <Table responsive bordered>
                         <thead className={"table-custom-header"}>
