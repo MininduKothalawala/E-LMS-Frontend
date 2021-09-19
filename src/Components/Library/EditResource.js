@@ -173,6 +173,8 @@ class EditResource extends Component {
                             iconColor: '#60e004'
                         })
 
+                        //TODO: goto table view
+
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -263,7 +265,7 @@ class EditResource extends Component {
                     </Form.Group>
 
                     <div className={"text-end"}>
-                        <button type={"reset"} className={"reset-form-btn"}>Reset</button>
+                        <button type={"reset"} className={"reset-form-btn"} >Reset</button>
                         <button type={"submit"} className={"submit-form-btn"}>Save</button>
                     </div>
 

@@ -144,7 +144,6 @@ class AddResource extends Component {
                             confirmButtonColor: '#333533',
                             iconColor: '#60e004'
                         })
-                        //TODO: goto table view
 
                     } else {
                         Swal.fire({
