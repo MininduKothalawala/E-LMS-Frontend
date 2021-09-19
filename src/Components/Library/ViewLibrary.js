@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Badge, Button, ButtonGroup, Table} from "react-bootstrap";
+import {Badge, Button, ButtonGroup, Col, InputGroup, Row, Table, Form} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowDown, faEdit, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import LibraryDataService from "./LibraryDataService";
@@ -31,7 +31,6 @@ class ViewLibrary extends Component {
     refreshTable = () => {
         LibraryDataService.fetchLibraryResources()
             .then(res => {
-                console.log(res.data)
                 this.setState({
                     libraries: res.data
                 })
@@ -54,8 +53,6 @@ class ViewLibrary extends Component {
             })
     }
 
-
-
     // editResource = (id) => {
     //
     // }
@@ -68,6 +65,17 @@ class ViewLibrary extends Component {
     //
     // }
 
+    filterResource = (input) => {
+        LibraryDataService.filterByType(input)
+            .then( res => {
+                if (res.data.length > 0) {
+                    this.setState({
+                        libraries: res.data
+                    })
+                }
+            })
+    }
+
     render() {
         const {libraries} = this.state;
 
@@ -79,26 +87,26 @@ class ViewLibrary extends Component {
                     <div>
                         <h3>Library Resources</h3>
                     </div>
-                    {/*<div className={"mb-2"}>*/}
-                    {/*    <Row>*/}
-                    {/*        <Col xl={5} lg={5}>*/}
-                    {/*            <InputGroup>*/}
-                    {/*                <InputGroup.Text bsPrefix={"input-search-icon"}>*/}
-                    {/*                    <FontAwesomeIcon icon={faSearch}/>*/}
-                    {/*                </InputGroup.Text>*/}
-                    {/*                <Form.Control type="text"*/}
-                    {/*                              placeholder="Search"*/}
-                    {/*                              required*/}
-                    {/*                              value={this.state.search}*/}
-                    {/*                              onChange={this.handleSearchInput}/>*/}
-                    {/*            </InputGroup>*/}
-                    {/*        </Col>*/}
-                    {/*        <Col className={"text-end"}>*/}
-                    {/*            <button className={"filter-btn-guide"}>TEACHERS' GUIDE</button>*/}
-                    {/*            <button className={"filter-btn-syllabus"}>SYLLABUS</button>*/}
-                    {/*        </Col>*/}
-                    {/*    </Row>*/}
-                    {/*</div>*/}
+                    <div className={"mb-2"}>
+                        <Row>
+                            <Col xl={5} lg={5}>
+                                <InputGroup>
+                                    <InputGroup.Text bsPrefix={"input-search-icon"}>
+                                        <FontAwesomeIcon icon={faSearch}/>
+                                    </InputGroup.Text>
+                                    <Form.Control type="text"
+                                                  placeholder="Search"
+                                                  required
+                                                  value={this.state.search}
+                                                  onChange={this.handleSearchInput}/>
+                                </InputGroup>
+                            </Col>
+                            <Col className={"text-end"}>
+                                <button className={"filter-btn-guide"} onClick={() => this.filterResource("guide")}>TEACHERS' GUIDE</button>
+                                <button className={"filter-btn-syllabus"} onClick={() => this.filterResource("syllabus")}>SYLLABUS</button>
+                            </Col>
+                        </Row>
+                    </div>
 
                     <Table responsive bordered>
                         <thead className={"table-custom-header"}>
