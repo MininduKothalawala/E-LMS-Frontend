@@ -9,13 +9,12 @@ class AddResource extends Component {
         super(props);
 
         this.state = {
-            resourceId: -1,
             resource_type: '',
             subject: '',
             grade: '',
             file: '',
             subjectList: [],
-            gradeList: [],
+            gradelist: [],
             isDisabled: true,
         }
     }
@@ -27,7 +26,7 @@ class AddResource extends Component {
     setGradeList = () => {
         LibraryDataService.fetchGradeList()
             .then( res => {
-                this.setState({ gradeList: res.data })
+                this.setState({ gradelist: res.data })
             })
     }
 
@@ -145,7 +144,8 @@ class AddResource extends Component {
                             confirmButtonColor: '#333533',
                             iconColor: '#60e004'
                         })
-                        this.clearData();
+                        //TODO: goto table view
+
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -170,13 +170,13 @@ class AddResource extends Component {
             subject: '',
             grade: '',
             file: '',
-            gradeList: '',
+            gradelist: '',
             isDisabled: true
         })
     }
 
     render() {
-        const {resource_type, subject, grade, subjectList, gradeList, isDisabled} = this.state;
+        const {resource_type, subject, grade, subjectList, isDisabled} = this.state;
 
         return (
             <div>
@@ -209,7 +209,7 @@ class AddResource extends Component {
                                              onChange={this.onChangeGradeHandler}>
                                     <option>Choose...</option>
                                     {
-                                        gradeList.map(item =>
+                                        this.state.gradelist.map(item =>
                                             <option value={item.grade} key={item.grade}>{item.grade}</option>
                                         )
                                     }
