@@ -2,8 +2,6 @@ import React, {Component} from "react";
 import axios from "axios";
 import moment from "moment";
 import ClassroomDataService from "./ClassroomDataService";
-// import pdfImg from "../../Assets/pdf.png";
-// import tuteImg from "../../Assets/tute.png";
 import pdf from "../../Assets/pdf.svg";
 import word from "../../Assets/word.svg";
 import "../../Stylesheets/Classroom-details-styles.css";
@@ -151,6 +149,7 @@ class ClassroomDetailsTeacher extends Component{
                     <div className={"detail-group-left-title"}>Added By</div>
                     <div className={"detail-group-right-text"}>{addedBy}</div>
                 </div>
+
 
                 <Row className={"px-3"}>
                     <div className={"detail-box-title mb-5 px-0"}>Download</div>

@@ -53,7 +53,6 @@ class Home extends  Component {
                                     }
                                 </Navbar.Text>
                             </Navbar.Collapse>
-                            {/*TODO: When Logged in MY CLASSROOM Should be displayed*/}
                         </Navbar>
 
                         {/*------------------------ Upper body Content ------------------------*/}

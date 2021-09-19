@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Card, Col, Form, Row} from "react-bootstrap";
+import { Col, Form, Row} from "react-bootstrap";
 import UserService from "./UserService";
 import * as Swal from "sweetalert2";
 import {withRouter} from "react-router";
@@ -153,7 +153,6 @@ class SignUp extends Component {
 
         );
     }
-
 
 }
 
