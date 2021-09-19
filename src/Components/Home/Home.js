@@ -53,7 +53,6 @@ class Home extends  Component {
                                     }
                                 </Navbar.Text>
                             </Navbar.Collapse>
-                            {/*TODO: When Logged in MY CLASSROOM Should be displayed*/}
                         </Navbar>
 
                         {/*------------------------ Upper body Content ------------------------*/}
@@ -69,8 +68,6 @@ class Home extends  Component {
                                     The whole of life,
                                     from the moment you are born to the moment you die,
                                     is a process of learning.”
-
-
                                     Jiddu Krishnamurti
                                 </div>
                             </Col>

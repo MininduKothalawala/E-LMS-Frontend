@@ -172,6 +172,7 @@ class ClassroomDetailsStudent extends Component{
                         </Button>
                     </Col>
                 </Row>
+
             </div>
         )
     }

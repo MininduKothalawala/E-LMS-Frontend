@@ -83,33 +83,14 @@ th {
     font-size: 14px;
 }
 
-/*.class-view-more-btn{*/
-/*    border: 3px solid var(--maize-crayola);*/
-/*    margin-right: 10px;*/
-/*    background-color: var(--maize-crayola);*/
-/*}*/
-/*.class-view-more-btn:hover{*/
-/*    border: 3px solid var(--maize-crayola);*/
-/*    color: var(--maize-crayola);*/
-/*    background-color: var(--white);*/
-/*}*/
-/*.class-delete-btn{*/
-/*    border: 3px solid var(--bs-red);*/
-/*    margin-right: 10px;*/
-/*    background-color: var(--bs-red);*/
-/*}*/
-/*.class-delete-btn:hover{*/
-/*    border: 3px solid var(--bs-red);*/
-/*    color: var(--bs-red);*/
-/*    background-color: var(--white);*/
-/*}*/
-/*.class-edit-btn{*/
-/*    border: 3px solid var(--bs-blue);*/
-/*    margin-right: 10px;*/
-/*    background-color: var(--bs-blue);*/
-/*}*/
-/*.class-edit-btn:hover{*/
-/*    border: 3px solid var(--bs-blue);*/
-/*    color: var(--bs-blue);*/
-/*    background-color: var(--white);*/
-/*}*/
+.print-pdf-btn {
+    padding: 10px 20px;
+    border: 3px solid var(--alabaster);
+    font-weight: 500;
+    background-color: var(--white);
+    border-radius: 5px;
+}
+
+.print-pdf-btn:hover {
+    background-color: var(--alabaster);
+}

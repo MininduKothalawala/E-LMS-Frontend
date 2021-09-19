@@ -31,6 +31,18 @@ class LibraryDataService {
     filterByType(type) {
         return axios.get(`${API_URL}/filter/${type}`)
     }
+
+    searchResource(text) {
+        return axios.get(`${API_URL}/search/${text}`)
+    }
+
+    fetchGradeList() {
+        return axios.get("http://localhost:8080/Subject/")
+    }
+
+    fetchSubjectListForGrade(grade) {
+        return axios.get(`http://localhost:8080/Subject/${grade}`)
+    }
 }
 
 export default new LibraryDataService();

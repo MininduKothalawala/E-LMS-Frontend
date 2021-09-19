@@ -9,14 +9,42 @@ class AddResource extends Component {
         super(props);
 
         this.state = {
-            resource_type: 'choose',
-            subject: 'choose',
-            grade: 'choose',
-            file: ''
+            resource_type: '',
+            subject: '',
+            grade: '',
+            file: '',
+            subjectList: [],
+            gradelist: [],
+            isDisabled: true,
         }
     }
 
-    componentDidMount() { }
+    componentDidMount() {
+        this.setGradeList();
+    }
+
+    setGradeList = () => {
+        LibraryDataService.fetchGradeList()
+            .then( res => {
+                this.setState({ gradelist: res.data })
+            })
+    }
+
+    onChangeGradeHandler = (event) => {
+        this.setState({
+            grade: event.target.value
+        });
+
+        // retrieve subject list for each grade
+        LibraryDataService.fetchSubjectListForGrade(event.target.value)
+            .then( res => {
+                console.log(res.data)
+                this.setState({
+                    subjectList: res.data,
+                    isDisabled: false
+                })
+            })
+    }
 
     onChangeHandler = (event) => {
         event.preventDefault();
@@ -41,34 +69,34 @@ class AddResource extends Component {
         const subject = this.state.subject;
         const grade = this.state.grade;
 
-        if (resource_type === 'choose') {
+        if (resource_type === '' || resource_type === 'Choose...') {
 
             Swal.fire({
                 icon: 'warning',
                 title: 'No Resource Type Selected',
-                html: '<p>Please choose a resource type!</p>',
+                text: "Please choose a resource type!",
                 background: '#fff',
                 confirmButtonColor: '#333533',
                 iconColor: '#ffc200'
             })
 
-        } else if (grade === 'choose') {
+        } else if (grade === '' || grade === 'Choose...') {
 
             Swal.fire({
                 icon: 'warning',
                 title: 'No Grade Selected',
-                html: '<p>Please choose a grade!</p>',
+                text: "Please choose a grade!",
                 background: '#fff',
                 confirmButtonColor: '#333533',
                 iconColor: '#ffc200'
             })
 
-        } else if (subject === 'choose') {
+        } else if (subject === '' || subject === 'Choose...') {
 
             Swal.fire({
                 icon: 'warning',
                 title: 'No Subject Selected',
-                html: '<p>Please choose a subject!</p>',
+                text: "Please choose a subject!",
                 background: '#fff',
                 confirmButtonColor: '#333533',
                 iconColor: '#ffc200'
@@ -111,17 +139,17 @@ class AddResource extends Component {
                         Swal.fire({
                             icon: 'success',
                             title: 'Successful',
-                            html: '<p>Your file has been uploaded!!</p>',
+                            text: "Your file has been uploaded!!",
                             background: '#fff',
                             confirmButtonColor: '#333533',
                             iconColor: '#60e004'
                         })
-                        this.clearData();
+
                     } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            html: '<p>There was an error uploading!</p>',
+                            text: "There was an error uploading!",
                             background: '#fff',
                             confirmButtonColor: '#333533',
                             iconColor: '#e00404'
@@ -136,15 +164,18 @@ class AddResource extends Component {
 
     clearData = () => {
         this.setState({
-            resource_type: 'choose',
-            subject: 'choose',
-            grade: 'choose',
-            file: 'choose'
+            resourceId: -1,
+            resource_type: '',
+            subject: '',
+            grade: '',
+            file: '',
+            gradelist: '',
+            isDisabled: true
         })
     }
 
     render() {
-        const {resource_type, subject, grade} = this.state;
+        const {resource_type, subject, grade, subjectList, isDisabled} = this.state;
 
         return (
             <div>
@@ -162,15 +193,11 @@ class AddResource extends Component {
                                 <Form.Select name={"resource_type"}
                                              value={resource_type}
                                              required
-                                             isInvalid={false}
                                              onChange={this.onChangeHandler}>
-                                    <option value={"choose"}>Choose...</option>
-                                    <option value={"syllabus"}>Syllabus</option>
-                                    <option value={"guide"}>Teachers' Guide</option>
+                                    <option >Choose...</option>
+                                    <option value={"Syllabus"}>Syllabus</option>
+                                    <option value={"Guide"}>Teachers' Guide</option>
                                 </Form.Select>
-                                <Form.Control.Feedback type="invalid">
-                                    Please choose a resource type.
-                                </Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group controlId={"formResourceGrade"}>
@@ -178,53 +205,33 @@ class AddResource extends Component {
                                 <Form.Select name={"grade"}
                                              value={grade}
                                              required
-                                             isInvalid={false}
-                                             onChange={this.onChangeHandler}>
-                                    <option value={"choose"}>Choose...</option>
-                                    <option value={1}>Grade 1</option>
-                                    <option value={2}>Grade 2</option>
-                                    <option value={3}>Grade 3</option>
-                                    <option value={4}>Grade 4</option>
-                                    <option value={5}>Grade 5</option>
-                                    <option value={6}>Grade 6</option>
-                                    <option value={7}>Grade 7</option>
-                                    <option value={8}>Grade 8</option>
-                                    <option value={9}>Grade 9</option>
-                                    <option value={10}>Grade 10</option>
-                                    <option value={11}>Grade 11</option>
-                                    <option value={12}>Grade 12</option>
-                                    <option value={13}>Grade 13</option>
+                                             onChange={this.onChangeGradeHandler}>
+                                    <option>Choose...</option>
+                                    {
+                                        this.state.gradelist.map(item =>
+                                            <option value={item.grade} key={item.grade}>{item.grade}</option>
+                                        )
+                                    }
                                 </Form.Select>
-                                <Form.Control.Feedback type="invalid">
-                                    Please choose a grade.
-                                </Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group controlId={"formResourceSubject"}>
                                 <Form.Label>Subject</Form.Label>
+                                <Form.Text className="text-muted">
+                                    &nbsp; (Enables after selecting a grade)
+                                </Form.Text>
                                 <Form.Select name={"subject"}
                                              value={subject}
                                              required
-                                             isInvalid={false}
-                                             onChange={this.onChangeHandler}>
-                                    <option value={"choose"}>Choose...</option>
-                                    <option value={"mathematics"}>Mathematics</option>
-                                    <option value={"science"}>Science</option>
-                                    <option value={"english"}>English</option>
-                                    <option value={"buddhism"}>Buddhism</option>
-                                    <option value={"history"}>History</option>
-                                    <option value={"geography"}>Geography</option>
-                                    <option value={"civics"}>Civics</option>
-                                    <option value={"health"}>Health</option>
-                                    <option value={"home science"}>Home Science</option>
-                                    <option value={"art"}>Art</option>
-                                    <option value={"dancing"}>Dancing</option>
-                                    <option value={"western music"}>Western Music</option>
-                                    <option value={"eastern music"}>Eastern Music</option>
+                                             onChange={this.onChangeHandler}
+                                             disabled={isDisabled}>
+                                    <option>Choose...</option>
+                                    {
+                                        subjectList.map(subject =>
+                                            <option value={subject}>{subject}</option>
+                                        )
+                                    }
                                 </Form.Select>
-                                <Form.Control.Feedback type="invalid">
-                                    Please choose a subject.
-                                </Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group controlId={"formResourceFile"}>
