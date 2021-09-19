@@ -1,23 +1,35 @@
 import React, {Component} from 'react';
-import {Badge, Button, ButtonGroup, Col, InputGroup, Row, Table, Form} from "react-bootstrap";
+import {Badge, Button, ButtonGroup, Col, InputGroup, Row, Table, Form, Modal} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowDown, faEdit, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import LibraryDataService from "./LibraryDataService";
 import {faFilePdf} from "@fortawesome/free-regular-svg-icons";
 import "../../Stylesheets/Admin-Tables-styles.css"
 import Swal from "sweetalert2";
+import EditResource from "./EditResource";
 
 class ViewLibrary extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            libraries: []
+            libraries: [],
+            show: false,
+            rid: '',
         }
     }
 
     componentDidMount() {
         this.refreshTable();
+    }
+
+    //Modal box
+    showModalBox = () => {
+        this.setState({show: true})
+    }
+    //Modal box
+    closeModalBox = () => {
+        this.setState({show: false})
     }
 
     /**
@@ -97,7 +109,8 @@ class ViewLibrary extends Component {
     }
 
     editResource = (id) => {
-
+        this.setState({rid: id})
+        this.showModalBox();
     }
 
     deleteResource = (id) => {
@@ -221,7 +234,20 @@ class ViewLibrary extends Component {
                         </tbody>
                     </Table>
 
+
+                    {/*------------------------ Modal Box for Edit Resource ------------------------*/}
+                    <Modal show={this.state.show} onHide={this.closeModalBox} centered fullscreen={"sm-down"} size={"md"}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Edit Resource</Modal.Title>
+                        </Modal.Header>
+
+                        <Modal.Body>
+                            <EditResource resourceId={this.state.rid} key={this.state.rid} />
+                        </Modal.Body>
+                    </Modal>
+
                 </div>
+
             </div>
         )
     }

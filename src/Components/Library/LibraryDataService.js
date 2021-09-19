@@ -40,8 +40,8 @@ class LibraryDataService {
         return axios.get("http://localhost:8080/Subject/")
     }
 
-    fetchSubjectListForGrade(subject) {
-        return axios.get(`http://localhost:8080/Subject/${subject}`)
+    fetchSubjectListForGrade(grade) {
+        return axios.get(`http://localhost:8080/Subject/${grade}`)
     }
 }
 
