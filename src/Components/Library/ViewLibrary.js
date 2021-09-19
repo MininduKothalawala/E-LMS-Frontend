@@ -11,8 +11,7 @@ class ViewLibrary extends Component {
         super(props);
 
         this.state = {
-            libraries: [],
-            search: ''
+            libraries: []
         }
     }
 
@@ -20,13 +19,45 @@ class ViewLibrary extends Component {
         this.refreshTable();
     }
 
-    // handleSearchInput = (event) => {
-    //     event.preventDefault();
-    //
-    //     this.setState({
-    //         search: event.target.value
-    //     })
-    // }
+    /**
+     * This method search the typed text through
+     * subject, grade, filename columns and return
+     * the results to the table.
+     *
+     * If there is no results to be found, libraries
+     * array will be set to 0 so the no record text
+     * will appear.
+     *
+     * If there is no input text typed, call the
+     * refreshTable method to load all the data
+     * to the table again.
+     *
+     * @param event - captures the input text
+     */
+    searchResource = (event) => {
+        event.preventDefault();
+
+        const search = event.target.value;
+
+        if (search) {
+            LibraryDataService.searchResource(search)
+                .then( res => {
+
+                    if ( res.data && res.data.length > 0) {
+                        this.setState({
+                            libraries: res.data
+                        })
+                    } else {
+                        this.setState({
+                            libraries: []
+                        })
+                    }
+                })
+        } else {
+            this.refreshTable();
+        }
+
+    }
 
     refreshTable = () => {
         LibraryDataService.fetchLibraryResources()
@@ -61,9 +92,6 @@ class ViewLibrary extends Component {
     //
     // }
     //
-    // searchResource = (e) => {
-    //
-    // }
 
     filterResource = (input) => {
         LibraryDataService.filterByType(input)
@@ -97,8 +125,7 @@ class ViewLibrary extends Component {
                                     <Form.Control type="text"
                                                   placeholder="Search"
                                                   required
-                                                  value={this.state.search}
-                                                  onChange={this.handleSearchInput}/>
+                                                  onChange={this.searchResource}/>
                                 </InputGroup>
                             </Col>
                             <Col className={"text-end"}>
@@ -142,7 +169,7 @@ class ViewLibrary extends Component {
                                                        key={"0"}>TEACHERS' <br/> GUIDE</Badge>
                                                 }
                                             </td>
-                                            <td>Grade {library.grade}</td>
+                                            <td>{library.grade}</td>
                                             <td>{library.subject}</td>
                                             <td className={"text-center"}>
                                                 <ButtonGroup>
