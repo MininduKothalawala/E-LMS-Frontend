@@ -9,6 +9,7 @@ class AddResource extends Component {
         super(props);
 
         this.state = {
+            resourceId: -1,
             resource_type: '',
             subject: '',
             grade: '',
@@ -74,7 +75,7 @@ class AddResource extends Component {
             Swal.fire({
                 icon: 'warning',
                 title: 'No Resource Type Selected',
-                html: '<p>Please choose a resource type!</p>',
+                text: "Please choose a resource type!",
                 background: '#fff',
                 confirmButtonColor: '#333533',
                 iconColor: '#ffc200'
@@ -85,7 +86,7 @@ class AddResource extends Component {
             Swal.fire({
                 icon: 'warning',
                 title: 'No Grade Selected',
-                html: '<p>Please choose a grade!</p>',
+                text: "Please choose a grade!",
                 background: '#fff',
                 confirmButtonColor: '#333533',
                 iconColor: '#ffc200'
@@ -96,7 +97,7 @@ class AddResource extends Component {
             Swal.fire({
                 icon: 'warning',
                 title: 'No Subject Selected',
-                html: '<p>Please choose a subject!</p>',
+                text: "Please choose a subject!",
                 background: '#fff',
                 confirmButtonColor: '#333533',
                 iconColor: '#ffc200'
@@ -139,7 +140,7 @@ class AddResource extends Component {
                         Swal.fire({
                             icon: 'success',
                             title: 'Successful',
-                            html: '<p>Your file has been uploaded!!</p>',
+                            text: "Your file has been uploaded!!",
                             background: '#fff',
                             confirmButtonColor: '#333533',
                             iconColor: '#60e004'
@@ -149,7 +150,7 @@ class AddResource extends Component {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            html: '<p>There was an error uploading!</p>',
+                            text: "There was an error uploading!",
                             background: '#fff',
                             confirmButtonColor: '#333533',
                             iconColor: '#e00404'
@@ -164,6 +165,7 @@ class AddResource extends Component {
 
     clearData = () => {
         this.setState({
+            resourceId: -1,
             resource_type: '',
             subject: '',
             grade: '',
@@ -208,7 +210,7 @@ class AddResource extends Component {
                                     <option>Choose...</option>
                                     {
                                         gradeList.map(item =>
-                                            <option value={item.grade}>{item.grade}</option>
+                                            <option value={item.grade} key={item.grade}>{item.grade}</option>
                                         )
                                     }
                                 </Form.Select>

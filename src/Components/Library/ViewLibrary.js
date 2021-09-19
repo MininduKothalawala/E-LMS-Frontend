@@ -5,6 +5,7 @@ import {faArrowDown, faEdit, faSearch, faTrashAlt} from "@fortawesome/free-solid
 import LibraryDataService from "./LibraryDataService";
 import {faFilePdf} from "@fortawesome/free-regular-svg-icons";
 import "../../Stylesheets/Admin-Tables-styles.css"
+import Swal from "sweetalert2";
 
 class ViewLibrary extends Component {
     constructor(props) {
@@ -83,15 +84,6 @@ class ViewLibrary extends Component {
                 link.remove();
             })
     }
-
-    // editResource = (id) => {
-    //
-    // }
-    //
-    // deleteResource = (id) => {
-    //
-    // }
-    //
 
     filterResource = (input) => {
         LibraryDataService.filterByType(input)
