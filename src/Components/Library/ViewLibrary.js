@@ -156,8 +156,8 @@ class ViewLibrary extends Component {
                                 </InputGroup>
                             </Col>
                             <Col className={"text-end"}>
-                                <button className={"filter-btn-guide"} onClick={() => this.filterResource("guide")}>TEACHERS' GUIDE</button>
-                                <button className={"filter-btn-syllabus"} onClick={() => this.filterResource("syllabus")}>SYLLABUS</button>
+                                <button className={"filter-btn-guide"} onClick={() => this.filterResource("Guide")}>TEACHERS' GUIDE</button>
+                                <button className={"filter-btn-syllabus"} onClick={() => this.filterResource("Syllabus")}>SYLLABUS</button>
                             </Col>
                         </Row>
                     </div>
