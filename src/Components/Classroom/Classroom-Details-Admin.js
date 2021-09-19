@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import axios from "axios";
 import {Badge, Button, ButtonGroup, Card, Form, Image, InputGroup, Modal, OverlayTrigger, Table, Tooltip} from "react-bootstrap";
 import moment from "moment";
-import pdfImg from "./pdf.png";
-import tuteImg from "./tute.png";
+// import pdfImg from "./pdf.png";
+// import tuteImg from "./tute.png";
 import ClassroomDataService from "./ClassroomDataService";
 class ClassroomDetailsAdmin extends Component{
 
@@ -164,30 +164,6 @@ class ClassroomDetailsAdmin extends Component{
                     <p>{addedBy}</p>
                 </div>
 
-                <div className={"text-left image-card"}>
-                    <h6>Lecture</h6>
-                    <img alt={"card-background-image"} width={150} height={200}
-                         src={pdfImg}/>
-                </div>
-
-
-                <button variant={"success"} type={"submit"}
-                        onClick={(e) => this.handleDownloadLec(e, lec_filename, lec_fileId)}>Download Lecture
-
-                </button>
-
-                <div className={"text-right image-card"}>
-                    <h6>Tutorial</h6>
-                    <img alt={"card-background-image"} width={150} height={200}
-                         src={tuteImg}/>
-                </div>
-
-
-
-                <button variant={"success"} type={"submit"}
-                        onClick={(e) => this.handleDownloadTute(e, tute_filename, tute_fileId)}>Download Tute
-
-                </button>
 
 
 

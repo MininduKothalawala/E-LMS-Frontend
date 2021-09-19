@@ -35,13 +35,14 @@ import SignUp from "../Login/Signup";
 import ClassroomListTeacher from "../Classroom/Classroom-List-Teacher";
 import ClassroomListStudent from "../Classroom/Classroom-List-Student";
 import Notices from "../Notice/Notices";
-import MainLibrary from "../Library/MainLibrary";
+import TeachersGuideLibrary from "../Library/TeachersGuideLibrary";
 
 import ClassroomDetailsAdmin from "../Classroom/Classroom-Details-Admin";
 import ClassroomDetailsTeacher from "../Classroom/Classroom-Details-Teacher";
 import ClassroomUpdate from "../Classroom/Classroom-Update";
 import ClassListAdmin from "../Classroom/Classroom-List-Admin";
 import ClassroomDetailsStudent from "../Classroom/Classroom-Details-Student";
+import SyllabusLibrary from "../Library/SyllabusLibrary";
 
 class Sidebar extends Component {
     constructor(props) {
@@ -238,7 +239,7 @@ class Sidebar extends Component {
                             {/*----------------- Sidebar Navigation Tabs -----------------*/}
                             <div className={"sidebar-middle"}>
                                 <ListGroup variant="flush">
-                                    { loggedAsAdmin &&
+                                    { isUserLoggedIn &&
                                     <Link className={"dashboard-links"}>
                                         <ListGroupItem active={dashboard}
                                                        onClick={() => this.listItemActive("dashboard")}>
@@ -370,15 +371,34 @@ class Sidebar extends Component {
                                         {/*-------------------------------------------------------------------------------------*/}
                                         {library &&
                                         <Nav variant="pills" defaultActiveKey="library">
+                                            { loggedAsAdmin &&
                                             <Nav.Item onClick={() => this.loadContent("library")}>
                                                 <Nav.Link eventKey="library">
                                                     <div className={"second-nav-item-link"}>LIBRARIES</div>
                                                 </Nav.Link>
                                             </Nav.Item>
+                                            }
+
                                             { loggedAsAdmin &&
                                             <Nav.Item onClick={() => this.loadContent("library-admin-add")}>
                                                 <Nav.Link eventKey="add-library">
                                                     <div className={"second-nav-item-link"}>ADD RESOURCES</div>
+                                                </Nav.Link>
+                                            </Nav.Item>
+                                            }
+
+                                            { !loggedAsAdmin &&
+                                            <Nav.Item onClick={() => this.loadContent("library")}>
+                                                <Nav.Link eventKey="library">
+                                                    <div className={"second-nav-item-link"}>SYLLABUS</div>
+                                                </Nav.Link>
+                                            </Nav.Item>
+                                            }
+
+                                            { !loggedAsAdmin &&
+                                            <Nav.Item onClick={() => this.loadContent("library-t")}>
+                                                <Nav.Link eventKey="library-t">
+                                                    <div className={"second-nav-item-link"}>TEACHERS' GUIDE</div>
                                                 </Nav.Link>
                                             </Nav.Item>
                                             }
@@ -537,9 +557,14 @@ class Sidebar extends Component {
 
 
                                 {/*********************** TEACHER ***********************/}
+                                { loggedAsTeacher && loadContent === 'library-t' &&
+                                <div>
+                                    <TeachersGuideLibrary />
+                                </div>
+                                }
                                 { loggedAsTeacher && loadContent === 'library' &&
                                 <div>
-                                    <MainLibrary />
+                                    <SyllabusLibrary />
                                 </div>
                                 }
 
@@ -547,9 +572,14 @@ class Sidebar extends Component {
 
 
                                 {/*********************** STUDENT ***********************/}
+                                { loggedAsStudent && loadContent === 'library-t' &&
+                                <div>
+                                    <TeachersGuideLibrary />
+                                </div>
+                                }
                                 { loggedAsStudent && loadContent === 'library' &&
                                 <div>
-                                    <MainLibrary />
+                                    <SyllabusLibrary />
                                 </div>
                                 }
 

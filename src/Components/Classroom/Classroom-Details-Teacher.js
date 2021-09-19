@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import axios from "axios";
 import moment from "moment";
 import ClassroomDataService from "./ClassroomDataService";
-import pdfImg from "./pdf.png";
-import tuteImg from "./tute.png"
+// import pdfImg from "./pdf.png";
+// import tuteImg from "./tute.png"
 class ClassroomDetailsTeacher extends Component{
 
     constructor(props){
@@ -149,29 +149,29 @@ class ClassroomDetailsTeacher extends Component{
                     <p>{time}</p>
                 </div>
 
-                <div>
-                    <h6>Link</h6>
-                    <p>  <a href={link}>{link}</a></p>
+                {/*<div>*/}
+                {/*    <h6>Link</h6>*/}
+                {/*    <p>  <a href={link}>{link}</a></p>*/}
 
 
-                </div>
+                {/*</div>*/}
 
-                <div className={"text-left image-card"}>
-                    <h6>Lecture</h6>
-                    <img alt={"card-background-image"} width={150} height={200}
-                         src={pdfImg}/>
-                </div>
+                {/*<div className={"text-left image-card"}>*/}
+                {/*    <h6>Lecture</h6>*/}
+                {/*    <img alt={"card-background-image"} width={150} height={200}*/}
+                {/*         src={pdfImg}/>*/}
+                {/*</div>*/}
 
-                <button variant={"success"} type={"submit"}
-                        onClick={(e) => this.handleDownloadLec(e, lec_filename, lec_fileId)}>Download Lecture
+                {/*<button variant={"success"} type={"submit"}*/}
+                {/*        onClick={(e) => this.handleDownloadLec(e, lec_filename, lec_fileId)}>Download Lecture*/}
 
-                </button>
+                {/*</button>*/}
 
-                <div className={"text-right image-card"}>
-                    <h6>Tutorial</h6>
-                    <img alt={"card-background-image"} width={150} height={200}
-                         src={tuteImg}/>
-                </div>
+                {/*<div className={"text-right image-card"}>*/}
+                {/*    <h6>Tutorial</h6>*/}
+                {/*    <img alt={"card-background-image"} width={150} height={200}*/}
+                {/*         src={tuteImg}/>*/}
+                {/*</div>*/}
 
 
                 <button variant={"success"} type={"submit"}
