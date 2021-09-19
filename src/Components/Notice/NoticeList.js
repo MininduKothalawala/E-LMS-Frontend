@@ -1,12 +1,13 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {Button, Col, Container, Form, InputGroup, Row, Table} from "react-bootstrap";
+import {Button, ButtonGroup, Col, Container, Form, InputGroup, Row, Table} from "react-bootstrap";
 import swal from "sweetalert";
 import {faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import "../../Stylesheets/Admin-Tables-styles.css";
+import {faEdit} from "@fortawesome/free-regular-svg-icons";
 
 class NoticeList extends Component {
 
@@ -104,6 +105,8 @@ class NoticeList extends Component {
 
         let content = {
             startY: 50,
+            theme: 'grid',
+            //theme: 'striped'|'grid'|'plain'|'css' = 'striped'
             head: headers,
             body: notices
         };
@@ -111,6 +114,7 @@ class NoticeList extends Component {
         doc.text(title, marginLeft, 40);
         require('jspdf-autotable');
         doc.autoTable(content);
+
         doc.save("NoticeListReport.pdf")
     }
 
@@ -186,10 +190,17 @@ class NoticeList extends Component {
                                                 <td width={"500px"}>{notice.noticeBody}</td>
                                                 <td>{notice.enteredTime}</td>
                                                 <td className={"text-center"}>
-                                                    <Button variant={"outline-danger"} type={"submit"}
-                                                            onClick={this.deleteItem.bind(this, notice.noticeId)}>
-                                                        <FontAwesomeIcon icon={faTrashAlt}/>
-                                                    </Button>
+                                                    <ButtonGroup>
+                                                        <Button variant={"outline-danger"} type={"submit"}
+                                                                onClick={this.deleteItem.bind(this, notice.noticeId)}>
+                                                            <FontAwesomeIcon icon={faTrashAlt}/>
+                                                        </Button>
+                                                        <Button variant={"outline-warning"} type={"submit"}
+                                                                onClick={this.deleteItem.bind(this, notice.noticeId)}>
+                                                            <FontAwesomeIcon icon={faEdit}/>
+                                                        </Button>
+                                                    </ButtonGroup>
+
                                                 </td>
                                             </tr>
                                         )
