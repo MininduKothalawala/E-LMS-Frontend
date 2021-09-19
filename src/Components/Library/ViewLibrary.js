@@ -126,15 +126,15 @@ class ViewLibrary extends Component {
                                             </td>
                                             <td className={"text-center"}>
                                                 {library.resourceType === 'SYLLABUS' &&
-                                                <Badge bg="warning" text="dark" className={"px-3 py-2"}
+                                                <Badge bg="secondary" text="light" className={"px-3 py-2"}
                                                        key={"0"}>SYLLABUS</Badge>
                                                 }
                                                 {library.resourceType === 'GUIDE' &&
-                                                <Badge bg="success" className={"px-3 py-2"}
-                                                       key={"0"}>TEACHERS' GUIDE</Badge>
+                                                <Badge bg="secondary" className={"px-3 py-2"}
+                                                       key={"0"}>TEACHERS' <br/> GUIDE</Badge>
                                                 }
                                             </td>
-                                            <td>{library.grade}</td>
+                                            <td>Grade {library.grade}</td>
                                             <td>{library.subject}</td>
                                             <td className={"text-center"}>
                                                 <ButtonGroup>
