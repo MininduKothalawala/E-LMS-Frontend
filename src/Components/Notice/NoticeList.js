@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {Button, ButtonGroup, Col, Container, Form, InputGroup, Row, Table} from "react-bootstrap";
+import {Button, ButtonGroup, Col, Container, Form, InputGroup, Modal, Row, Table} from "react-bootstrap";
 import swal from "sweetalert";
 import {faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -8,6 +8,8 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import "../../Stylesheets/Admin-Tables-styles.css";
 import {faEdit} from "@fortawesome/free-regular-svg-icons";
+import EditUser from "../User/EditUser";
+import EditNotice from "./EditNotice";
 
 class NoticeList extends Component {
 
@@ -17,7 +19,8 @@ class NoticeList extends Component {
         this.state = {
             notices: [],
             grades: [],
-            filterGrade: ''
+            filterGrade: '',
+            show: false
         }
     }
 
@@ -118,6 +121,22 @@ class NoticeList extends Component {
         doc.save("NoticeListReport.pdf")
     }
 
+    handleShow = () => {
+        this.setState({show: true})
+    }
+
+    handleClose = () => {
+        this.setState({show: false})
+        this.refreshTable();
+    }
+
+    editNotice = (noticeId) => {
+        //console.log(indexno)
+        this.setState({noticeId: noticeId})
+        this.handleShow()
+
+    }
+
 
     render() {
         const {notices} = this.state;
@@ -166,7 +185,7 @@ class NoticeList extends Component {
                             <th>Grade</th>
                             <th>Topic</th>
                             <th>Body</th>
-                            <th>Added Time</th>
+                            <th>Modified At</th>
                             <th className={"text-center"}>Action</th>
                         </tr>
                         </thead>
@@ -196,7 +215,7 @@ class NoticeList extends Component {
                                                             <FontAwesomeIcon icon={faTrashAlt}/>
                                                         </Button>
                                                         <Button variant={"outline-warning"} type={"submit"}
-                                                                onClick={this.deleteItem.bind(this, notice.noticeId)}>
+                                                                onClick={this.editNotice.bind(this, notice.noticeId)}>
                                                             <FontAwesomeIcon icon={faEdit}/>
                                                         </Button>
                                                     </ButtonGroup>
@@ -209,6 +228,16 @@ class NoticeList extends Component {
                         }
                         </tbody>
                     </Table>
+                    {/*--------------------------Modal Box to Edit Template--------------------------*/}
+
+                    <Modal show={this.state.show} onHide={this.handleClose} centered>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Update</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body> <EditNotice noticeId={this.state.noticeId}/> </Modal.Body>
+                    </Modal>
+
+                    {/*--------------------------------------------------------------------------------*/}
                 </div>
             </div>
         )
