@@ -70,7 +70,7 @@ class AddResource extends Component {
         const subject = this.state.subject;
         const grade = this.state.grade;
 
-        if (resource_type === '') {
+        if (resource_type === '' || resource_type === 'Choose...') {
 
             Swal.fire({
                 icon: 'warning',
@@ -81,7 +81,7 @@ class AddResource extends Component {
                 iconColor: '#ffc200'
             })
 
-        } else if (grade === '') {
+        } else if (grade === '' || grade === 'Choose...') {
 
             Swal.fire({
                 icon: 'warning',
@@ -92,7 +92,7 @@ class AddResource extends Component {
                 iconColor: '#ffc200'
             })
 
-        } else if (subject === '') {
+        } else if (subject === '' || subject === 'Choose...') {
 
             Swal.fire({
                 icon: 'warning',
