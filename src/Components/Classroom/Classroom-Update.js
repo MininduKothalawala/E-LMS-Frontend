@@ -206,51 +206,16 @@ class ClassroomUpdate extends Component{
         const link = this.state.link;
         const addedBy = this.state.username;
 
-        const lecFile = this.state.lecFile[0];
-        const tuteFile = this.state.tuteFile[0];
-        const classImg = this.state.classImg[0];
+        const lecFile = this.state.lecFile;
+        const tuteFile = this.state.tuteFile;
+        const classImg = this.state.classImg;
 
 
         //update only description
         // if (!this.state.isChecked) {
         //     console.log("UPDATING...");
 
-        //     const formData = new FormData();
-        // formData.append('grade', grade)
-        // formData.append('subject', subject)
-        // formData.append('topic', topic)
-        // formData.append('description', description)
-        // formData.append('date', date)
-        // formData.append('time', time)
-        // formData.append('link', link)
-        // formData.append('addedBy', addedBy)
-        //
-        //     ClassroomDataService.editClassroomWithoutFiles(formData)
-        //         .then( res => {
-        //             if (res.status === 200) {
-        //                 console.log("UPDATED");
-        //
-        //                 Swal.fire({
-        //                     icon: 'success',
-        //                     title: 'Successful',
-        //                     html: '<p>Your file has been uploaded!!</p>',
-        //                     background: '#041c3d',
-        //                     confirmButtonColor: '#3aa2e7',
-        //                     iconColor: '#60e004'
-        //                 }).then((result) => {
-        //                     if (result.isConfirmed) {
-        //                         this.clearData();
-        //                         this.props.history.push('/admin')
-        //                     }
-        //                 })
-        //             }
-        //         })
-
-        // } else {
-        //update all including files
-        console.log("UPDATING FILE...");
-
-        const formData = new FormData();
+            const formData = new FormData();
         formData.append('grade', grade)
         formData.append('subject', subject)
         formData.append('topic', topic)
@@ -259,46 +224,81 @@ class ClassroomUpdate extends Component{
         formData.append('time', time)
         formData.append('link', link)
         formData.append('addedBy', addedBy)
-        formData.append('lecFile', lecFile)
-        formData.append('tuteFile', tuteFile)
-        formData.append('classImg', classImg)
-        const config = {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        }
 
-        ClassroomDataService.editClassroomWithFiles(formData, config)
-            .then(res => {
-                console.log(res);
+            ClassroomDataService.editClassroomWithoutFiles(formData)
+                .then( res => {
+                    if (res.status === 200) {
+                        console.log("UPDATED");
 
-                if (res.status === 200) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Successful',
+                            html: '<p>Your file has been uploaded!!</p>',
+                            background: '#041c3d',
+                            confirmButtonColor: '#3aa2e7',
+                            iconColor: '#60e004'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                this.clearData();
+                                this.props.history.push('/admin')
+                            }
+                        })
+                    }
+                })
 
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Successful',
-                        html: '<p>Your file has been uploaded!!</p>',
-                        background: '#041c3d',
-                        confirmButtonColor: '#3aa2e7',
-                        iconColor: '#60e004'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            this.clearData();
-                            window.location.reload();
-                        }
-                    })
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        html: '<p>There was an error updating!</p>',
-                        background: '#041c3d',
-                        showConfirmButton: false,
-                        timer: 1500,
-                        iconColor: '#e00404'
-                    })
-                }
-            })
+        // } else {
+        //update all including files
+       // console.log("UPDATING FILE...");
+
+        // const formData = new FormData();
+        // formData.append('grade', grade)
+        // formData.append('subject', subject)
+        // formData.append('topic', topic)
+        // formData.append('description', description)
+        // formData.append('date', date)
+        // formData.append('time', time)
+        // formData.append('link', link)
+        // formData.append('addedBy', addedBy)
+        // formData.append('lecFile', lecFile)
+        // formData.append('tuteFile', tuteFile)
+        // formData.append('classImg', classImg)
+        // const config = {
+        //     headers: {
+        //         "Content-Type": "multipart/form-data"
+        //     }
+        // }
+        //
+        // ClassroomDataService.editClassroomWithFiles(formData, config)
+        //     .then(res => {
+        //         console.log(res);
+        //
+        //         if (res.status === 200) {
+        //
+        //             Swal.fire({
+        //                 icon: 'success',
+        //                 title: 'Successful',
+        //                 html: '<p>Your file has been uploaded!!</p>',
+        //                 background: '#041c3d',
+        //                 confirmButtonColor: '#3aa2e7',
+        //                 iconColor: '#60e004'
+        //             }).then((result) => {
+        //                 if (result.isConfirmed) {
+        //                     this.clearData();
+        //                     window.location.reload();
+        //                 }
+        //             })
+        //         } else {
+        //             Swal.fire({
+        //                 icon: 'error',
+        //                 title: 'Error',
+        //                 html: '<p>There was an error updating!</p>',
+        //                 background: '#041c3d',
+        //                 showConfirmButton: false,
+        //                 timer: 1500,
+        //                 iconColor: '#e00404'
+        //             })
+        //         }
+        //     })
 
         this.refreshTable();
 
@@ -523,7 +523,7 @@ class ClassroomUpdate extends Component{
 
                                           accept={".pptx, .ppt, .pdf"}
                                           onChange={this.handleLecFileChange}
-                                          required />
+                                          />
 
                         </Form.Group>
 
@@ -534,7 +534,7 @@ class ClassroomUpdate extends Component{
                                           name={"tuteFile"}
                                           accept={".docx, .doc"}
                                           onChange={this.handleTuteFileChange}
-                                          required />
+                                           />
                         </Form.Group>
 
                         <Form.Group controlId={"formImageFile"}>
@@ -544,7 +544,7 @@ class ClassroomUpdate extends Component{
                                           name={"classImg"}
                                           accept={".jpg, .jpeg, .png"}
                                           onChange={this.handleClassImgChange}
-                                          required />
+                                           />
                         </Form.Group>
                         {/*</Container> <hr/>*/}
                         {/*<Container>*/}
