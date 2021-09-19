@@ -196,8 +196,8 @@ class AddResource extends Component {
                                              required
                                              onChange={this.onChangeHandler}>
                                     <option >Choose...</option>
-                                    <option value={"syllabus"}>Syllabus</option>
-                                    <option value={"guide"}>Teachers' Guide</option>
+                                    <option value={"Syllabus"}>Syllabus</option>
+                                    <option value={"Guide"}>Teachers' Guide</option>
                                 </Form.Select>
                             </Form.Group>
 

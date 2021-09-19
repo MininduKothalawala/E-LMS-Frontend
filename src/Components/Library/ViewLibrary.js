@@ -187,11 +187,11 @@ class ViewLibrary extends Component {
                                                 {library.fileName}
                                             </td>
                                             <td className={"text-center"}>
-                                                {library.resourceType === 'SYLLABUS' &&
+                                                {library.resourceType === 'Syllabus' &&
                                                 <Badge bg="secondary" text="light" className={"px-3 py-2"}
                                                        key={"0"}>SYLLABUS</Badge>
                                                 }
-                                                {library.resourceType === 'GUIDE' &&
+                                                {library.resourceType === 'Guide' &&
                                                 <Badge bg="secondary" className={"px-3 py-2"}
                                                        key={"0"}>TEACHERS' <br/> GUIDE</Badge>
                                                 }
