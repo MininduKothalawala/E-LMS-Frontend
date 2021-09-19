@@ -104,6 +104,41 @@ class ViewLibrary extends Component {
             })
     }
 
+    editResource = (id) => {
+
+    }
+
+    deleteResource = (id) => {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            background: '#fff',
+            confirmButtonColor: '#808080',
+            iconColor: '#ffc200',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then( res => {
+            if (res.isConfirmed) {
+             LibraryDataService.deleteLibraryResource(id)
+                 .then( res => {
+                     console.log(res);
+                     this.refreshTable();
+
+                     Swal.fire({
+                         icon: 'success',
+                         title: 'Successful',
+                         text: "Resource have been deleted!!",
+                         background: '#fff',
+                         confirmButtonColor: '#333533',
+                         iconColor: '#60e004'
+                     })
+                 })
+            }
+        })
+    }
+
     render() {
         const {libraries} = this.state;
 
