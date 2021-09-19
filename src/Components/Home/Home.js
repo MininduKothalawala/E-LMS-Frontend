@@ -53,22 +53,22 @@ class Home extends  Component {
                                     }
                                 </Navbar.Text>
                             </Navbar.Collapse>
-                            {/*TODO: When Logged in MY CLASSROOM Should be displayed*/}
                         </Navbar>
 
                         {/*------------------------ Upper body Content ------------------------*/}
                         <Row className={"row-upper"}>
                             <Col xl={5}>
                                 <div className={"title"}>
-                                    Lorem ipsum dolor sit amet.
+                                    Education is the most powerful thing that you can earn in your life journey.
                                 </div>
                                 <div className={"paragraph"}>
-                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                                    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-                                    erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-                                    et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-                                    Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-                                    sadipscing elitr, sed diam nonumy.
+                                    “There is no end to education.
+                                    It is not that you read a book, pass an examination,
+                                    and finish with education.
+                                    The whole of life,
+                                    from the moment you are born to the moment you die,
+                                    is a process of learning.”
+                                    Jiddu Krishnamurti
                                 </div>
                             </Col>
                             <Col xl={6}>
