@@ -9,6 +9,7 @@ import {faFilePdf} from "@fortawesome/free-regular-svg-icons";
 import "../../Stylesheets/Admin-Tables-styles.css"
 import Login from "../Login/Login";
 import ClassroomDetailsAdmin from "./Classroom-Details-Admin";
+import jsPDF from "jspdf";
 
 
 class ClassroomListAdmin extends Component {
@@ -19,19 +20,39 @@ class ClassroomListAdmin extends Component {
         this.state = {
             id: '',
             classrooms: [],
-            show: false
+            show: false,
+            filterGrade: '',
+            filterSubject:'',
+            classGrade:'',
+            grades: [],
+            classSubject:'',
+            subjects:[]
         }
     }
     componentDidMount() {
-        axios.get(`http://localhost:8080/classroom/`)
+        this.refreshTable();
+        this.getSubjectList();
+    }
+
+    refreshTable = () => {
+        axios.get('http://localhost:8080/classroom/')
             .then(response => {
                 console.log(response.data)
                 this.setState({classrooms: response.data})
-
             })
             .catch((error) => {
                 console.log(error);
             })
+    }
+
+    getSubjectList = () =>{
+        axios.get("http://localhost:8080/Subject/").then(
+            response =>{
+                this.setState({
+                    grades: response.data
+                })
+            }
+        )
     }
 
     gotoDetails = (id) => {
@@ -42,6 +63,69 @@ class ClassroomListAdmin extends Component {
             id: id,
             show: true
         })
+    }
+
+    filterChangeHandler = (e) =>{
+        this.setState({filterGrade: e.target.value});
+
+        axios.get(`http://localhost:8080/classroom/getbygrade/${e.target.value}`)
+            .then(response => {
+                console.log(response.data)
+                this.setState({classrooms: response.data})
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    filterBySubject = (e) =>{
+        this.setState({filterSubject: e.target.value});
+
+        axios.get(`http://localhost:8080/classroom/getbysubject/${e.target.value}`)
+            .then(response => {
+                console.log(response.data)
+                this.setState({classrooms: response.data})
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    ExportPdfReport = () => {
+
+        const unit = "pt";
+        const size = "A4";
+        const orientation = "landscape";
+        const marginLeft = 60;
+        const doc = new jsPDF(orientation, unit, size);
+
+        const title = "Monthly Classrooms";
+        const headers = [["Classroom Id", "Grade", "Subject", "Topic", "Description", "Date", "Time", "AddedBy"]];
+
+        const classrooms = this.state.classrooms.map(
+            cls => [
+                cls.id,
+                cls.grade,
+                cls.subject,
+                cls.topic,
+                cls.description,
+                cls.date,
+                cls.time,
+                cls.addedBy
+
+            ]
+        );
+
+        let content = {
+            startY: 50,
+            head: headers,
+            body: classrooms
+        };
+        doc.setFontSize(20);
+        doc.text(title, marginLeft, 40);
+        require('jspdf-autotable');
+        doc.autoTable(content);
+        doc.save("ClassroomListReport.pdf")
     }
 
     //Modal box
@@ -62,26 +146,56 @@ class ClassroomListAdmin extends Component {
                     <div>
                         <h3>Classrooms</h3>
                     </div>
-                    {/*<div className={"mb-2"}>*/}
-                    {/*    <Row>*/}
-                    {/*        <Col xl={5} lg={5}>*/}
-                    {/*            <InputGroup>*/}
-                    {/*                <InputGroup.Text bsPrefix={"input-search-icon"}>*/}
-                    {/*                    <FontAwesomeIcon icon={faSearch}/>*/}
-                    {/*                </InputGroup.Text>*/}
-                    {/*                <Form.Control type="text"*/}
-                    {/*                              placeholder="Search"*/}
-                    {/*                              required*/}
-                    {/*                              value={this.state.search}*/}
-                    {/*                              onChange={this.handleSearchInput}/>*/}
-                    {/*            </InputGroup>*/}
-                    {/*        </Col>*/}
-                    {/*        <Col className={"text-end"}>*/}
-                    {/*            <button className={"filter-btn-guide"}>TEACHERS' GUIDE</button>*/}
-                    {/*            <button className={"filter-btn-syllabus"}>SYLLABUS</button>*/}
-                    {/*        </Col>*/}
-                    {/*    </Row>*/}
-                    {/*</div>*/}
+                    <div className={"mb-2"}>
+                        <Row>
+                            <Col xl={5} lg={5}>
+                                <InputGroup>
+                                    <InputGroup.Text bsPrefix={"input-search-icon"}>
+                                        <FontAwesomeIcon icon={faSearch}/>
+                                    </InputGroup.Text>
+                                    <Form.Control type="text"
+                                                  placeholder="Search By Subject"
+                                                  required
+                                                  value={this.state.search}
+                                                  onChange={this.filterBySubject}/>
+                                </InputGroup>
+                            </Col>
+                            <Col className={"text-end"}>
+                                <button className={"view-more-btn"} onClick={this.ExportPdfReport}>Generate Report</button>
+
+
+                            </Col>
+                            <Col className={"text-end"} xl={4} lg={4}>
+
+                                {/*<Row>*/}
+                                <Form.Group as={Col} controlId={"formClassroomGrade"}>
+                                    <Form.Select onChange={this.filterChangeHandler}>
+                                        {
+                                            this.state.grades.map(item =>
+                                                <option value={item.grade}>{item.grade}</option>
+                                            )
+                                        }
+                                    </Form.Select>
+                                </Form.Group>
+
+                                {/*    <Form.Group as={Col} controlId={"classSubject"}>*/}
+                                {/*        <Form.Label>Subject</Form.Label>*/}
+                                {/*        <Form.Text className="text-muted">*/}
+                                {/*            &nbsp; (Enables after selecting a grade)*/}
+                                {/*        </Form.Text>*/}
+                                {/*        <Form.Select required onChange={this.handleChangeClassSubject} disabled={this.state.isDisabled}>*/}
+                                {/*            {*/}
+                                {/*                this.state.subjects.map(subject =>*/}
+                                {/*                    <option value={subject}>{subject}</option>*/}
+                                {/*                )*/}
+                                {/*            }*/}
+                                {/*        </Form.Select>*/}
+                                {/*    </Form.Group>*/}
+                                {/*</Row>*/}
+
+                            </Col>
+                        </Row>
+                    </div>
 
                     <Table responsive bordered>
                         <thead className={"table-custom-header"}>
@@ -144,4 +258,4 @@ class ClassroomListAdmin extends Component {
         )
     }
 }
-export default withRouter(ClassroomListAdmin);
+export default ClassroomListAdmin;

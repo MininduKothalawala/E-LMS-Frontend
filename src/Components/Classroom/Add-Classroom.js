@@ -225,7 +225,7 @@ class AddClassroom extends Component{
 
                             <Form.Group controlId={"classT"}>
                                 <Form.Label>Topic</Form.Label>
-                                <Form.Control as={"input"} name={"topic"} placeholder={"Enter a topic"} required
+                                <Form.Control as={"input"} name={"topic"} placeholder={"Enter a topic"}  required
                                               value={topic} onChange={this.handleChange}/>
                             </Form.Group>
 

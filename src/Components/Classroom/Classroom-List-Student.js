@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {Card, Row, Col, Badge, Modal} from "react-bootstrap";
+import {Card, Row, Col, Badge, Modal, Form} from "react-bootstrap";
 import {faCalendarAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faClock} from "@fortawesome/free-regular-svg-icons";
@@ -18,15 +18,49 @@ class ClassroomListStudent extends Component {
         this.state = {
             id: '',
             classrooms: [],
-            show: false
+            show: false,
+            grades: [],
+            filterGrade: '',
+            filterSubject:'',
+            classGrade:'',
+
+            classSubject:'',
+            subjects:[]
         }
     }
     componentDidMount() {
-        axios.get(`http://localhost:8080/classroom/`)
+        this.refreshTable();
+        this.getSubjectList();
+    }
+
+    refreshTable = () => {
+        axios.get('http://localhost:8080/classroom/')
             .then(response => {
                 console.log(response.data)
                 this.setState({classrooms: response.data})
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
+    getSubjectList = () =>{
+        axios.get("http://localhost:8080/Subject/").then(
+            response =>{
+                this.setState({
+                    grades: response.data
+                })
+            }
+        )
+    }
+
+    filterChangeHandler = (e) =>{
+        this.setState({filterGrade: e.target.value});
+
+        axios.get(`http://localhost:8080/classroom/getbygrade/${e.target.value}`)
+            .then(response => {
+                console.log(response.data)
+                this.setState({classrooms: response.data})
             })
             .catch((error) => {
                 console.log(error);
@@ -53,6 +87,7 @@ class ClassroomListStudent extends Component {
     }
 
     render() {
+        const {classrooms} = this.state;
         return (
             <div className={"st-wrapper"}>
                 <Row className={"st-title mx-0"}>
@@ -62,18 +97,17 @@ class ClassroomListStudent extends Component {
 
                     {/*--------------------------- Search ---------------------------*/}
                     <Col className={"px-0"} xl={3}>
-                        {/*<Form>*/}
-                        {/*    <Form.Group controlId={"formResourceGrade"}>*/}
-                        {/*        <Form.Select>*/}
-                        {/*            <option>Select grade</option>*/}
-                        {/*            <option value={1}>Grade 1</option>*/}
-                        {/*            <option value={2}>Grade 2</option>*/}
-                        {/*            <option value={3}>Grade 3</option>*/}
-                        {/*            <option value={4}>Grade 4</option>*/}
-                        {/*            <option value={5}>Grade 5</option>*/}
-                        {/*        </Form.Select>*/}
-                        {/*    </Form.Group>*/}
-                        {/*</Form>*/}
+                        <Form>
+                            <Form.Group controlId={"formResourceGrade"}>
+                                <Form.Select onChange={this.filterChangeHandler}>
+                                    {
+                                        this.state.grades.map(item =>
+                                            <option value={item.grade}>{item.grade}</option>
+                                        )
+                                    }
+                                </Form.Select>
+                            </Form.Group>
+                        </Form>
                     </Col>
                 </Row>
 
@@ -86,39 +120,47 @@ class ClassroomListStudent extends Component {
 
                 <Row>
                     {
-                        this.state.classrooms.map(event =>
+                        classrooms.length === 0 ?
+                            <tr align="center">
+                                <td colSpan="6"><h6 className={"mt-3"}>No records at the moment</h6>
+                                </td>
+                            </tr>
 
-                            <Col className={"mb-5"}>
-                                <Card className={"st-class-card"}
-                                      key={event.id}
-                                      onClick={() => this.gotoDetails(event.id)}>
-                                    <Row className={"st-card-header"}>
-                                        <Col className={"text-start"}>{event.subject}</Col>
-                                        <Col className={"text-end"}>{event.grade}</Col>
-                                    </Row>
-                                    <Card.Img variant="top" className={"st-class-img"}
-                                              src={`http://localhost:8080/classroom/image/${event.img_fileId}`}
+                            : [
+                                this.state.classrooms.map(event =>
 
-                                    />
-                                    <Card.Body className={"px-3"}>
-                                        <Card.Title className={"mb-2 st-card-title"}>{event.topic}</Card.Title>
-                                        <Card.Subtitle className="mb-2 text-muted">By {event.addedBy}</Card.Subtitle>
-                                        <Row className={"mx-0 st-card-footer"}>
-                                            <Col className={"px-0"}>
-                                                <Badge className={"st-card-badge"}>
-                                                    <FontAwesomeIcon icon={faCalendarAlt}/> &nbsp; {moment(event.date).format("YYYY-MM-DD")}
-                                                </Badge>
-                                            </Col>
-                                            <Col className={"px-0 text-end"}>
-                                                <Badge className={"st-card-badge"}>
-                                                    <FontAwesomeIcon icon={faClock}/> &nbsp; {event.time}
-                                                </Badge>
-                                            </Col>
-                                        </Row>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        )
+                                    <Col className={"mb-5"}>
+                                        <Card className={"st-class-card"}
+                                              key={event.id}
+                                              onClick={() => this.gotoDetails(event.id)}>
+                                            <Row className={"st-card-header"}>
+                                                <Col className={"text-start"}>{event.subject}</Col>
+                                                <Col className={"text-end"}>{event.grade}</Col>
+                                            </Row>
+                                            <Card.Img variant="top" className={"st-class-img"}
+                                                      src={`http://localhost:8080/classroom/image/${event.img_fileId}`}
+
+                                            />
+                                            <Card.Body className={"px-3"}>
+                                                <Card.Title className={"mb-2 st-card-title"}>{event.topic}</Card.Title>
+                                                <Card.Subtitle className="mb-2 text-muted">By {event.addedBy}</Card.Subtitle>
+                                                <Row className={"mx-0 st-card-footer"}>
+                                                    <Col className={"px-0"}>
+                                                        <Badge className={"st-card-badge"}>
+                                                            <FontAwesomeIcon icon={faCalendarAlt}/> &nbsp; {moment(event.date).format("YYYY-MM-DD")}
+                                                        </Badge>
+                                                    </Col>
+                                                    <Col className={"px-0 text-end"}>
+                                                        <Badge className={"st-card-badge"}>
+                                                            <FontAwesomeIcon icon={faClock}/> &nbsp; {event.time}
+                                                        </Badge>
+                                                    </Col>
+                                                </Row>
+                                            </Card.Body>
+                                        </Card>
+                                    </Col>
+                                )
+                            ]
                     }
                 </Row>
 
