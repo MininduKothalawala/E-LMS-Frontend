@@ -59,7 +59,9 @@ class Home extends  Component {
                         <Row className={"row-upper"}>
                             <Col xl={5}>
                                 <div className={"title"}>
-                                    Education is the most powerful thing that you can earn in your life journey.
+
+                                    Education is the most powerful thing that you can earn in your life journey
+
                                 </div>
                                 <div className={"paragraph"}>
                                     “There is no end to education.
@@ -68,6 +70,7 @@ class Home extends  Component {
                                     The whole of life,
                                     from the moment you are born to the moment you die,
                                     is a process of learning.”
+
                                     Jiddu Krishnamurti
                                 </div>
                             </Col>

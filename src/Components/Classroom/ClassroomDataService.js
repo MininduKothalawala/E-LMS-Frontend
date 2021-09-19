@@ -48,8 +48,12 @@ class ClassroomDataService {
     //     return axios.put(`${API_URL}/updateDesc`, data)
     // }
     //
-    editClassroom(data) {
-        return axios.put(`${API_URL}/`, data)
+    editClassroomWithoutFiles(data) {
+        return axios.put(`${API_URL}/updatewithoutFiles`, data)
+    }
+
+    editClassroomWithFiles(data) {
+        return axios.put(`${API_URL}/updatewithFiles`, data)
     }
     //
     // deleteTemplate(id, imgId, fileId) {
