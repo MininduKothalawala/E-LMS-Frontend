@@ -99,14 +99,20 @@ class ViewLibrary extends Component {
     }
 
     filterResource = (input) => {
-        LibraryDataService.filterByType(input)
-            .then( res => {
-                if (res.data.length > 0) {
-                    this.setState({
-                        libraries: res.data
-                    })
-                }
-            })
+
+        if (input === "all") {
+            this.refreshTable();
+        } else {
+            LibraryDataService.filterByType(input)
+                .then( res => {
+                    if (res.data.length > 0) {
+                        this.setState({
+                            libraries: res.data
+                        })
+                    }
+                })
+        }
+
     }
 
     editResource = (id) => {
@@ -177,12 +183,10 @@ class ViewLibrary extends Component {
                                 </InputGroup>
                             </Col>
                             <Col className={"text-end"}>
+                                <button className={"filter-btn-all"} onClick={() => this.filterResource("all")}>ALL RESOURCES</button>
                                 <button className={"filter-btn-guide"} onClick={() => this.filterResource("Guide")}>TEACHERS' GUIDE</button>
                                 <button className={"filter-btn-syllabus"} onClick={() => this.filterResource("Syllabus")}>SYLLABUS</button>
                             </Col>
-                            {/*<Col className={"text-end"}>*/}
-                            {/*    <button className={"print-pdf-btn"} onClick={() => this.filterResource("Guide")}>GUIDE</button>*/}
-                            {/*</Col>*/}
                         </Row>
                     </div>
                     {/*----------------------------------------------------------------------------------------------------------------------------------------*/}
