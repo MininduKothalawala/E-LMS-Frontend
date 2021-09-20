@@ -8,13 +8,17 @@ import "../../Stylesheets/Home.css";
 import Login from "../Login/Login";
 import AuthenticationService from "../Login/AuthenticationService";
 import {Link} from "react-router-dom";
+import emailjs from 'emailjs-com';
 
 class Home extends  Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            show: false
+            show: false,
+            name: '',
+            email: '',
+            message: ''
         }
     }
 
@@ -25,6 +29,45 @@ class Home extends  Component {
     //Modal box
     closeModalBox = () => {
         this.setState({show: false})
+    }
+
+    onChangeHandler = (event) => {
+        event.preventDefault();
+
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
+    validateDetails = (event) => {
+        event.preventDefault();
+
+        const name = this.state.name;
+        const email = this.state.email;
+        const message = this.state.message;
+
+        if ( name !== '' && email !== '' && message !== '') {
+            console.log("SENDING");
+            this.sendMailToUser();
+
+            //TODO: add validation
+        }
+
+    }
+
+    sendMailToUser = () => {
+        const templateParams = {
+            to_name: this.state.name,
+            reply_to: this.state.email,
+        }
+        console.log("SENDING");
+        emailjs.send("service_43ralg4","template_elms", templateParams, "user_PyUUh24kydBDGGDfaHJbO")
+            .then( res => {
+                //TODO: add validation and alerts
+                console.log(res)
+            }, (error) => {
+                console.log(error)
+            })
     }
 
     render() {
@@ -98,17 +141,22 @@ class Home extends  Component {
                                             <Form.Label>Name</Form.Label>
                                             <Form.Control type={"text"}
                                                           name={"name"}
+                                                          value={this.state.name}
                                                           placeholder="Your name"
                                                           required
-                                                          className={"form-control-home"}/>
+                                                          className={"form-control-home"}
+                                                          onChange={this.onChangeHandler}/>
                                         </Form.Group>
                                         <Form.Group as={Col} controlId={"formContactEmail"}>
                                             <Form.Label>Email</Form.Label>
                                             <Form.Control type={"text"}
                                                           name={"email"}
+                                                          value={this.state.email}
                                                           placeholder="Your email"
+                                                          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                           required
-                                                          className={"form-control-home"}/>
+                                                          className={"form-control-home"}
+                                                          onChange={this.onChangeHandler}/>
                                         </Form.Group>
                                     </Row>
                                     <Form.Group controlId={"formNoticeBody"}>
@@ -118,10 +166,12 @@ class Home extends  Component {
                                                       placeholder="Type your message here"
                                                       rows={5}
                                                       required
-                                                      className={"form-control-home"}/>
+                                                      value={this.state.message}
+                                                      className={"form-control-home"}
+                                                      onChange={this.onChangeHandler} />
                                     </Form.Group>
                                     <div className={"text-center"}>
-                                        <button type={"submit"} className={"contact-form-btn"}>Send</button>
+                                        <button type={"submit"} className={"contact-form-btn"} onClick={this.validateDetails} >Send</button>
                                     </div>
                                 </Form>
 
