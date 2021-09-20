@@ -213,7 +213,7 @@ class ClassroomListAdmin extends Component {
                         {
                             this.state.classrooms.length === 0 ?
                                 <div align="center">
-                                    <h4 className={"mt-3"}>No records at the moment</h4>
+                                    <h4 className={"mt-3"}>No classes are available.</h4>
                                 </div>
 
                                 : [
