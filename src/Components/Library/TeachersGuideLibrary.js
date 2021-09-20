@@ -19,7 +19,7 @@ class TeachersGuideLibrary extends Component {
     }
 
     getResources = () => {
-        LibraryDataService.filterByType("guide")
+        LibraryDataService.filterByType("Guide")
             .then(res => {
                 console.log(res.data)
                 this.setState({
@@ -86,7 +86,6 @@ class TeachersGuideLibrary extends Component {
                                       key={library.id}>
                                     <div className={"st-library-card-header"}>
                                         <div className={"st-library-card-grade"}>
-                                            <div className={"st-library-grade-title"}>Grade</div>
                                             <div className={"st-library-grade-no"}>{library.grade}</div>
                                         </div>
 
