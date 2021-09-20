@@ -162,8 +162,6 @@ class ClassroomListAdmin extends Component {
                             </Col>
                             <Col className={"text-end"}>
                                 <button className={"view-more-btn"} onClick={this.ExportPdfReport}>Generate Report</button>
-
-
                             </Col>
                             <Col className={"text-end"} xl={4} lg={4}>
 
