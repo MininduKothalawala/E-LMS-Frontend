@@ -135,6 +135,7 @@ class AddResource extends Component {
                     console.log(res);
 
                     if (res.status === 200) {
+                        this.clearData();
 
                         Swal.fire({
                             icon: 'success',
@@ -164,13 +165,12 @@ class AddResource extends Component {
 
     clearData = () => {
         this.setState({
-            resourceId: -1,
             resource_type: '',
             subject: '',
             grade: '',
             file: '',
-            gradelist: '',
-            isDisabled: true
+            subjectList: [],
+            isDisabled: true,
         })
     }
 

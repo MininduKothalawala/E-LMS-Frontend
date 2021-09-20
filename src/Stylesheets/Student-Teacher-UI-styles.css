@@ -83,16 +83,11 @@
     text-align: center;
 }
 
-.st-library-grade-title {
-    font-weight: 700;
-    font-size: 20px;
-    text-align: center;
-}
-
 .st-library-grade-no {
     font-weight: 700;
-    font-size: 50px;
+    font-size: 25px;
     text-align: center;
+    margin-top: 5px;
 }
 
 .st-library-card-subject {

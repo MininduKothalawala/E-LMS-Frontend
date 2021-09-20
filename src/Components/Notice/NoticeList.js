@@ -157,7 +157,7 @@ class NoticeList extends Component {
                                     <Form.Select onChange={this.filterChangeHandler}>
                                         {
                                             this.state.grades.map(item =>
-                                                <option value={item.grade}>{item.grade}</option>
+                                                <option value={item.grade} key={item.grade}>{item.grade}</option>
                                             )
                                         }
                                     </Form.Select>

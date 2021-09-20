@@ -102,7 +102,7 @@ class ClassroomListStudent extends Component {
                                 <Form.Select onChange={this.filterChangeHandler}>
                                     {
                                         this.state.grades.map(item =>
-                                            <option value={item.grade}>{item.grade}</option>
+                                            <option value={item.grade} key={item.grade}>{item.grade}</option>
                                         )
                                     }
                                 </Form.Select>
@@ -112,26 +112,19 @@ class ClassroomListStudent extends Component {
                 </Row>
 
                 {/*--------------------------- Card Deck ---------------------------*/}
-                { this.state.classrooms.length < 0 &&
-                <div className={"no-data-text"}>
-                    No classes are available.
-                </div>
-                }
 
                 <Row>
                     {
                         classrooms.length === 0 ?
-                            <tr align="center">
-                                <td colSpan="6"><h6 className={"mt-3"}>No records at the moment</h6>
-                                </td>
-                            </tr>
+                            <div align="center">
+                                <h4 className={"mt-3"}>No classes are available.</h4>
+                            </div>
 
                             : [
                                 this.state.classrooms.map(event =>
 
-                                    <Col className={"mb-5"}>
+                                    <Col className={"mb-5"} key={event.id}>
                                         <Card className={"st-class-card"}
-                                              key={event.id}
                                               onClick={() => this.gotoDetails(event.id)}>
                                             <Row className={"st-card-header"}>
                                                 <Col className={"text-start"}>{event.subject}</Col>

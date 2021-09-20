@@ -162,8 +162,6 @@ class ClassroomListAdmin extends Component {
                             </Col>
                             <Col className={"text-end"}>
                                 <button className={"view-more-btn"} onClick={this.ExportPdfReport}>Generate Report</button>
-
-
                             </Col>
                             <Col className={"text-end"} xl={4} lg={4}>
 
@@ -212,9 +210,9 @@ class ClassroomListAdmin extends Component {
                         <tbody>
                         {
                             this.state.classrooms.length === 0 ?
-                                <tr align={"center"}>
-                                    <td colSpan={"6"}>No records at the moment</td>
-                                </tr>
+                                <div align="center">
+                                    <h4 className={"mt-3"}>No classes are available.</h4>
+                                </div>
 
                                 : [
                                     this.state.classrooms.map(event =>

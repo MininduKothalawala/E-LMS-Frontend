@@ -32,7 +32,7 @@ th {
     text-align: left;
 }
 
-.filter-btn-syllabus, .filter-btn-guide, .filter-btn-admin, .filter-btn-teacher, .filter-btn-student {
+.filter-btn-syllabus, .filter-btn-guide, .filter-btn-admin, .filter-btn-teacher, .filter-btn-student, .filter-btn-all {
     padding: 10px 30px;
     border: 3px solid var(--alabaster);
     font-weight: 500;
@@ -40,16 +40,20 @@ th {
     width: 200px;
 }
 
-.filter-btn-syllabus:hover, .filter-btn-guide:hover, .filter-btn-admin:hover, .filter-btn-teacher:hover, .filter-btn-student:hover {
+.filter-btn-syllabus:hover, .filter-btn-guide:hover, .filter-btn-admin:hover, .filter-btn-teacher:hover, .filter-btn-student:hover, .filter-btn-all:hover {
     background-color: var(--alabaster);
 }
 
 .filter-btn-guide, .filter-btn-student {
-    border-radius: 5px 0 0 5px;
+    border-radius: 0;
 }
 
-.filter-btn-syllabus, .filter-btn-admin{
+.filter-btn-syllabus, .filter-btn-admin {
     border-radius: 0 5px 5px 0;
+}
+
+.filter-btn-all {
+    border-radius: 5px 0 0 5px;
 }
 
 .view-more-btn {
