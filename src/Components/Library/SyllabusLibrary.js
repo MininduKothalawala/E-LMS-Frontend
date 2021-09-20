@@ -81,9 +81,8 @@ class SyllabusLibrary extends Component {
                     {
                         this.state.libraries.map(library =>
 
-                            <Col className={"mb-5"}>
-                                <Card className={"st-library-card"}
-                                      key={library.id}>
+                            <Col className={"mb-5"} key={library.id}>
+                                <Card className={"st-library-card"}>
                                     <div className={"st-library-card-header"}>
                                         <div className={"st-library-card-grade"}>
                                             <div className={"st-library-grade-no"}>{library.grade}</div>
