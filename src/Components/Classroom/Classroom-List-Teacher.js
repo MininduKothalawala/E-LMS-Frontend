@@ -284,9 +284,9 @@ class ClassroomListTeacher extends Component {
                         <tbody>
                         {
                             this.state.classrooms.length === 0 ?
-                                <tr align={"center"}>
-                                    <td colSpan={"6"}>No records at the moment</td>
-                                </tr>
+                                <div align="center">
+                                    <h4 className={"mt-3"}>No records at the moment</h4>
+                                </div>
 
                                 : [
                                     this.state.classrooms.map(event =>

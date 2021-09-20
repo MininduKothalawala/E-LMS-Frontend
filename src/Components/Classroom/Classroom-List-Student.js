@@ -121,10 +121,9 @@ class ClassroomListStudent extends Component {
                 <Row>
                     {
                         classrooms.length === 0 ?
-                            <tr align="center">
-                                <td colSpan="6"><h6 className={"mt-3"}>No records at the moment</h6>
-                                </td>
-                            </tr>
+                            <div align="center">
+                                <h4 className={"mt-3"}>No records at the moment</h4>
+                            </div>
 
                             : [
                                 this.state.classrooms.map(event =>
