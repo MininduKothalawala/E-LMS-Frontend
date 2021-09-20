@@ -112,25 +112,19 @@ class ClassroomListStudent extends Component {
                 </Row>
 
                 {/*--------------------------- Card Deck ---------------------------*/}
-                { this.state.classrooms.length < 0 &&
-                <div className={"no-data-text"}>
-                    No classes are available.
-                </div>
-                }
 
                 <Row>
                     {
                         classrooms.length === 0 ?
                             <div align="center">
-                                <h4 className={"mt-3"}>No records at the moment</h4>
+                                <h4 className={"mt-3"}>No classes are available.</h4>
                             </div>
 
                             : [
                                 this.state.classrooms.map(event =>
 
-                                    <Col className={"mb-5"}>
+                                    <Col className={"mb-5"} key={event.id}>
                                         <Card className={"st-class-card"}
-                                              key={event.id}
                                               onClick={() => this.gotoDetails(event.id)}>
                                             <Row className={"st-card-header"}>
                                                 <Col className={"text-start"}>{event.subject}</Col>
