@@ -232,7 +232,6 @@ class Sidebar extends Component {
                                 {/*----------------- Sidebar Logo Image and Close button -----------------*/}
                                 {/*logo bg image has been added with css*/}
                                 <div className={"sidebar-top-image"}>
-                                    {/*<CloseButton onClick={this.handleSideBarClose} className={"sidebar-close"}/>*/}
                                 </div>
                             </div>
 
@@ -311,13 +310,7 @@ class Sidebar extends Component {
                         <div>
                             <div className={"secondary-nav"}>
                                 <Row>
-                                    <Col xxl={1} lg={3} md={3} sm={3} xs={3} className={"px-0"}>
 
-                                        {/*----------------- Hamburger menu button - visible when the frame size is lower -----------------*/}
-                                        {/*<button className={"hamburger-menu"} onClick={this.handleSideBarOpen}>*/}
-                                        {/*    <FontAwesomeIcon icon={faBars}/>*/}
-                                        {/*</button>*/}
-                                    </Col>
                                     <Col className={"pl-0"}>
 
                                         {/*----------------- Secondary Nav buttons -----------------*/}
