@@ -32,6 +32,10 @@ class LibraryDataService {
         return axios.get(`${API_URL}/filter/${type}`)
     }
 
+    filterByGradeAndSubject(grade, subject) {
+        return axios.get(`${API_URL}/filter/lib/${grade}/${subject}`)
+    }
+
     searchResource(text) {
         return axios.get(`${API_URL}/search/${text}`)
     }
