@@ -81,7 +81,7 @@ class TeachersGuideLibrary extends Component {
         const subject = event.target.value
 
         if (subject === "all") {
-            this.getResources();
+            this.filterResourcesByGrade(this.state.grade);
         } else {
             // get filtered resources
             this.filterResourcesBySubject(this.state.grade, subject);
@@ -120,15 +120,6 @@ class TeachersGuideLibrary extends Component {
                     })
                 }
             })
-    }
-
-    clearFiltering = () => {
-        this.setState({
-            isDisabled: true,
-            subjectList: []
-        })
-
-        this.getResources();
     }
 
     render() {
