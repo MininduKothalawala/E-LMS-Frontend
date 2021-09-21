@@ -148,6 +148,7 @@ class EditResource extends Component {
         if (isDataValid) {
 
             const formData = new FormData();
+            formData.append('id', this.state.resourceId);
             formData.append('resourceType', this.state.resource_type);
             formData.append('grade', this.state.grade);
             formData.append('subject', this.state.subject);
@@ -239,7 +240,7 @@ class EditResource extends Component {
                             <option>Choose...</option>
                             {
                                 subjectList.map(subject =>
-                                    <option value={subject}>{subject}</option>
+                                    <option value={subject} key={subject}>{subject}</option>
                                 )
                             }
                         </Form.Select>
