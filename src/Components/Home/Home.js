@@ -9,6 +9,7 @@ import Login from "../Login/Login";
 import AuthenticationService from "../Login/AuthenticationService";
 import {Link} from "react-router-dom";
 import emailjs from 'emailjs-com';
+import Swal from "sweetalert2";
 
 class Home extends  Component {
     constructor(props) {
@@ -46,13 +47,36 @@ class Home extends  Component {
         const email = this.state.email;
         const message = this.state.message;
 
-        if ( name !== '' && email !== '' && message !== '') {
-            console.log("SENDING");
+        if (name === '') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Name Required',
+                text: "Please enter your name!",
+                background: '#fff',
+                confirmButtonColor: '#333533',
+                iconColor: '#ffc200'
+            })
+        } else if (email === '') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Email Required',
+                text: "Please enter your email!",
+                background: '#fff',
+                confirmButtonColor: '#333533',
+                iconColor: '#ffc200'
+            })
+        } else if (message === '') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Empty Message Body',
+                text: "Please type your message!",
+                background: '#fff',
+                confirmButtonColor: '#333533',
+                iconColor: '#ffc200'
+            })
+        } else {
             this.sendMailToUser();
-
-            //TODO: add validation
         }
-
     }
 
     sendMailToUser = () => {
@@ -63,12 +87,41 @@ class Home extends  Component {
         console.log("SENDING");
         emailjs.send("service_43ralg4","template_elms", templateParams, "user_PyUUh24kydBDGGDfaHJbO")
             .then( res => {
-                //TODO: add validation and alerts
                 console.log(res)
+                if (res.status === 200) {
+                    this.clearData();
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Successful',
+                        text: "Check your email for more details",
+                        background: '#fff',
+                        confirmButtonColor: '#333533',
+                        iconColor: '#60e004'
+                    })
+                }
             }, (error) => {
                 console.log(error)
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: "There was an error sending the message!",
+                    background: '#fff',
+                    confirmButtonColor: '#333533',
+                    iconColor: '#e00404'
+                })
             })
     }
+
+    clearData = () => {
+        this.setState({
+            name: '',
+            email: '',
+            message: ''
+        })
+    }
+
 
     render() {
 
@@ -135,7 +188,7 @@ class Home extends  Component {
                             <div className={"sub-title"}>
                                 Contact Us
                             </div>
-                                <Form>
+                                <Form onSubmit={this.validateDetails}>
                                     <Row>
                                         <Form.Group as={Col} controlId={"formContactName"}>
                                             <Form.Label>Name</Form.Label>
@@ -143,7 +196,6 @@ class Home extends  Component {
                                                           name={"name"}
                                                           value={this.state.name}
                                                           placeholder="Your name"
-                                                          required
                                                           className={"form-control-home"}
                                                           onChange={this.onChangeHandler}/>
                                         </Form.Group>
@@ -154,7 +206,6 @@ class Home extends  Component {
                                                           value={this.state.email}
                                                           placeholder="Your email"
                                                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                                                          required
                                                           className={"form-control-home"}
                                                           onChange={this.onChangeHandler}/>
                                         </Form.Group>
@@ -165,13 +216,12 @@ class Home extends  Component {
                                                       name="message"
                                                       placeholder="Type your message here"
                                                       rows={5}
-                                                      required
                                                       value={this.state.message}
                                                       className={"form-control-home"}
                                                       onChange={this.onChangeHandler} />
                                     </Form.Group>
                                     <div className={"text-center"}>
-                                        <button type={"submit"} className={"contact-form-btn"} onClick={this.validateDetails} >Send</button>
+                                        <button type={"submit"} className={"contact-form-btn"}>Send</button>
                                     </div>
                                 </Form>
 
