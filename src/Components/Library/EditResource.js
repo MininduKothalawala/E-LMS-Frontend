@@ -91,6 +91,7 @@ class EditResource extends Component {
     }
 
     validateDetails() {
+
         let isValid = false;
 
         const resource_type = this.state.resource_type;
@@ -158,7 +159,7 @@ class EditResource extends Component {
             }
 
             //send to database
-            LibraryDataService.addLibraryResource(formData, config)
+            LibraryDataService.editLibraryResource(formData, config)
                 .then(res => {
                     console.log(res);
 
@@ -173,7 +174,8 @@ class EditResource extends Component {
                             iconColor: '#60e004'
                         })
 
-                        //TODO: goto table view
+                        // close modal box
+                        this.props.closeModal();
 
                     } else {
                         Swal.fire({
@@ -189,19 +191,6 @@ class EditResource extends Component {
 
         }
 
-
-    }
-
-    clearData = () => {
-        this.setState({
-            resourceId: -1,
-            resource_type: '',
-            subject: '',
-            grade: '',
-            file: '',
-            gradelist: '',
-            isDisabled: true
-        })
     }
 
     render() {

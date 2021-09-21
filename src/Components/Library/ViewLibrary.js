@@ -346,7 +346,7 @@ class ViewLibrary extends Component {
                         </Modal.Header>
 
                         <Modal.Body>
-                            <EditResource resourceId={this.state.rid} key={this.state.rid} />
+                            <EditResource resourceId={this.state.rid} key={this.state.rid} closeModal={this.closeModalBox} />
                         </Modal.Body>
                     </Modal>
 
