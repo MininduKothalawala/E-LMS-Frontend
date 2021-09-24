@@ -93,7 +93,7 @@ class NoticeList extends Component {
         const doc = new jsPDF(orientation, unit, size);
 
         const title = "Monthly Notices";
-        const headers = [["Notice Id", "Subject", "Grade", "Notice Topic", "Notice Body", "Added Time"]];
+        const headers = [["Notice Id", "Subject", "Grade", "Notice Topic", "Notice Body", "Modified Date", "Modified Time"]];
 
         const notices = this.state.notices.map(
             ntc => [
@@ -102,6 +102,7 @@ class NoticeList extends Component {
                 ntc.noticeGrade,
                 ntc.noticeTopic,
                 ntc.noticeBody,
+                ntc.enteredDate,
                 ntc.enteredTime
             ]
         );
@@ -185,7 +186,8 @@ class NoticeList extends Component {
                             <th>Grade</th>
                             <th>Topic</th>
                             <th>Body</th>
-                            <th>Modified At</th>
+                            <th>Modified Date</th>
+                            <th>Modified Time</th>
                             <th className={"text-center"}>Action</th>
                         </tr>
                         </thead>
@@ -207,6 +209,7 @@ class NoticeList extends Component {
                                                 <td>{notice.noticeGrade}</td>
                                                 <td>{notice.noticeTopic}</td>
                                                 <td width={"500px"}>{notice.noticeBody}</td>
+                                                <td>{notice.enteredDate}</td>
                                                 <td>{notice.enteredTime}</td>
                                                 <td className={"text-center"}>
                                                     <ButtonGroup>
