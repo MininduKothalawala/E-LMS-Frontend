@@ -98,7 +98,7 @@ class gettAllUsers extends Component {
 
     }
 
-    //search by added user
+
     handleSearch = (e, indexno) => {
         e.preventDefault();
 
@@ -155,7 +155,7 @@ class gettAllUsers extends Component {
                             icon: 'error',
                             title: 'Not Found',
                             html: '<p>Please enter a valid indexno!</p>',
-                            confirmButtonColor: '#3aa2e7',
+                            confirmButtonColor: '#dcff00',
                             iconColor: '#e00404'
                         })
                         this.clearData();
@@ -172,6 +172,7 @@ class gettAllUsers extends Component {
         }
 
     }
+
     handleChange = (event) => {
         event.preventDefault();
 
@@ -205,8 +206,8 @@ class gettAllUsers extends Component {
 
         const doc = new jsPDF(orientation, unit, size);
 
-        const title = "User Infromation";
 
+        const subtitle = "____________E-LMS user Information Data  [DRAFT] -------- E-LMS_info@gmail.com____________\n";
         const headers = [["User ID", "Name", "Email Address", "Mobile No", "Role"]];
 
         const User = this.state.User.map(
@@ -226,10 +227,11 @@ class gettAllUsers extends Component {
             body: User,
 
         };
-        doc.setFontSize(20);
-        doc.text(title, marginLeft, 50);
+        doc.setFontSize(10);
+        doc.text(subtitle,marginLeft,40,0,45);
         require('jspdf-autotable');
         doc.autoTable(content);
+
 
         doc.save("userdetails_doc.pdf")
     }
