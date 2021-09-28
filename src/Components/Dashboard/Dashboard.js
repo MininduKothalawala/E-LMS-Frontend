@@ -7,8 +7,9 @@ import SubjectStatChar from "./SubjectStatChar";
 import axios from "axios";
 import { ImBullhorn } from 'react-icons/im';
 import { CgCheckR } from 'react-icons/cg';
-import { FaUserGraduate } from 'react-icons/fa';
+import { FaUserGraduate,FaCameraRetro ,FaCloudDownloadAlt} from 'react-icons/fa';
 import {ScreenCapture} from "react-screen-capture";
+
 
 
 class Dashboard extends Component {
@@ -144,11 +145,11 @@ class Dashboard extends Component {
                             </div>
                         </div>
                     </div>
-                                <button onClick={onStartCapture}>Capture</button>
+                                <button onClick={onStartCapture}><FaCameraRetro size ='50px'/></button>
                                 <center>
                                     <img src={screenCapture} alt='' />
                                     <p>
-                                        {screenCapture && <button onClick={this.handleSave}>Download</button>}
+                                        {screenCapture && <button onClick={this.handleSave}><FaCloudDownloadAlt size ='50px'/></button>}
                                     </p>
                                 </center>
 

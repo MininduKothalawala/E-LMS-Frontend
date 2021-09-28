@@ -8,7 +8,8 @@ import "../../Stylesheets/Home.css";
 import Login from "../Login/Login";
 import AuthenticationService from "../Login/AuthenticationService";
 import {Link} from "react-router-dom";
-import emailjs from 'emailjs-com';
+import emailjs from "emailjs-com";
+
 
 class Home extends  Component {
     constructor(props) {
