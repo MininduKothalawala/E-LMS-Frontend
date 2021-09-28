@@ -53,7 +53,7 @@ class ClassroomDataService {
     }
 
     editClassroomWithFiles(data) {
-        return axios.put(`${API_URL}/updatewithFiles`, data)
+        return axios.put(`${API_URL}/updatewithFile`, data)
     }
     //
     // deleteTemplate(id, imgId, fileId) {
