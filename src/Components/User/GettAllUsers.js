@@ -284,7 +284,7 @@ class gettAllUsers extends Component {
 
         doc.autoTable(content);
 
-        doc.save("Library_Report_" + Date.now() + ".pdf");
+        doc.save("User_Report_" + Date.now() + ".pdf");
 
 
 
