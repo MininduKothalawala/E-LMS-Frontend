@@ -91,6 +91,7 @@ class EditResource extends Component {
     }
 
     validateDetails() {
+
         let isValid = false;
 
         const resource_type = this.state.resource_type;
@@ -147,6 +148,7 @@ class EditResource extends Component {
         if (isDataValid) {
 
             const formData = new FormData();
+            formData.append('id', this.state.resourceId);
             formData.append('resourceType', this.state.resource_type);
             formData.append('grade', this.state.grade);
             formData.append('subject', this.state.subject);
@@ -158,7 +160,7 @@ class EditResource extends Component {
             }
 
             //send to database
-            LibraryDataService.addLibraryResource(formData, config)
+            LibraryDataService.editLibraryResource(formData, config)
                 .then(res => {
                     console.log(res);
 
@@ -173,7 +175,8 @@ class EditResource extends Component {
                             iconColor: '#60e004'
                         })
 
-                        //TODO: goto table view
+                        // close modal box
+                        this.props.closeModal();
 
                     } else {
                         Swal.fire({
@@ -189,19 +192,6 @@ class EditResource extends Component {
 
         }
 
-
-    }
-
-    clearData = () => {
-        this.setState({
-            resourceId: -1,
-            resource_type: '',
-            subject: '',
-            grade: '',
-            file: '',
-            gradelist: '',
-            isDisabled: true
-        })
     }
 
     render() {
@@ -250,7 +240,7 @@ class EditResource extends Component {
                             <option>Choose...</option>
                             {
                                 subjectList.map(subject =>
-                                    <option value={subject}>{subject}</option>
+                                    <option value={subject} key={subject}>{subject}</option>
                                 )
                             }
                         </Form.Select>

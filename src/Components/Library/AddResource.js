@@ -228,7 +228,7 @@ class AddResource extends Component {
                                     <option>Choose...</option>
                                     {
                                         subjectList.map(subject =>
-                                            <option value={subject}>{subject}</option>
+                                            <option value={subject} key={subject}>{subject}</option>
                                         )
                                     }
                                 </Form.Select>

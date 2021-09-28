@@ -209,12 +209,12 @@ class ViewLibrary extends Component {
             head: headers,
             body: resources,
             styles: {
-                lineColor: [36, 36, 35],                                                // column border color
+                lineColor: [245, 203, 91],                                              // column border color
                 lineWidth: 0.3,                                                         // column border width
             },
             headStyles: {
-                fillColor: [36, 36, 35],                                                // header background color
-                textColor: [255, 255, 255]                                              // header text color
+                fillColor: [245, 203, 91],                                              // header background color
+                textColor: [36,36,35]                                                   // header text color
             },
             didDrawPage: () => {
 
@@ -229,34 +229,6 @@ class ViewLibrary extends Component {
             startY: 40,
             margin: { top: 30 }
         };
-
-        // let content = {
-        //     head: headers,
-        //     body: resources,
-        //     styles: {
-        //         lineColor: [245, 203, 91],    // column border color
-        //         lineWidth: 0.3,             // column border width
-        //     },
-        //     headStyles: {
-        //         fillColor: [245, 203, 91],  //header background color
-        //         textColor: [36,36,35]       //header text color
-        //     },
-        //     didDrawPage: () => {
-        //         doc.setFontSize(20);        // fontSize should come before the text
-        //         doc.setTextColor(36,36,35)
-        //         doc.text("Library Resources Report", 14, 22)
-        //
-        //         // Footer
-        //         let str = 'Page ' + doc.internal.getNumberOfPages();
-        //
-        //         // jsPDF 1.4+ uses getWidth, <1.4 uses .width
-        //         doc.setFontSize(10)
-        //         doc.text(str, 14, pageHeight - 10)
-        //         doc.text("ELMS", pageWidth - 25, pageHeight - 10)
-        //     },
-        //     startY: 40,
-        //     margin: { top: 30 }
-        // };
 
         doc.autoTable(content);
 
@@ -374,7 +346,7 @@ class ViewLibrary extends Component {
                         </Modal.Header>
 
                         <Modal.Body>
-                            <EditResource resourceId={this.state.rid} key={this.state.rid} />
+                            <EditResource resourceId={this.state.rid} key={this.state.rid} closeModal={this.closeModalBox} />
                         </Modal.Body>
                     </Modal>
 
