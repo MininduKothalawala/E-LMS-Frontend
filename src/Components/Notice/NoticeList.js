@@ -267,11 +267,11 @@ class NoticeList extends Component {
                                                 <td>{notice.enteredTime}</td>
                                                 <td className={"text-center"}>
                                                     <ButtonGroup>
-                                                        <Button variant={"outline-danger"} type={"submit"}
+                                                        <Button variant={"danger"} type={"submit"}
                                                                 onClick={this.deleteItem.bind(this, notice.noticeId)}>
                                                             <FontAwesomeIcon icon={faTrashAlt}/>
                                                         </Button>
-                                                        <Button variant={"outline-warning"} type={"submit"}
+                                                        <Button variant={"warning"} type={"submit"}
                                                                 onClick={this.editNotice.bind(this, notice.noticeId)}>
                                                             <FontAwesomeIcon icon={faEdit}/>
                                                         </Button>

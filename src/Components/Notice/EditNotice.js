@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Col, Form, Row} from "react-bootstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
+import moment from "moment";
 
 class EditNotice extends Component{
     constructor(props) {
@@ -42,7 +43,8 @@ class EditNotice extends Component{
             noticeGrade: this.state.noticeGrade,
             noticeTopic: this.state.noticeTopic,
             noticeBody: this.state.noticeBody,
-            enteredTime: new Date().toLocaleString()
+            enteredDate: moment(new Date()).format("YYYY-MM-DD"),
+            enteredTime: moment(new Date()).format("HH:mm:ss")
         }
 
         console.log(notices);
