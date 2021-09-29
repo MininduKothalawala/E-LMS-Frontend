@@ -216,9 +216,9 @@ class ClassroomUpdate extends Component{
                         Swal.fire({
                             icon: 'success',
                             title: 'Successful',
-                            html: '<p>Your file has been uploaded!!</p>',
-                            background: '#041c3d',
-                            confirmButtonColor: '#3aa2e7',
+                            text: 'Classroom has been updated!!',
+                            background: '#fff',
+                            confirmButtonColor: '#333533',
                             iconColor: '#60e004'
                         })
 
@@ -259,9 +259,9 @@ class ClassroomUpdate extends Component{
                     Swal.fire({
                         icon: 'success',
                         title: 'Successful',
-                        html: '<p>Your file has been uploaded!!</p>',
-                        background: '#041c3d',
-                        confirmButtonColor: '#3aa2e7',
+                        text: 'Classroom has been updated!!',
+                        background: '#fff',
+                        confirmButtonColor: '#333533',
                         iconColor: '#60e004'
                     })
 
@@ -271,10 +271,9 @@ class ClassroomUpdate extends Component{
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        html: '<p>There was an error updating!</p>',
-                        background: '#041c3d',
-                        showConfirmButton: false,
-                        timer: 1500,
+                        text: 'Error in updating!',
+                        background: '#fff',
+                        confirmButtonColor: '#333533',
                         iconColor: '#e00404'
                     })
                 }
@@ -374,7 +373,7 @@ class ClassroomUpdate extends Component{
                         </Form.Group>
 
                         <Form.Group controlId="togglebutton">
-                            <Form.Switch type="switch" name={"isChecked"} label="Update file" onChange={this.handleToggle} />
+                            <Form.Switch type="switch" name={"isChecked"} label="Update files" onChange={this.handleToggle} />
                         </Form.Group>
                         {
                             isChecked ?
@@ -446,7 +445,7 @@ class ClassroomUpdate extends Component{
                         {/*}*/}
 
                         <div className={"text-end"}>
-                            <button type={"reset"} className={"reset-form-btn"}>Reset</button>
+
                             <button type={"submit"} className={"submit-form-btn"}>Update Classroom</button>
                         </div>
 

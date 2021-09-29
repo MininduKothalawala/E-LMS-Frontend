@@ -24,16 +24,20 @@ class ClassroomListAdmin extends Component {
             show: false,
             filterGrade: '',
             filterSubject:'',
+            filterUser:'',
+            filterAddedBy:'',
             classGrade:'',
             grades: [],
             classSubject:'',
             subjects:[],
+            users:[],
             username: AuthenticationService.loggedUserName()
         }
     }
     componentDidMount() {
         this.refreshTable();
         this.getSubjectList();
+        this.getUserList();
     }
 
     refreshTable = () => {
@@ -80,10 +84,34 @@ class ClassroomListAdmin extends Component {
             })
     }
 
+    getUserList = () =>{
+        axios.get("http://localhost:8080/api/adminuser/alladmin").then(
+            response =>{
+                this.setState({
+                    users: response.data
+                })
+            }
+        )
+    }
+
+
     filterBySubject = (e) =>{
         this.setState({filterSubject: e.target.value});
 
         axios.get(`http://localhost:8080/classroom/getbysubject/${e.target.value}`)
+            .then(response => {
+                console.log(response.data)
+                this.setState({classrooms: response.data})
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    filterByUser = (e) =>{
+        this.setState({filterUser: e.target.value});
+
+        axios.get(` http://localhost:8080/classroom/getbyaddedBy/${e.target.value}`)
             .then(response => {
                 console.log(response.data)
                 this.setState({classrooms: response.data})
@@ -206,10 +234,10 @@ class ClassroomListAdmin extends Component {
                                         <FontAwesomeIcon icon={faSearch}/>
                                     </InputGroup.Text>
                                     <Form.Control type="text"
-                                                  placeholder="Search By Subject"
+                                                  placeholder="Search By Teacher's name"
                                                   required
                                                   value={this.state.search}
-                                                  onChange={this.filterBySubject}/>
+                                                  onChange={this.filterByUser}/>
                                 </InputGroup>
                             </Col>
                             <Col className={"text-end"}>
@@ -227,6 +255,7 @@ class ClassroomListAdmin extends Component {
                                         }
                                     </Form.Select>
                                 </Form.Group>
+
 
                                 {/*    <Form.Group as={Col} controlId={"classSubject"}>*/}
                                 {/*        <Form.Label>Subject</Form.Label>*/}
