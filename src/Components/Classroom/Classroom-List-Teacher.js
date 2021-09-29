@@ -93,9 +93,9 @@ class ClassroomListTeacher extends Component {
             text: "You won't be able to revert this!",
             icon: 'warning',
             showCancelButton: true,
-            background: '#041c3d',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#e00404',
+            background: '#fff',
+            confirmButtonColor: '#333533',
+            iconColor: '#60e004',
             confirmButtonText: 'Yes',
             cancelButtonText: 'No'
         }).then((result) => {
@@ -113,8 +113,8 @@ class ClassroomListTeacher extends Component {
                                 icon: 'success',
                                 title: 'Successful',
                                 html: '<p>Your file has been deleted!</p>',
-                                background: '#041c3d',
-                                confirmButtonColor: '#3aa2e7',
+                                background: '#fff',
+                                confirmButtonColor: '#333533',
                                 iconColor: '#60e004'
                             })
 

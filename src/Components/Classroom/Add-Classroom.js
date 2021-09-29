@@ -153,7 +153,7 @@ class AddClassroom extends Component{
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: 'Error occurred!',
+                        text: 'Error in adding!',
                         background: '#fff',
                         confirmButtonColor: '#333533',
                         iconColor: '#e00404'
