@@ -255,8 +255,7 @@ class EditResource extends Component {
                     </Form.Group>
 
                     <div className={"text-end"}>
-                        <button type={"reset"} className={"reset-form-btn"} >Reset</button>
-                        <button type={"submit"} className={"submit-form-btn"}>Save</button>
+                        <button type={"submit"} className={"submit-form-btn"}>Update Resource</button>
                     </div>
 
                 </Form>
