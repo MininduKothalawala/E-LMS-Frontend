@@ -75,15 +75,18 @@ class gettAllUsers extends Component {
 
     deleteItem(id) {
         Swal.fire({
-            icon: 'error',
-            title: 'Error',
+            icon: 'warning',
+            title: 'Are you sure?',
             text: "Once deleted, you will not be able to recover this record!",
             background: '#fff',
-            confirmButtonColor: '#333533',
-            iconColor: '#e00404'
+            confirmButtonColor: '#454545',
+            iconColor: '#ffc200',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
         })
             .then((willDelete) => {
-                if (willDelete) {
+                if (willDelete.isConfirmed) {
                     axios.delete('http://localhost:8080/api/adminuser/deleteuser/' + id).then(response => {
                         console.log(response.data)
                         this.getAllUsers();

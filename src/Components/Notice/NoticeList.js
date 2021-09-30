@@ -67,7 +67,7 @@ class NoticeList extends Component {
         Swal.fire({
             icon: 'warning',
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "Once deleted, you will not be able to recover this record!",
             background: '#fff',
             confirmButtonColor: '#454545',
             iconColor: '#ffc200',
