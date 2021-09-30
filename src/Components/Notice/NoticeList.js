@@ -1,15 +1,14 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {Button, ButtonGroup, Col, Container, Form, InputGroup, Modal, Row, Table} from "react-bootstrap";
-import swal from "sweetalert";
-import {faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {Button, ButtonGroup, Col, Form, Modal, Row, Table} from "react-bootstrap";
+import {faEdit, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import "../../Stylesheets/Admin-Tables-styles.css";
-import {faEdit} from "@fortawesome/free-regular-svg-icons";
-import EditUser from "../User/EditUser";
 import EditNotice from "./EditNotice";
+import AuthenticationService from "../Login/AuthenticationService";
+import Swal from "sweetalert2";
 
 class NoticeList extends Component {
 
@@ -20,7 +19,8 @@ class NoticeList extends Component {
             notices: [],
             grades: [],
             filterGrade: '',
-            show: false
+            show: false,
+            username: AuthenticationService.loggedUserName()
         }
     }
 
@@ -64,24 +64,33 @@ class NoticeList extends Component {
     }
 
     deleteItem(id) {
-        swal({
-            title: "Are you sure?",
+        Swal.fire({
+            icon: 'warning',
+            title: 'Are you sure?',
             text: "Once deleted, you will not be able to recover this record!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    axios.delete(`http://localhost:8080/Notice/delete/${id}`).then(response => {
-                        console.log(response.data)
-                        this.refreshTable();
+            background: '#fff',
+            confirmButtonColor: '#454545',
+            iconColor: '#ffc200',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then( willDelete => {
+            if (willDelete.isConfirmed) {
+                axios.delete(`http://localhost:8080/Notice/delete/${id}`).then(response => {
+                    console.log(response.data)
+                    this.refreshTable();
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Successful',
+                        text: "Notice has been deleted!!",
+                        background: '#fff',
+                        confirmButtonColor: '#333533',
+                        iconColor: '#60e004'
                     })
-                    swal("Record has been deleted!", {
-                        icon: "success",
-                    });
-                }
-            });
+                })
+            }
+        })
     }
 
     ExportPdfReport = () => {
@@ -205,7 +214,7 @@ class NoticeList extends Component {
                     <div>
                         <h3>Notices</h3>
                     </div>
-                    <Container>
+                    <div className={"mb-2"}>
                         <Row>
                             <Col>
                                 <Form.Group as={Col} controlId={"formNoticeGrade"}>
@@ -219,19 +228,19 @@ class NoticeList extends Component {
                                 </Form.Group>
                             </Col>
                             <Col>
-                                <Button variant={"outline-secondary"}
-                                        onClick={this.ExportPdfReport}>
-                                    Download Report
-                                </Button>
-                            </Col>
-                            <Col>
-                                <Button variant={"outline-success"}
+                                <button className={"clear-filter-btn"}
                                         onClick={this.refreshTable}>
                                     Clear Filter
-                                </Button>
+                                </button>
+                            </Col>
+                            <Col className={"text-end"}>
+                                <button className={"print-pdf-btn"}
+                                        onClick={this.ExportPdfReport}>
+                                    Download Report
+                                </button>
                             </Col>
                         </Row>
-                    </Container>
+                    </div>
                     <Table bordered responsive>
                         <thead className={"table-custom-header"}>
                         <tr>
@@ -267,13 +276,13 @@ class NoticeList extends Component {
                                                 <td>{notice.enteredTime}</td>
                                                 <td className={"text-center"}>
                                                     <ButtonGroup>
-                                                        <Button variant={"danger"} type={"submit"}
-                                                                onClick={this.deleteItem.bind(this, notice.noticeId)}>
-                                                            <FontAwesomeIcon icon={faTrashAlt}/>
-                                                        </Button>
                                                         <Button variant={"warning"} type={"submit"}
                                                                 onClick={this.editNotice.bind(this, notice.noticeId)}>
                                                             <FontAwesomeIcon icon={faEdit}/>
+                                                        </Button>
+                                                        <Button variant={"danger"} type={"submit"}
+                                                                onClick={this.deleteItem.bind(this, notice.noticeId)}>
+                                                            <FontAwesomeIcon icon={faTrashAlt}/>
                                                         </Button>
                                                     </ButtonGroup>
 
@@ -291,7 +300,7 @@ class NoticeList extends Component {
                         <Modal.Header closeButton>
                             <Modal.Title>Update</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body> <EditNotice noticeId={this.state.noticeId}/> </Modal.Body>
+                        <Modal.Body> <EditNotice noticeId={this.state.noticeId} close={this.handleClose}/> </Modal.Body>
                     </Modal>
 
                     {/*--------------------------------------------------------------------------------*/}

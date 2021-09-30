@@ -96,19 +96,31 @@ class ClassroomListStudent extends Component {
                     </Col>
 
                     {/*--------------------------- Search ---------------------------*/}
-                    <Col className={"px-0"} xl={3}>
-                        <Form>
-                            <Form.Group controlId={"formResourceGrade"}>
-                                <Form.Select onChange={this.filterChangeHandler}>
-                                    {
-                                        this.state.grades.map(item =>
-                                            <option value={item.grade} key={item.grade}>{item.grade}</option>
-                                        )
-                                    }
-                                </Form.Select>
-                            </Form.Group>
-                        </Form>
+                    <Col>
+                        <Row>
+                            <Col className={"px-3 text-end"} >
+                                <Form>
+                                    <Form.Group controlId={"formResourceGrade"}>
+                                        <Form.Select onChange={this.filterChangeHandler}>
+                                            {
+                                                this.state.grades.map(item =>
+                                                    <option value={item.grade} key={item.grade}>{item.grade}</option>
+                                                )
+                                            }
+                                        </Form.Select>
+                                    </Form.Group>
+                                </Form>
+                            </Col>
+
+                            <Col className={"px-0 text-end"} xxl={3} xl={2} lg={5}>
+                                <button className={"clear-filter-btn"}
+                                        onClick={this.refreshTable}>
+                                    Clear Filter
+                                </button>
+                            </Col>
+                        </Row>
                     </Col>
+
                 </Row>
 
                 {/*--------------------------- Card Deck ---------------------------*/}
@@ -123,17 +135,20 @@ class ClassroomListStudent extends Component {
                             : [
                                 this.state.classrooms.map(event =>
 
-                                    <Col className={"mb-5"} key={event.id}>
+                                    <Col className={"mb-5"} key={event.id} sm={4}>
                                         <Card className={"st-class-card"}
                                               onClick={() => this.gotoDetails(event.id)}>
                                             <Row className={"st-card-header"}>
                                                 <Col className={"text-start"}>{event.subject}</Col>
                                                 <Col className={"text-end"}>{event.grade}</Col>
                                             </Row>
-                                            <Card.Img variant="top" className={"st-class-img"}
-                                                      src={`http://localhost:8080/classroom/image/${event.img_fileId}`}
+                                            <center>
 
-                                            />
+                                                <Card.Img variant="top" className={"st-class-img"}
+                                                          src={`http://localhost:8080/classroom/image/${event.img_fileId}`}
+
+                                                />
+                                            </center>
                                             <Card.Body className={"px-3"}>
                                                 <Card.Title className={"mb-2 st-card-title"}>{event.topic}</Card.Title>
                                                 <Card.Subtitle className="mb-2 text-muted">By {event.addedBy}</Card.Subtitle>

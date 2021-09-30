@@ -32,7 +32,7 @@ th {
     text-align: left;
 }
 
-.filter-btn-syllabus, .filter-btn-guide, .filter-btn-admin, .filter-btn-teacher, .filter-btn-student, .filter-btn-all {
+.filter-btn-syllabus, .filter-btn-guide, .filter-btn-admin, .filter-btn-teacher, .filter-btn-student, .filter-btn-all, .filter-btn-all-users {
     padding: 10px 30px;
     border: 3px solid var(--alabaster);
     font-weight: 500;
@@ -40,19 +40,24 @@ th {
     width: 200px;
 }
 
-.filter-btn-syllabus:hover, .filter-btn-guide:hover, .filter-btn-admin:hover, .filter-btn-teacher:hover, .filter-btn-student:hover, .filter-btn-all:hover {
+.filter-btn-admin, .filter-btn-teacher, .filter-btn-student, .filter-btn-all-users {
+    padding: 10px 20px;
+    width: 150px;
+}
+
+.filter-btn-syllabus:hover, .filter-btn-guide:hover, .filter-btn-admin:hover, .filter-btn-teacher:hover, .filter-btn-student:hover, .filter-btn-all:hover, .filter-btn-all-users:hover {
     background-color: var(--alabaster);
 }
 
-.filter-btn-guide, .filter-btn-student {
+.filter-btn-guide, .filter-btn-admin {
     border-radius: 0;
 }
 
-.filter-btn-syllabus, .filter-btn-admin {
+.filter-btn-syllabus, .filter-btn-student {
     border-radius: 0 5px 5px 0;
 }
 
-.filter-btn-all {
+.filter-btn-all, .filter-btn-all-users {
     border-radius: 5px 0 0 5px;
 }
 
@@ -69,9 +74,18 @@ th {
     background-color: var(--alabaster);
 }
 
-.input-search-icon {
+.input-search-icon, .search-index-btn {
     background-color: var(--alabaster);
     padding: 10px 20px;
+}
+
+.search-index-btn {
+    border: 2px solid var(--alabaster);
+}
+
+.search-index-btn:hover {
+    background-color: #d7dec5;
+    border: 2px solid #d7dec5;
 }
 
 .table-pdf-icon {
@@ -87,7 +101,7 @@ th {
     font-size: 14px;
 }
 
-.print-pdf-btn {
+.print-pdf-btn, .clear-filter-btn {
     padding: 10px 20px;
     border: 3px solid var(--alabaster);
     font-weight: 500;
@@ -95,6 +109,10 @@ th {
     border-radius: 5px;
 }
 
-.print-pdf-btn:hover {
+.print-pdf-btn:hover, .clear-filter-btn:hover {
     background-color: var(--alabaster);
+}
+
+.clear-filter-btn {
+    padding: 8px 20px;
 }

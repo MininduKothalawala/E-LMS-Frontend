@@ -51,7 +51,9 @@ class EditNotice extends Component{
 
         axios.put('http://localhost:8080/Notice/', notices)
             .then(res => {
-                console.log(res.data)
+
+                this.props.close();
+
                 if (res.status === 200) {
                     this.clearData();
 
@@ -164,13 +166,6 @@ class EditNotice extends Component{
                             <Form.Control type="text" name="noticeGrade" placeholder="Notice Grade"
                                           required disabled value={this.state.noticeGrade}
                                           onChange={this.handleChangeNoticeTopic} />
-                            {/*<Form.Select required value={this.state.noticeGrade} onChange={this.handleChangeNoticeGrade}>*/}
-                            {/*    {*/}
-                            {/*        this.state.grades.map(item =>*/}
-                            {/*            <option value={item.grade}>{item.grade}</option>*/}
-                            {/*        )*/}
-                            {/*    }*/}
-                            {/*</Form.Select>*/}
                         </Form.Group>
 
                         <Form.Group as={Col} controlId={"formNoticeSubject"}>
@@ -178,13 +173,6 @@ class EditNotice extends Component{
                             <Form.Control type="text" name="noticeSubject" placeholder="Notice Subject"
                                           required disabled value={this.state.noticeSubject}
                                           onChange={this.handleChangeNoticeTopic} />
-                            {/*<Form.Select required value={this.state.noticeSubject} onChange={this.handleChangeNoticeSubject}>*/}
-                            {/*    {*/}
-                            {/*        this.state.subjects.map(subject =>*/}
-                            {/*            <option value={subject}>{subject}</option>*/}
-                            {/*        )*/}
-                            {/*    }*/}
-                            {/*</Form.Select>*/}
                         </Form.Group>
                     </Row>
 

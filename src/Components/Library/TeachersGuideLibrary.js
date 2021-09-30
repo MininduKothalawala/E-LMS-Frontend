@@ -131,36 +131,31 @@ class TeachersGuideLibrary extends Component {
                     </Col>
 
                     {/*--------------------------- Filtering ---------------------------*/}
-                    <Col className={"px-3"} xxl={2} xl={3} lg={4}>
-                        <Form>
-                            <Form.Group controlId={"formResourceGrade"}>
-                                <Form.Select name={"grade"}
-                                             onChange={this.onChangeGradeHandler}>
-                                    <option value={"all"}>Select grade</option>
-                                    {
-                                        this.state.gradelist.map(item =>
-                                            <option value={item.grade} key={item.grade}>{item.grade}</option>
-                                        )
-                                    }
-                                </Form.Select>
-                            </Form.Group>
-                        </Form>
-                    </Col>
-                    <Col className={"px-0"} xxl={2} xl={3} lg={5}>
-                        <Form>
-                            <Form.Group controlId={"formResourceSubject"}>
-                                <Form.Select name={"subject"}
-                                             onChange={this.onChangeSubjectHandler}
-                                             disabled={this.state.isDisabled}>
-                                    <option value={"all"}>Select subject</option>
-                                    {
-                                        this.state.subjectList.map(subject =>
-                                            <option value={subject}>{subject}</option>
-                                        )
-                                    }
-                                </Form.Select>
-                            </Form.Group>
-                        </Form>
+                    <Col className={"px-3"}>
+                        <Row>
+                            <Col className={"px-3 text-end"} >
+                                <Form>
+                                    <Form.Group controlId={"formResourceGrade"}>
+                                        <Form.Select name={"grade"}
+                                                     onChange={this.onChangeGradeHandler}>
+                                            <option value={"all"}>Select grade</option>
+                                            {
+                                                this.state.gradelist.map(item =>
+                                                    <option value={item.grade} key={item.grade}>{item.grade}</option>
+                                                )
+                                            }
+                                        </Form.Select>
+                                    </Form.Group>
+                                </Form>
+                            </Col>
+
+                            <Col className={"px-0 text-end"} xxl={3} xl={2} lg={5}>
+                                <button className={"clear-filter-btn"}
+                                        onClick={this.getResources}>
+                                    Clear Filter
+                                </button>
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
 

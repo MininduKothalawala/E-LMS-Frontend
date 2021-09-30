@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import {Bar, Chart, Doughnut, Line, Pie} from 'react-chartjs-2';
-import {Card, Col, Container, Row} from "react-bootstrap";
+import {Doughnut} from 'react-chartjs-2';
+import {Card, Container} from "react-bootstrap";
 import axios from "axios";
 
-
-class UserStatChart extends React.Component {
-    constructor(){
-        super();
+class UserStatChart extends Component {
+    constructor(props){
+        super(props);
         this.state = {
             userStat: [],
             userRole:["Student","Teacher","Admin"]
@@ -31,9 +30,9 @@ class UserStatChart extends React.Component {
     render(){
 
         return (
-            <div >
+            <div>
                 <Container className={"my-2"}>
-                    <Card className={"template-card"} style={{width: '30rem'}} >
+                    <Card>
                         <h3 className={"text-center my-5"}>User Statistics</h3>
                         <Doughnut
                             data={{

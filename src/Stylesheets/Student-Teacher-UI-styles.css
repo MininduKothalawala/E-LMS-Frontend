@@ -12,16 +12,20 @@
     margin-bottom: 70px;
 }
 
-.st-title div {
+.tab-title {
     font-weight: 600;
     font-size: 30px;
 }
 
-.st-class-card {
+.st-class-card, .st-notice-card {
     border: 3px solid var(--maize-crayola);
     border-radius: 15px;
     background-color: var(--white);
-    width: 19rem;
+    width: 25rem;
+}
+
+.st-notice-card {
+    width: 25rem;
 }
 
 .st-class-card:hover {
