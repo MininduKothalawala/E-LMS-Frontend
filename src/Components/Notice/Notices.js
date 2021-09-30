@@ -85,8 +85,6 @@ class Notices extends Component {
                             </Col>
                         </Row>
                     </Col>
-
-
                 </Row>
 
                 {/*--------------------------- Card Deck ---------------------------*/}
