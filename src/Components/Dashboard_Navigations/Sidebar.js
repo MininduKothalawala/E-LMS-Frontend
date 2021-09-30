@@ -42,8 +42,8 @@ class Sidebar extends Component {
 
         this.state = {
             show: true,
-            loadContent: 'dashboard',
-            dashboard: true,  //default tab
+            loadContent: '',
+            dashboard: false,
             classroom: false,
             notice: false,
             library: false,
@@ -60,15 +60,19 @@ class Sidebar extends Component {
     }
 
     componentDidMount() {
-    }
-
-    /**
-     * Side bar opening method
-     */
-    handleSideBarOpen = () => {
-        this.setState({
-            show: true
-        })
+        //setting default tab
+        const role = this.state.loggedInUserRole;
+        if (role === 'student') {
+            this.setState({
+                loadContent: 'classroom',
+                classroom: true,
+            })
+        } else {
+            this.setState({
+                loadContent: 'dashboard',
+                dashboard: true
+            })
+        }
     }
 
     /**
@@ -230,7 +234,7 @@ class Sidebar extends Component {
                             {/*----------------- Sidebar Navigation Tabs -----------------*/}
                             <div className={"sidebar-middle"}>
                                 <ListGroup variant="flush">
-                                    { isUserLoggedIn &&
+                                    { isUserLoggedIn && !loggedAsStudent &&
                                     <Link className={"dashboard-links"}>
                                         <ListGroupItem active={dashboard}
                                                        onClick={() => this.listItemActive("dashboard")}>
@@ -432,16 +436,6 @@ class Sidebar extends Component {
 
                                 {/*********************** TEACHER ***********************/}
                                 { loggedAsTeacher && loadContent === 'dashboard' &&
-                                <div>
-                                    <Dashboard />
-                                </div>
-                                }
-
-                                {/*******************************************************/}
-
-
-                                {/*********************** STUDENT ***********************/}
-                                { loggedAsStudent && loadContent === 'dashboard' &&
                                 <div>
                                     <Dashboard />
                                 </div>
