@@ -3,7 +3,7 @@ import axios from "axios";
 import {Button, Form, Table, ButtonGroup, Modal, Row, Col, InputGroup} from "react-bootstrap";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faExternalLinkAlt, faPrint, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faExternalLinkAlt, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import "../../Stylesheets/Admin-Tables-styles.css"
 import ClassroomDetailsTeacher from "./Classroom-Details-Teacher";
@@ -52,19 +52,6 @@ class ClassroomListTeacher extends Component {
             })
     }
 
-    handleChangeClassGrade = (event) => {
-        this.setState({classGrade: event.target.value});
-
-        axios.get(`http://localhost:8080/Subject/${event.target.value}`).then(
-            response =>{
-                this.setState({
-                    subjects: response.data,
-                    isDisabled: false
-                })
-            }
-        )
-    }
-
     handleChangeClassSubject = (event) => {
         this.setState({classSubject: event.target.value});
     }
@@ -90,14 +77,14 @@ class ClassroomListTeacher extends Component {
 
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "Once deleted, you will not be able to recover this record!",
             icon: 'warning',
+            background: '#fff',
+            confirmButtonColor: '#454545',
+            iconColor: '#ffc200',
             showCancelButton: true,
-            background: '#041c3d',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#e00404',
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'No'
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
         }).then((result) => {
 
             if (result.isConfirmed) {
@@ -112,9 +99,9 @@ class ClassroomListTeacher extends Component {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Successful',
-                                html: '<p>Your file has been deleted!</p>',
-                                background: '#041c3d',
-                                confirmButtonColor: '#3aa2e7',
+                                text: "Classroom has been deleted!!",
+                                background: '#fff',
+                                confirmButtonColor: '#333533',
                                 iconColor: '#60e004'
                             })
 
@@ -128,18 +115,11 @@ class ClassroomListTeacher extends Component {
     }
 
     //Modal box
-    showModalBox = () => {
-        this.setState({show: true})
-    }
-    //Modal box
     closeModalBox = () => {
         this.setState({show: false})
         this.refreshTable();
     }
 
-    showDetailsBox = () => {
-        this.setState({display: true})
-    }
     //Modal box
     closeDetailsBox = () => {
         this.setState({display: false})
@@ -271,10 +251,6 @@ class ClassroomListTeacher extends Component {
     }
 
 
-
-
-
-
     render() {
         return (
             <div>
@@ -298,14 +274,7 @@ class ClassroomListTeacher extends Component {
                                                   onChange={this.filterBySubject}/>
                                 </InputGroup>
                             </Col>
-                            <Col className={"text-end"}>
-                                <button className={"view-more-btn"} onClick={this.ExportPdfReport}>Generate Report</button>
-
-
-                            </Col>
-                            <Col className={"text-end"} xl={4} lg={4}>
-
-                                {/*<Row>*/}
+                            <Col>
                                 <Form.Group as={Col} controlId={"formClassroomGrade"}>
                                     <Form.Select onChange={this.filterChangeHandler}>
                                         {
@@ -315,23 +284,18 @@ class ClassroomListTeacher extends Component {
                                         }
                                     </Form.Select>
                                 </Form.Group>
-
-                                {/*    <Form.Group as={Col} controlId={"classSubject"}>*/}
-                                {/*        <Form.Label>Subject</Form.Label>*/}
-                                {/*        <Form.Text className="text-muted">*/}
-                                {/*            &nbsp; (Enables after selecting a grade)*/}
-                                {/*        </Form.Text>*/}
-                                {/*        <Form.Select required onChange={this.handleChangeClassSubject} disabled={this.state.isDisabled}>*/}
-                                {/*            {*/}
-                                {/*                this.state.subjects.map(subject =>*/}
-                                {/*                    <option value={subject}>{subject}</option>*/}
-                                {/*                )*/}
-                                {/*            }*/}
-                                {/*        </Form.Select>*/}
-                                {/*    </Form.Group>*/}
-                                {/*</Row>*/}
-
                             </Col>
+                            <Col>
+                                {/* works for all the filters */}
+                                <button className={"clear-filter-btn"}
+                                        onClick={this.refreshTable}>
+                                    Clear Filters
+                                </button>
+                            </Col>
+                            <Col className={"text-end"}>
+                                <button className={"view-more-btn"} onClick={this.ExportPdfReport}>Generate Report</button>
+                            </Col>
+
                         </Row>
                     </div>
 
@@ -349,9 +313,9 @@ class ClassroomListTeacher extends Component {
                         <tbody>
                         {
                             this.state.classrooms.length === 0 ?
-                                <div align="center">
-                                    <h4 className={"mt-3"}>No records at the moment</h4>
-                                </div>
+                                <tr align={"center"}>
+                                    <td colSpan={"6"}>No records at the moment</td>
+                                </tr>
 
                                 : [
                                     this.state.classrooms.map(event =>
@@ -389,7 +353,7 @@ class ClassroomListTeacher extends Component {
                         <Modal.Title>Classroom Details</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className={"custom-modal-body-login p-0"}>
-                        <ClassroomDetailsTeacher classId={this.state.id} />
+                        <ClassroomDetailsTeacher classId={this.state.id} key={this.state.id} />
                     </Modal.Body>
                 </Modal>
                 {/*------------------------------------------------------------------------------*/}
@@ -401,7 +365,7 @@ class ClassroomListTeacher extends Component {
                         <Modal.Title>Classroom Update</Modal.Title>
                     </Modal.Header >
                     <Modal.Body className={"custom-modal-body-login p-0"}>
-                        <ClassroomUpdate classId={this.state.id} close={this.closeModalBox} />
+                        <ClassroomUpdate classId={this.state.id} key={this.state.id} close={this.closeModalBox} />
                     </Modal.Body>
                 </Modal>
 

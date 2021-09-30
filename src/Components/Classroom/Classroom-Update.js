@@ -1,17 +1,13 @@
 import React, {Component} from "react";
 import Swal from "sweetalert2";
 import ClassroomDataService from "./ClassroomDataService";
-import {Accordion,Container,Button, Card, Col, Form, Image, Row} from "react-bootstrap";
+import {Card, Col, Form, Row} from "react-bootstrap";
 import axios from "axios";
 import moment from "moment";
-import pdf from "../../Assets/pdf.svg";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDownload} from "@fortawesome/free-solid-svg-icons";
-import word from "../../Assets/word.svg";
 
-class ClassroomUpdate extends Component{
+class ClassroomUpdate extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -20,20 +16,20 @@ class ClassroomUpdate extends Component{
             classSubject: '',
             grades: [],
             subjects: [],
-            grade : '',
-            subject:'',
-            topic : '',
+            grade: '',
+            subject: '',
+            topic: '',
             description: '',
-            date:new Date(),
-            time : '',
+            date: new Date(),
+            time: '',
             link: '',
-            addedBy :'',
-            lec_filename : undefined,
-            lec_fileId : undefined,
-            tute_filename : undefined,
-            tute_fileId : undefined,
+            addedBy: '',
+            lec_filename: undefined,
+            lec_fileId: undefined,
+            tute_filename: undefined,
+            tute_fileId: undefined,
             img_filename: undefined,
-            img_fileId : undefined,
+            img_fileId: undefined,
             isChecked: false,
             withFile: false
 
@@ -49,7 +45,7 @@ class ClassroomUpdate extends Component{
 
     setSubjectList = (grade) => {
         axios.get(`http://localhost:8080/Subject/${grade}`).then(
-            response =>{
+            response => {
                 this.setState({
                     subjects: response.data,
                     isDisabled: false
@@ -62,9 +58,9 @@ class ClassroomUpdate extends Component{
         this.setState({subject: event.target.value});
     }
 
-    getSubjectList = () =>{
+    getSubjectList = () => {
         axios.get("http://localhost:8080/Subject/").then(
-            response =>{
+            response => {
                 this.setState({
                     grades: response.data
                 })
@@ -87,21 +83,6 @@ class ClassroomUpdate extends Component{
         })
     }
 
-    handleDownloadLec = (e, lec_filename, lec_fileId) => {
-        e.preventDefault();
-
-        ClassroomDataService.downloadLec(lec_fileId)
-            .then(res => {
-                console.log(res)
-                const downloadUrl = window.URL.createObjectURL(new Blob([res.data]));
-                const link = document.createElement("a");
-                link.href = downloadUrl;
-                link.setAttribute('download', lec_filename);
-                document.body.appendChild(link);
-                link.click();
-                link.remove();
-            })
-    }
     handleLecFileChange = (event) => {
         event.preventDefault();
 
@@ -127,7 +108,6 @@ class ClassroomUpdate extends Component{
     }
 
     componentDidMount() {
-
         this.getSubjectList();
         this.retrieveById();
     }
@@ -144,25 +124,25 @@ class ClassroomUpdate extends Component{
     }
 
     retrieveById = () => {
-        axios.get(`http://localhost:8080/classroom/getbyid/`+this.state.id)
+        axios.get(`http://localhost:8080/classroom/getbyid/` + this.state.id)
             .then(response => {
                 console.log(response.data)
                 this.setState({
-                    id:response.data.id,
-                    grade:response.data.grade,
-                    subject:response.data.subject,
-                    topic:response.data.topic,
-                    description:response.data.description,
-                    date:response.data.date,
-                    time:response.data.time,
-                    link:response.data.link,
-                    addedBy:response.data.addedBy,
-                    lec_filename:response.data.lec_filename,
-                    lec_fileId : response.data.lec_fileId,
-                    tute_filename:response.data.tute_filename,
-                    tute_fileId : response.data.tute_fileId,
-                    img_fileId : response.data.img_fileId,
-                    img_filename : response.data.img_filename,
+                    id: response.data.id,
+                    grade: response.data.grade,
+                    subject: response.data.subject,
+                    topic: response.data.topic,
+                    description: response.data.description,
+                    date: response.data.date,
+                    time: response.data.time,
+                    link: response.data.link,
+                    addedBy: response.data.addedBy,
+                    lec_filename: response.data.lec_filename,
+                    lec_fileId: response.data.lec_fileId,
+                    tute_filename: response.data.tute_filename,
+                    tute_fileId: response.data.tute_fileId,
+                    img_fileId: response.data.img_fileId,
+                    img_filename: response.data.img_filename,
                 })
                 this.setSubjectList(response.data.grade);
 
@@ -183,7 +163,7 @@ class ClassroomUpdate extends Component{
         const date = this.state.date;
         const time = this.state.time;
         const link = this.state.link;
-        const addedBy = this.state.username;
+        const addedBy = this.state.addedBy;
 
         const lecFile = this.state.lecFile;
         const tuteFile = this.state.tuteFile;
@@ -197,105 +177,111 @@ class ClassroomUpdate extends Component{
             const formData = new FormData();
 
             formData.append('id', id)
-        formData.append('grade', grade)
-        formData.append('subject', subject)
-        formData.append('topic', topic)
-        formData.append('description', description)
-        formData.append('date', date)
-        formData.append('time', time)
-        formData.append('link', link)
-        formData.append('addedBy', addedBy)
+            formData.append('grade', grade)
+            formData.append('subject', subject)
+            formData.append('topic', topic)
+            formData.append('description', description)
+            formData.append('date', date)
+            formData.append('time', time)
+            formData.append('link', link)
+            formData.append('addedBy', addedBy)
 
             console.log(formData);
 
             ClassroomDataService.editClassroomWithoutFiles(formData)
-                .then( res => {
+                .then(res => {
                     if (res.status === 200) {
-                        console.log("UPDATED");
+
+                        this.refreshTable();
+                        this.props.close();
 
                         Swal.fire({
                             icon: 'success',
                             title: 'Successful',
-                            html: '<p>Your file has been uploaded!!</p>',
-                            background: '#041c3d',
-                            confirmButtonColor: '#3aa2e7',
+                            text: 'Classroom details has been updated!!',
+                            background: '#fff',
+                            confirmButtonColor: '#333533',
                             iconColor: '#60e004'
                         })
 
 
-                        this.props.close();
-                        this.refreshTable();
                     }
                 })
 
         } else {
-        // update all including files
-       console.log("UPDATING FILE...");
+            // update all including files
 
-        const formData = new FormData();
-        formData.append('grade', grade)
-        formData.append('subject', subject)
-        formData.append('topic', topic)
-        formData.append('description', description)
-        formData.append('date', date)
-        formData.append('time', time)
-        formData.append('link', link)
-        formData.append('addedBy', addedBy)
-        formData.append('lecFile', lecFile)
-        formData.append('tuteFile', tuteFile)
-        formData.append('classImg', classImg)
-        const config = {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        }
-
-        ClassroomDataService.editClassroomWithFiles(formData, config)
-            .then(res => {
-                console.log(res);
-
-                if (res.status === 200) {
-
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Successful',
-                        html: '<p>Your file has been uploaded!!</p>',
-                        background: '#041c3d',
-                        confirmButtonColor: '#3aa2e7',
-                        iconColor: '#60e004'
-                    })
-
-                    this.props.close();
-                    this.refreshTable();
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        html: '<p>There was an error updating!</p>',
-                        background: '#041c3d',
-                        showConfirmButton: false,
-                        timer: 1500,
-                        iconColor: '#e00404'
-                    })
+            const formData = new FormData();
+            formData.append('grade', grade)
+            formData.append('subject', subject)
+            formData.append('topic', topic)
+            formData.append('description', description)
+            formData.append('date', date)
+            formData.append('time', time)
+            formData.append('link', link)
+            formData.append('addedBy', addedBy)
+            formData.append('lecFile', lecFile)
+            formData.append('tuteFile', tuteFile)
+            formData.append('classImg', classImg)
+            const config = {
+                headers: {
+                    "Content-Type": "multipart/form-data"
                 }
-            })
+            }
 
-        this.refreshTable();
+            ClassroomDataService.editClassroomWithFiles(formData, config)
+                .then(res => {
+                    console.log(res);
+
+                    if (res.status === 200) {
+                        this.refreshTable();
+                        this.props.close();
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Successful',
+                            text: 'Classroom details has been updated!!',
+                            background: '#fff',
+                            confirmButtonColor: '#333533',
+                            iconColor: '#60e004'
+                        })
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'There was an error updating!',
+                            background: '#fff',
+                            confirmButtonColor: '#333533',
+                            iconColor: '#e00404'
+                        })
+                    }
+                })
 
         }
 
     }
 
 
-
     render() {
+        const {
+            isChecked,
+            grade,
+            subject,
+            topic,
+            description,
+            date,
+            time,
+            link,
+            addedBy,
+            lec_filename,
+            tute_filename,
+            img_filename
+        } = this.state
 
-        const {isChecked,id, grade, subject, topic,description, date, time, link, addedBy, img_fileId, lec_fileId,lec_filename, tute_filename, tute_fileId, img_filename} = this.state
+        return (
 
-        return(
-
-
-            <Card style={{border:'none'}}>
+            <Card style={{border: 'none'}}>
                 <Card.Body>
                     <Form onSubmit={this.handleUpdate}>
 
@@ -303,38 +289,40 @@ class ClassroomUpdate extends Component{
                             <Form.Group as={Col} controlId={"classGrd"}>
                                 <Form.Label>Grade</Form.Label>
                                 <Form.Select required value={grade} onChange={this.handleChangeClassGrade}>
-                                {
-                                                     this.state.grades.map(item =>
-                                                         <option value={item.grade}>{item.grade}</option>
-                                                     )
-                                                 }
-                                             </Form.Select>
-                                         </Form.Group>
+                                    {
+                                        this.state.grades.map(item =>
+                                            <option value={item.grade}>{item.grade}</option>
+                                        )
+                                    }
+                                </Form.Select>
+                            </Form.Group>
 
                             <Form.Group as={Col} controlId={"classSubject"}>
-                                            <Form.Label>Subject</Form.Label>
-                                            <Form.Text className="text-muted">
-                                                &nbsp; (Enables after selecting a grade)
-                                             </Form.Text>
-                                             <Form.Select required value={subject} onChange={this.handleChangeClassSubject} disabled={this.state.isDisabled}>
-                                                 {
-                                                   this.state.subjects.map(subject =>
-                                                        <option value={subject}>{subject}</option>
-                                                    )
-                                                }
-                                             </Form.Select>
-                                         </Form.Group>
+                                <Form.Label>Subject</Form.Label>
+                                <Form.Text className="text-muted">
+                                    &nbsp; (Enables after selecting a grade)
+                                </Form.Text>
+                                <Form.Select required value={subject} onChange={this.handleChangeClassSubject}
+                                             disabled={this.state.isDisabled}>
+                                    {
+                                        this.state.subjects.map(subject =>
+                                            <option value={subject}>{subject}</option>
+                                        )
+                                    }
+                                </Form.Select>
+                            </Form.Group>
                         </Row>
 
-                        <Form.Group >
-                            <Form.Label >Topic</Form.Label>
-                            <Form.Control  as={"input"} name={"topic"} placeholder={"Enter a topic"}  required
-                                           value={topic} onChange={this.handleChange}/>
+                        <Form.Group>
+                            <Form.Label>Topic</Form.Label>
+                            <Form.Control as={"input"} name={"topic"} placeholder={"Enter a topic"} required
+                                          value={topic} onChange={this.handleChange}/>
                         </Form.Group>
 
                         <Form.Group controlId={"Desc"}>
                             <Form.Label>Description</Form.Label>
-                            <Form.Control as={"textarea"} name={"description"} placeholder={"Enter a description"} required
+                            <Form.Control as={"textarea"} name={"description"} placeholder={"Enter a description"}
+                                          required
                                           value={description} onChange={this.handleChange}/>
                         </Form.Group>
 
@@ -368,13 +356,12 @@ class ClassroomUpdate extends Component{
                             <Form.Label>AddedBy</Form.Label>
                             <Form.Control name={"username"}
                                           disabled
-                                          required
-                                          value={addedBy}
-                                          onChange={this.handleChange}/>
+                                          value={addedBy}/>
                         </Form.Group>
 
-                        <Form.Group controlId="togglebutton">
-                            <Form.Switch type="switch" name={"isChecked"} label="Update file" onChange={this.handleToggle} />
+                        <Form.Group controlId="togglebutton" className={"my-4"}>
+                            <Form.Switch type="switch" name={"isChecked"} label="Update file"
+                                         onChange={this.handleToggle}/>
                         </Form.Group>
                         {
                             isChecked ?
@@ -409,44 +396,10 @@ class ClassroomUpdate extends Component{
                                                       onChange={this.handleClassImgChange}
                                         />
                                     </Form.Group>
-                                </>: ''
+                                </> : ''
                         }
-                        {/*{*/}
-                        {/*    isChecked ?*/}
-                        {/*        <>*/}
-
-                        {/*            <Accordion className={"my-4"} defaultActiveKey="0">*/}
-                        {/*                <Card>*/}
-                        {/*                    <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">*/}
-                        {/*                        Upload*/}
-                        {/*                    </Accordion.Toggle>*/}
-
-
-
-                        {/*                            <Accordion.Collapse eventKey="0" key={"0"}>*/}
-                        {/*                                <Card.Body>*/}
-                        {/*                                    <Container>*/}
-                        {/*                                        <Card.Text >Please upload a preview of the document*/}
-                        {/*                                            here</Card.Text>*/}
-
-
-
-                        {/*    <Card.Text >Please upload your document*/}
-                        {/*        here</Card.Text>*/}
-
-
-                        {/*                                    </Container>*/}
-                        {/*                                </Card.Body>*/}
-                        {/*                            </Accordion.Collapse>*/}
-
-
-                        {/*                </Card>*/}
-                        {/*            </Accordion>*/}
-                        {/*        </> :''*/}
-                        {/*}*/}
 
                         <div className={"text-end"}>
-                            <button type={"reset"} className={"reset-form-btn"}>Reset</button>
                             <button type={"submit"} className={"submit-form-btn"}>Update Classroom</button>
                         </div>
 
@@ -455,12 +408,10 @@ class ClassroomUpdate extends Component{
             </Card>
 
 
-
-
-
         )
     }
 
 
 }
+
 export default ClassroomUpdate;
