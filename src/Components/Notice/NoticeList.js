@@ -1,15 +1,14 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {Button, ButtonGroup, Col, Container, Form, InputGroup, Modal, Row, Table} from "react-bootstrap";
+import {Button, ButtonGroup, Col, Form, Modal, Row, Table} from "react-bootstrap";
 import swal from "sweetalert";
-import {faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import "../../Stylesheets/Admin-Tables-styles.css";
-import {faEdit} from "@fortawesome/free-regular-svg-icons";
-import EditUser from "../User/EditUser";
 import EditNotice from "./EditNotice";
+import AuthenticationService from "../Login/AuthenticationService";
 
 class NoticeList extends Component {
 
@@ -20,7 +19,8 @@ class NoticeList extends Component {
             notices: [],
             grades: [],
             filterGrade: '',
-            show: false
+            show: false,
+            username: AuthenticationService.loggedUserName()
         }
     }
 
@@ -205,11 +205,11 @@ class NoticeList extends Component {
                     <div>
                         <h3>Notices</h3>
                     </div>
-                    <Container>
+                    <div className={"mb-2"}>
                         <Row>
                             <Col>
                                 <Form.Group as={Col} controlId={"formNoticeGrade"}>
-                                    <Form.Select onChange={this.filterChangeHandler}>
+                                    <Form.Select onChange={this.filterChangeHandler} style={{height:'48px'}}>
                                         {
                                             this.state.grades.map(item =>
                                                 <option value={item.grade} key={item.grade}>{item.grade}</option>
@@ -219,19 +219,19 @@ class NoticeList extends Component {
                                 </Form.Group>
                             </Col>
                             <Col>
-                                <Button variant={"outline-secondary"}
-                                        onClick={this.ExportPdfReport}>
-                                    Download Report
-                                </Button>
-                            </Col>
-                            <Col>
-                                <Button variant={"outline-success"}
+                                <button className={"print-pdf-btn"}
                                         onClick={this.refreshTable}>
                                     Clear Filter
-                                </Button>
+                                </button>
+                            </Col>
+                            <Col className={"text-end"}>
+                                <button className={"print-pdf-btn"}
+                                        onClick={this.ExportPdfReport}>
+                                    Download Report
+                                </button>
                             </Col>
                         </Row>
-                    </Container>
+                    </div>
                     <Table bordered responsive>
                         <thead className={"table-custom-header"}>
                         <tr>
@@ -267,13 +267,13 @@ class NoticeList extends Component {
                                                 <td>{notice.enteredTime}</td>
                                                 <td className={"text-center"}>
                                                     <ButtonGroup>
-                                                        <Button variant={"danger"} type={"submit"}
-                                                                onClick={this.deleteItem.bind(this, notice.noticeId)}>
-                                                            <FontAwesomeIcon icon={faTrashAlt}/>
-                                                        </Button>
                                                         <Button variant={"warning"} type={"submit"}
                                                                 onClick={this.editNotice.bind(this, notice.noticeId)}>
                                                             <FontAwesomeIcon icon={faEdit}/>
+                                                        </Button>
+                                                        <Button variant={"danger"} type={"submit"}
+                                                                onClick={this.deleteItem.bind(this, notice.noticeId)}>
+                                                            <FontAwesomeIcon icon={faTrashAlt}/>
                                                         </Button>
                                                     </ButtonGroup>
 
@@ -291,7 +291,7 @@ class NoticeList extends Component {
                         <Modal.Header closeButton>
                             <Modal.Title>Update</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body> <EditNotice noticeId={this.state.noticeId}/> </Modal.Body>
+                        <Modal.Body> <EditNotice noticeId={this.state.noticeId} close={this.handleClose}/> </Modal.Body>
                     </Modal>
 
                     {/*--------------------------------------------------------------------------------*/}
