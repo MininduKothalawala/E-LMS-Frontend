@@ -101,7 +101,7 @@ th {
     font-size: 14px;
 }
 
-.print-pdf-btn {
+.print-pdf-btn, .clear-filter-btn {
     padding: 10px 20px;
     border: 3px solid var(--alabaster);
     font-weight: 500;
@@ -109,6 +109,10 @@ th {
     border-radius: 5px;
 }
 
-.print-pdf-btn:hover {
+.print-pdf-btn:hover, .clear-filter-btn:hover {
     background-color: var(--alabaster);
+}
+
+.clear-filter-btn {
+    padding: 8px 20px;
 }

@@ -218,7 +218,7 @@ class NoticeList extends Component {
                         <Row>
                             <Col>
                                 <Form.Group as={Col} controlId={"formNoticeGrade"}>
-                                    <Form.Select onChange={this.filterChangeHandler} style={{height:'48px'}}>
+                                    <Form.Select onChange={this.filterChangeHandler}>
                                         {
                                             this.state.grades.map(item =>
                                                 <option value={item.grade} key={item.grade}>{item.grade}</option>
@@ -228,7 +228,7 @@ class NoticeList extends Component {
                                 </Form.Group>
                             </Col>
                             <Col>
-                                <button className={"print-pdf-btn"}
+                                <button className={"clear-filter-btn"}
                                         onClick={this.refreshTable}>
                                     Clear Filter
                                 </button>
