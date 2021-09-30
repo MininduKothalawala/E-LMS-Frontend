@@ -114,7 +114,7 @@ class ClassroomListStudent extends Component {
 
                             <Col className={"px-0 text-end"} xxl={3} xl={2} lg={5}>
                                 <button className={"clear-filter-btn"}
-                                        onClick={this.refreshNotices}>
+                                        onClick={this.refreshTable}>
                                     Clear Filter
                                 </button>
                             </Col>
