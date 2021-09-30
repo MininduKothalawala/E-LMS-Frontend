@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Card, Col, Form, Row} from "react-bootstrap";
-
+import {Col, Form, Row} from "react-bootstrap";
 import * as Swal from "sweetalert2";
 import {withRouter} from "react-router";
 import "../../Stylesheets/Form-styles.css"
@@ -34,7 +33,7 @@ class EditUser extends Component {
 
         //load data to the form to update
         UserDataService.getUser(indexno)
-            .then( res => {
+            .then(res => {
                 console.log(res)
 
                 if (res.status === 200) {
@@ -79,15 +78,16 @@ class EditUser extends Component {
                 .then(res => {
                     console.log(res.data)
                     this.clearData();
+                    this.props.close();
+
                     Swal.fire({
                         icon: 'success',
                         title: 'Successful',
-                        text: 'User has been added!!',
+                        text: 'User details have been updated!!',
                         background: '#fff',
                         confirmButtonColor: '#333533',
                         iconColor: '#60e004'
                     })
-
                 })
                 .catch(err => {
                     console.log(err.data)
@@ -118,73 +118,69 @@ class EditUser extends Component {
 
     render() {
         return (
-            <div>
 
-                <div className={"form-wrapper"}>
+            <div className={"p-0"}>
+                <Form onSubmit={this.handleSubmit}>
+                    <Row>
+                        <Form.Group controlId={"formFullName"}>
+                            <Form.Label>Full Name</Form.Label>
+                            <Form.Control type="text" placeholder="Full name" value={this.state.name} name="name"
+                                          required onChange={this.handleChange}/>
+                        </Form.Group>
+                    </Row>
 
-                    <div>
-                       <center><h3>EDIT USER</h3></center>
+                    <Form.Group controlId={"formEmail"}>
+                        <Form.Label>Email Address</Form.Label>
+                        <Form.Control type="email" placeholder="Email Address" name="email" value={this.state.email}
+                                      required onChange={this.handleChange}
+                                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+                    </Form.Group>
+
+                    <Row>
+                        <Form.Group as={Col} controlId={"formIndexNo"}>
+                            <Form.Label>Index number</Form.Label>
+                            <Form.Control type="text" placeholder="Index number" name="indexno"
+                                          value={this.state.indexno} required onChange={this.handleChange}
+                                          disabled={true}/>
+                        </Form.Group>
+                        <Form.Group as={Col} controlId={"formPassword"}>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Password" name="password"
+                                          value={this.state.password} required isInvalid={false}
+                                          onChange={this.handleChange}/>
+                        </Form.Group>
+                    </Row>
+
+                    <Row>
+                        <Form.Group as={Col} controlId={"formMobile"}>
+                            <Form.Label>Mobile number</Form.Label>
+                            <Form.Control type="text" placeholder="Mobile number" name="mobile_no"
+                                          value={this.state.mobile_no} maxLength={10} required
+                                          onChange={this.handleChange}/>
+                        </Form.Group>
+                        <Form.Group as={Col} controlId={"formUserRole"}>
+                            <Form.Label>Select Role</Form.Label>
+                            <Form.Select required
+                                         name={"role"} value={this.state.role}
+                                         onChange={this.handleChange}>
+                                <option value={"role"}>Select role</option>
+                                <option value={"admin"}>Admin</option>
+                                <option value={"teacher"}>Teacher</option>
+                                <option value={"student"}>Student</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Row>
+
+                    <div className={"text-end"}>
+                            <button type={"submit"} className={"submit-form-btn"}>Update User</button>
                     </div>
-
-                    <div className={"p-0"}>
-                        <Form onSubmit={this.handleSubmit}>
-                            <Row>
-                                <Form.Group controlId={"formFullName"}>
-                                    <Form.Label>Full Name</Form.Label>
-                                    <Form.Control type="text" placeholder="Full name" value={this.state.name} name="name" required onChange={this.handleChange} />
-                                </Form.Group>
-                            </Row>
-
-                            <Form.Group controlId={"formEmail"}>
-                                <Form.Label>Email Address</Form.Label>
-                                <Form.Control type="email" placeholder="Email Address" name="email" value={this.state.email} required onChange={this.handleChange}
-                                              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
-                            </Form.Group>
-
-                            <Row>
-                                <Form.Group as={Col} controlId={"formIndexNo"}>
-                                    <Form.Label>Index number</Form.Label>
-                                    <Form.Control type="text" placeholder="Index number" name="indexno" value={this.state.indexno} required onChange={this.handleChange} disabled={true}/>
-                                </Form.Group>
-                                <Form.Group as={Col} controlId={"formPassword"}>
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password" name="password" value={this.state.password} required isInvalid={false} onChange={this.handleChange} />
-                                </Form.Group>
-                            </Row>
-
-                            <Row>
-                                <Form.Group as={Col} controlId={"formMobile"}>
-                                    <Form.Label>Mobile number</Form.Label>
-                                    <Form.Control type="text" placeholder="Mobile number" name="mobile_no" value={this.state.mobile_no} maxLength={10} required onChange={this.handleChange} />
-                                </Form.Group>
-                                <Form.Group as={Col} controlId={"formUserRole"}>
-                                    <Form.Label>Select Role</Form.Label>
-                                    <Form.Select required
-                                                 name={"role"} value={this.state.role}
-                                                 onChange={this.handleChange}>
-                                        <option value={"role"}>Select role</option>
-                                        <option value={"admin"}>Admin</option>
-                                        <option value={"teacher"}>Teacher</option>
-                                        <option value={"student"}>Student</option>
-                                    </Form.Select>
-                                </Form.Group>
-                            </Row>
-
-                            <div className={"text-end"}>
-                              {/*  <center><button type={"reset"} className={"reset-form-btn"}>Reset</button></center>*/}
-                               <center><button type={"submit"} className={"submit-form-btn"}>Update User</button></center>
-                            </div>
-                        </Form>
-                    </div>
-                </div>
-
+                </Form>
             </div>
 
-        );
+        )
     }
-
 
 }
 
 
-export default withRouter (EditUser);
+export default withRouter(EditUser);
