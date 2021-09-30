@@ -5,8 +5,7 @@ import {faCalendarAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faClock} from "@fortawesome/free-regular-svg-icons";
 import moment from "moment";
-import "../../Stylesheets/Student-Teacher-UI-styles.css"
-import ClassroomDetailsAdmin from "./Classroom-Details-Admin";
+import "../../Stylesheets/Student-Teacher-UI-styles.css";
 import ClassroomDetailsStudent from "./Classroom-Details-Student";
 
 

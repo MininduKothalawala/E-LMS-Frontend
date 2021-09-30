@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, Button, Card, Row, Image, Container, InputGroup} from 'react-bootstrap';
+import {Form, Button, Row, Image, Container, InputGroup} from 'react-bootstrap';
 import AuthenticationService from './AuthenticationService';
 import AthenticationDataService from './AuthenticationDataService';
 import {withRouter} from 'react-router-dom';
@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import logo from "../../Assets/elms-logo-black-vertical.svg";
 import top_design from "../../Assets/login-upper-design.svg";
 import rectangle from "../../Assets/Rectangle-footer.svg";
-import {faEnvelope, faLock, faSearch, faTrashAlt, faUser} from "@fortawesome/free-solid-svg-icons";
+import {faLock, faUser} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import "../../Stylesheets/Login.css"
 
