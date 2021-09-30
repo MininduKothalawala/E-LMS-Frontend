@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
 import {
-    CloseButton, Col,
+    Col,
     Image,
     ListGroup,
     ListGroupItem,
     Nav,
     Row
 } from "react-bootstrap";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Link, withRouter} from "react-router-dom";
-import {faBars} from "@fortawesome/free-solid-svg-icons";
 import dashboard_white from "../../Assets/dashboard.svg"
 import classroom_white from "../../Assets/classroom.svg"
 import notice_white from "../../Assets/notice.svg"
@@ -36,12 +34,6 @@ import ClassroomListTeacher from "../Classroom/Classroom-List-Teacher";
 import ClassroomListStudent from "../Classroom/Classroom-List-Student";
 import Notices from "../Notice/Notices";
 import TeachersGuideLibrary from "../Library/TeachersGuideLibrary";
-
-import ClassroomDetailsAdmin from "../Classroom/Classroom-Details-Admin";
-import ClassroomDetailsTeacher from "../Classroom/Classroom-Details-Teacher";
-import ClassroomUpdate from "../Classroom/Classroom-Update";
-import ClassListAdmin from "../Classroom/Classroom-List-Admin";
-import ClassroomDetailsStudent from "../Classroom/Classroom-Details-Student";
 import SyllabusLibrary from "../Library/SyllabusLibrary";
 
 class Sidebar extends Component {

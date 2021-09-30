@@ -1,8 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
 import moment from "moment";
-import pdfImg from "../../Assets/pdf.png";
-import tuteImg from "../../Assets/tute.png";
 import ClassroomDataService from "./ClassroomDataService";
 import pdf from "../../Assets/pdf.svg";
 import word from "../../Assets/word.svg";
@@ -102,7 +100,7 @@ class ClassroomDetailsStudent extends Component{
 
     render() {
 
-        const {id, grade, subject, topic,description, date, time, link, addedBy, img_fileId, lec_fileId,lec_filename, tute_filename, tute_fileId} = this.state
+        const {grade, subject, topic,description, date, time, link, addedBy, img_fileId, lec_fileId,lec_filename, tute_filename, tute_fileId} = this.state
 
         return(
             <div className={"wrapper-div"}>

@@ -88,7 +88,7 @@ class Notices extends Component {
                 </Row>
 
                 {/*--------------------------- Card Deck ---------------------------*/}
-                {this.state.notices.length < 0 &&
+                {this.state.notices.length === 0 &&
                 <div className={"no-data-text"}>
                     No notices are available.
                 </div>

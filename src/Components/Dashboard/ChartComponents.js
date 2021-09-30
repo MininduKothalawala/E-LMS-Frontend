@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {Bar, Chart, Doughnut, Line, Pie} from 'react-chartjs-2';
-import {Card, Col, Container, Row} from "react-bootstrap";
+import {Doughnut} from 'react-chartjs-2';
+import {Card, Container} from "react-bootstrap";
 import axios from "axios";
 
 
-class ChartComponents extends React.Component {
+class ChartComponents extends Component {
     constructor(){
         super();
         this.state = {
