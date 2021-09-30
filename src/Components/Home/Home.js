@@ -138,7 +138,7 @@ class Home extends  Component {
                                 <Image src={logo} width={150} />
                             </Navbar.Brand>
                             <NavbarToggle aria-controls={"responsive-navbar-nav"} />
-                            {/*TODO: Design should be changed when collapsing*/}
+
                             <Navbar.Collapse id={"responsive-navbar-nav"}  className={"justify-content-end"}>
                                 <Navbar.Text>
                                     { isUserLoggedIn &&
