@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import {Bar, Chart, Doughnut, Line, Pie} from 'react-chartjs-2';
-import {Card, Col, Container, Row} from "react-bootstrap";
+import {Bar} from 'react-chartjs-2';
+import {Card, Container} from "react-bootstrap";
 import axios from "axios";
 
-
-class SubjectStatChar extends React.Component {
-    constructor(){
-        super();
+class SubjectStatChar extends Component {
+    constructor(props){
+        super(props);
         this.state = {
             subCount: [],
             SubBase:["1","2","3","4","5","6","7","8","9","10","11","12","13"]
@@ -33,7 +32,7 @@ class SubjectStatChar extends React.Component {
         return (
             <div >
                 <Container className={"my-2"}>
-                    <Card className={"template-card"} style={{width: '70rem'}} >
+                    <Card>
                         <h3 className={"text-center my-5"}>Subjects Statistics</h3>
                         <Bar
                             data={{

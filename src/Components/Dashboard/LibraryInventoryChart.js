@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import {Bar, Chart, Doughnut, Line, Pie} from 'react-chartjs-2';
-import {Card, Col, Container, Row} from "react-bootstrap";
+import {Bar} from 'react-chartjs-2';
+import {Card, Container} from "react-bootstrap";
 import axios from "axios";
-import Sidebar from "../Dashboard_Navigations/Sidebar";
 
-
-class LibraryInventoryChart extends React.Component {
-    constructor(){
-        super();
+class LibraryInventoryChart extends Component {
+    constructor(props){
+        super(props);
         this.state = {
             libraryStat: [],
             libraryStatus:["Teachers Guide","Sylabus"]
@@ -32,9 +30,9 @@ class LibraryInventoryChart extends React.Component {
     render(){
 
         return (
-            <div >
+            <div>
                 <Container className={"my-2"}>
-                    <Card className={"template-card"} style={{width: '30rem'}} >
+                    <Card>
                         <h3 className={"text-center my-5"}>Library Inventory</h3>
                         <Bar
                             data={{
@@ -56,7 +54,7 @@ class LibraryInventoryChart extends React.Component {
                             options={{
                                 title:{
                                     display:true,
-                                    text:'Research  status statictics',
+                                    text:'Library statictics',
                                     fontSize:20
                                 },
                                 legend:{
@@ -66,8 +64,6 @@ class LibraryInventoryChart extends React.Component {
                             }}
                         />
                     </Card>
-
-
 
                 </Container>
 
