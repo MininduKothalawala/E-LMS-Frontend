@@ -24,6 +24,10 @@
     width: 19rem;
 }
 
+.st-notice-card {
+    width: 25rem;
+}
+
 .st-class-card:hover {
     box-shadow: 1px 1px 10px rgba(245, 203, 92, 0.8);
 }
