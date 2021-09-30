@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
 import {Button, ButtonGroup, Col, Form, Modal, Row, Table} from "react-bootstrap";
-import swal from "sweetalert";
 import {faEdit, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import jsPDF from "jspdf";
@@ -9,6 +8,7 @@ import "jspdf-autotable";
 import "../../Stylesheets/Admin-Tables-styles.css";
 import EditNotice from "./EditNotice";
 import AuthenticationService from "../Login/AuthenticationService";
+import Swal from "sweetalert2";
 
 class NoticeList extends Component {
 
@@ -64,24 +64,33 @@ class NoticeList extends Component {
     }
 
     deleteItem(id) {
-        swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this record!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    axios.delete(`http://localhost:8080/Notice/delete/${id}`).then(response => {
-                        console.log(response.data)
-                        this.refreshTable();
+        Swal.fire({
+            icon: 'warning',
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            background: '#fff',
+            confirmButtonColor: '#454545',
+            iconColor: '#ffc200',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then( willDelete => {
+            if (willDelete.isConfirmed) {
+                axios.delete(`http://localhost:8080/Notice/delete/${id}`).then(response => {
+                    console.log(response.data)
+                    this.refreshTable();
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Successful',
+                        text: "Notice have been deleted!!",
+                        background: '#fff',
+                        confirmButtonColor: '#333533',
+                        iconColor: '#60e004'
                     })
-                    swal("Record has been deleted!", {
-                        icon: "success",
-                    });
-                }
-            });
+                })
+            }
+        })
     }
 
     ExportPdfReport = () => {
