@@ -134,8 +134,6 @@ class AddNotice extends Component {
             noticeGrade: '',
             noticeTopic: '',
             noticeBody: '',
-            grades: [],
-            subjects: [],
             isDisabled: true
         })
     }
