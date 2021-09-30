@@ -1,13 +1,10 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {Link, withRouter} from 'react-router-dom';
-import {Badge, Button, ButtonGroup, CloseButton, Col, Form, InputGroup, Modal, Row, Table} from "react-bootstrap";
+import {Badge, Button, Col, Form, InputGroup, Modal, Row, Table} from "react-bootstrap";
 import moment from "moment";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faExternalLinkAlt, faSearch, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
-import {faFilePdf} from "@fortawesome/free-regular-svg-icons";
+import {faExternalLinkAlt, faSearch} from "@fortawesome/free-solid-svg-icons";
 import "../../Stylesheets/Admin-Tables-styles.css"
-import Login from "../Login/Login";
 import ClassroomDetailsAdmin from "./Classroom-Details-Admin";
 import jsPDF from "jspdf";
 import AuthenticationService from "../Login/AuthenticationService";
@@ -37,6 +34,7 @@ class ClassroomListAdmin extends Component {
     }
 
     refreshTable = () => {
+
         axios.get('http://localhost:8080/classroom/')
             .then(response => {
                 console.log(response.data)
@@ -212,12 +210,8 @@ class ClassroomListAdmin extends Component {
                                                   onChange={this.filterBySubject}/>
                                 </InputGroup>
                             </Col>
-                            <Col className={"text-end"}>
-                                <button className={"view-more-btn"} onClick={this.ExportPdfReport}>Generate Report</button>
-                            </Col>
-                            <Col className={"text-end"} xl={4} lg={4}>
+                            <Col>
 
-                                {/*<Row>*/}
                                 <Form.Group as={Col} controlId={"formClassroomGrade"}>
                                     <Form.Select onChange={this.filterChangeHandler}>
                                         {
@@ -228,21 +222,16 @@ class ClassroomListAdmin extends Component {
                                     </Form.Select>
                                 </Form.Group>
 
-                                {/*    <Form.Group as={Col} controlId={"classSubject"}>*/}
-                                {/*        <Form.Label>Subject</Form.Label>*/}
-                                {/*        <Form.Text className="text-muted">*/}
-                                {/*            &nbsp; (Enables after selecting a grade)*/}
-                                {/*        </Form.Text>*/}
-                                {/*        <Form.Select required onChange={this.handleChangeClassSubject} disabled={this.state.isDisabled}>*/}
-                                {/*            {*/}
-                                {/*                this.state.subjects.map(subject =>*/}
-                                {/*                    <option value={subject}>{subject}</option>*/}
-                                {/*                )*/}
-                                {/*            }*/}
-                                {/*        </Form.Select>*/}
-                                {/*    </Form.Group>*/}
-                                {/*</Row>*/}
-
+                            </Col>
+                            <Col>
+                                {/* works for all the filters */}
+                                <button className={"clear-filter-btn"}
+                                        onClick={this.refreshTable}>
+                                    Clear Filters
+                                </button>
+                            </Col>
+                            <Col className={"text-end"}>
+                                <button className={"view-more-btn"} onClick={this.ExportPdfReport}>Generate Report</button>
                             </Col>
                         </Row>
                     </div>
