@@ -130,7 +130,7 @@ class ViewLibrary extends Component {
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
             background: '#fff',
-            confirmButtonColor: '#808080',
+            confirmButtonColor: '#454545',
             iconColor: '#ffc200',
             showCancelButton: true,
             cancelButtonColor: '#d33',
@@ -145,7 +145,7 @@ class ViewLibrary extends Component {
                      Swal.fire({
                          icon: 'success',
                          title: 'Successful',
-                         text: "Resource have been deleted!!",
+                         text: "Resource has been deleted!!",
                          background: '#fff',
                          confirmButtonColor: '#333533',
                          iconColor: '#60e004'

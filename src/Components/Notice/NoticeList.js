@@ -83,7 +83,7 @@ class NoticeList extends Component {
                     Swal.fire({
                         icon: 'success',
                         title: 'Successful',
-                        text: "Notice have been deleted!!",
+                        text: "Notice has been deleted!!",
                         background: '#fff',
                         confirmButtonColor: '#333533',
                         iconColor: '#60e004'
