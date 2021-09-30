@@ -142,7 +142,7 @@ class SignUp extends Component {
                             </Row>
 
                             <div className={"text-end"}>
-                                <button type={"reset"} className={"reset-form-btn"}>Reset</button>
+                                <button type={"reset"} className={"reset-form-btn"} onClick={this.clearData}>Reset</button>
                                 <button type={"submit"} className={"submit-form-btn"}>Add User</button>
                             </div>
                         </Form>
